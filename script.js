@@ -23,7 +23,6 @@ $( document ).ready(function() {
         }
     });
 
-
     function lsTest(){
         var test = 'test';
         try {
@@ -34,6 +33,7 @@ $( document ).ready(function() {
           return false;
         }
     }
+
     let c = 0;
     let checked = false;
     let listState = document.querySelector(".list");
@@ -56,8 +56,6 @@ $( document ).ready(function() {
         }
     }
     
-
-
     function completeTask(li) {
         li.detach().appendTo(".listDone");
         let taskName = li.find("[type = text]").val();
@@ -65,6 +63,7 @@ $( document ).ready(function() {
         task.state = false;
         localStorage.setItem(taskName, JSON.stringify(task));
     }
+
     function returnTask(li) {
         li.detach().appendTo(".list");
     }
@@ -85,6 +84,7 @@ $( document ).ready(function() {
         task.state = true;
         localStorage.setItem(newTask_value, JSON.stringify(task));
     }
+
     function htmlTask(newTask_value, listState, checked) {
         let ul = listState;
         let li = document.createElement('li');
@@ -114,5 +114,4 @@ $( document ).ready(function() {
         li.appendChild(button_save);
         ul.appendChild(li);
     }
-
 });
