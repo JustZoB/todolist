@@ -11,24 +11,14 @@
     <div class="container">
         <h1>To Do List</h1>
         <div class="newTask">
-            <input type="text" placeholder="Новая задача...">
-            <input type="button" value="Добавить">
+            <input id="newTask_value" type="text" placeholder="Новая задача...">
+            <button id="newTask_add">Добавить</button>
         </div>
         <ul class="list">
-            <li class="task">
-                <input type="checkbox">
-                <input type="text" value="Приготовить поесть" readonly>
-                <input type="button" value="Редактировать">
-                <input type="button" value="Сохранить" class="save">
-            </li>
+            
         </ul>
-        <ul class="list-done">
-            <li class="task">
-                <input type="checkbox" checked>
-                <input type="text" value="Сходить в магазин" readonly>
-                <input type="button" value="Редактировать">
-                <input type="button" value="Сохранить" class="save">
-            </li>
+        <ul class="listDone">
+            
         </ul>
     </div>
     <script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
