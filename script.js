@@ -143,6 +143,7 @@ $( document ).ready(function() {
         let i_checksquare = document.createElement('i');
         i_checksquare.classList.add('fa-lg');
         if (listState.classList.contains("listDone")) {
+            input_checkbox.classList.add('checked');
             i_checksquare.classList.add('fas');
             i_checksquare.classList.add('fa-check-square');
         } else {
