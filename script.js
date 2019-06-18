@@ -60,33 +60,28 @@ $( document ).ready(function() {
             moveTo($(this).parent(), ".listStatuses");
         }
     });
+    buttonEvent(".statuses", ".listStatuses");
+    buttonEvent(".pending", ".listPending");
+    buttonEvent(".cancel", ".listCancel");
+    buttonEvent(".done", ".listDone");
+
+    function buttonEvent(button, listButton) {
+        $('body').on('click', button, function() {
+            if (button == ".done") {
+                if (!$(this).parent().parent().find(".check").hasClass('checked')) {
+                    replaceCheckbox($(this).parent().parent().find(".check"));
+                }
+            } else {
+                if ($(this).parent().parent().find(".check").hasClass('checked')) {
+                    replaceCheckbox($(this).parent().parent().find(".check"));
+                }
+            }  
+            moveTo($(this).parent().parent(), listButton);
+        });
+    }
+
     $('body').on('click', ".move", function() {
         $(this).next().toggleClass("hide");
-    });
-    $('body').on('click', ".statuses", function() {
-        if ($(this).parent().parent().find(".check").hasClass('checked')) {
-            replaceCheckbox($(this).parent().parent().find(".check"));
-        }
-        moveTo($(this).parent().parent(), ".listStatuses");
-    });
-    $('body').on('click', ".pending", function() {
-        if ($(this).parent().parent().find(".check").hasClass('checked')) {
-            replaceCheckbox($(this).parent().parent().find(".check"));
-        }
-        moveTo($(this).parent().parent(), ".listPending");
-    });
-    $('body').on('click', ".cancel", function() {
-        if ($(this).parent().parent().find(".check").hasClass('checked')) {
-            replaceCheckbox($(this).parent().parent().find(".check"));
-        }
-        moveTo($(this).parent().parent(), ".listCancel");
-    });
-    
-    $('body').on('click', ".done", function() {
-        if (!$(this).parent().parent().find(".check").hasClass('checked')) {
-            replaceCheckbox($(this).parent().parent().find(".check"));
-        }
-        moveTo($(this).parent().parent(), ".listDone");
     });
 
     function replaceCheckbox(checkbox) {
@@ -164,7 +159,7 @@ $( document ).ready(function() {
        
         ul.appendChild(li);
     }
-    
+
     function htmlMoveButtons() {
         let move_buttons = document.createElement('div');
         move_buttons.classList.add('hide');
