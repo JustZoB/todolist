@@ -1,5 +1,5 @@
 $( document ).ready(function() {
-    localStorage.clear();
+    //localStorage.clear();
     /*-----------------Rename------------------*/
     $('body').on('click', ".change", function() {
        $(this).prevAll().eq(1).attr("disabled", '');
@@ -32,21 +32,14 @@ $( document ).ready(function() {
     }
 
     let c = 0;
-    let checked = false;
     let listState = document.querySelector(".listStatuses");
     if(lsTest() === true){
         if (!localStorage.length == 0) {
             for (let key in localStorage) {
                 if (c < localStorage.length) {
                     let localTask = JSON.parse(localStorage.getItem(key));
-                    if (localTask.state == true) {
-                        listState = document.querySelector(".listStatuses");
-                        checked = false;
-                    } else {
-                        listState = document.querySelector(".listDone");
-                        checked = true;
-                    }
-                    htmlTask(localTask.name, listState, checked);
+                    listState = document.querySelector(localTask.state);
+                    htmlTask(localTask.name, listState);
                 }
                 c++;
             }
@@ -74,19 +67,29 @@ $( document ).ready(function() {
         moveTo($(this).parent().parent(), ".listStatuses");
     });
     $('body').on('click', ".pending", function() {
+        if ($(this).parent().parent().find(".check").hasClass('checked')) {
+            replaceCheckbox($(this).parent().parent().find(".check"));
+        }
         moveTo($(this).parent().parent(), ".listPending");
     });
     $('body').on('click', ".cancel", function() {
+        if ($(this).parent().parent().find(".check").hasClass('checked')) {
+            replaceCheckbox($(this).parent().parent().find(".check"));
+        }
         moveTo($(this).parent().parent(), ".listCancel");
+    });
+    
+    $('body').on('click', ".backlog", function() {
+        if ($(this).parent().parent().find(".check").hasClass('checked')) {
+            replaceCheckbox($(this).parent().parent().find(".check"));
+        }
+        moveTo($(this).parent().parent(), ".listBacklog");
     });
     $('body').on('click', ".done", function() {
         if (!$(this).parent().parent().find(".check").hasClass('checked')) {
             replaceCheckbox($(this).parent().parent().find(".check"));
         }
         moveTo($(this).parent().parent(), ".listDone");
-    });
-    $('body').on('click', ".backlog", function() {
-        moveTo($(this).parent().parent(), ".listBacklog");
     });
 
     function replaceCheckbox(checkbox) {
@@ -100,19 +103,12 @@ $( document ).ready(function() {
     function moveTo(li, newLi) {
         li.detach().appendTo(newLi);
         li.find('.block__move_buttons').addClass('hide');
-    }
-    /*
-    function completeTask(li) {
-        li.detach().appendTo(".listDone");
+
         let taskName = li.find("[type = text]").val();
         let task = JSON.parse(localStorage.getItem(taskName));
-        task.state = false;
+        task.state = newLi;
         localStorage.setItem(taskName, JSON.stringify(task));
     }
-
-    function returnTask(li) {
-        li.detach().appendTo(".listStatuses");        
-    }*/
     /*----------------------------------------*/
 
     /*-----------------Adding-----------------*/
@@ -127,14 +123,14 @@ $( document ).ready(function() {
     });
    
     function addTask(newTask_value, listState) {
-        htmlTask(newTask_value, listState, false);
+        htmlTask(newTask_value, listState);
         let task = {};
         task.name = newTask_value;
-        task.state = true;
+        task.state = ".listStatuses";
         localStorage.setItem(newTask_value, JSON.stringify(task));
     }
     /*----------------------------------------*/
-    function htmlTask(newTask_value, listState, checked) {
+    function htmlTask(newTask_value, listState) {
         let ul = listState;
         let li = document.createElement('li');
         li.classList.add('task');
@@ -143,7 +139,7 @@ $( document ).ready(function() {
         input_checkbox.classList.add('check');
         let i_checksquare = document.createElement('i');
         i_checksquare.classList.add('fa-lg');
-        if (checked == true) {
+        if (listState == "listDone") {
             i_checksquare.classList.add('fas');
             i_checksquare.classList.add('fa-check-square');
         } else {

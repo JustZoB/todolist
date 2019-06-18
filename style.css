@@ -25,13 +25,13 @@ h1 {
 .cancel {
     background: red;
 }
-.listDone input[type="text"],
-.done {
-    background: green;
-}
 .listBacklog input[type="text"],
 .backlog {
     background: rgb(143, 182, 238);
+}
+.listDone input[type="text"],
+.done {
+    background: green;
 }
 
 .listStatuses .statuses {
@@ -43,10 +43,10 @@ h1 {
 .listCancel .cancel {
     display: none;
 }
-.listDone .done {
+.listBacklog .backlog {
     display: none;
 }
-.listBacklog .backlog {
+.listDone .done {
     display: none;
 }
 
