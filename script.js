@@ -10,8 +10,16 @@ $( document ).ready(function() {
        $(this).next().removeClass("hide");
        $(this).nextAll().eq(1).attr("disabled", '');
        $(this).nextAll().eq(2).addClass("hide");
+
+       localStorage.removeItem($(this).parent().find("[type = text]").val());
     });
     $('body').on('click', ".save", function() {
+        let li = $(this).parent();
+        let task = {};
+        task.name = li.find("[type = text]").val();
+        task.state = "." + li.parent().attr('class');
+        localStorage.setItem(task.name, JSON.stringify(task));
+
         $(this).prevAll().eq(2).removeAttr("disabled");
         $(this).prevAll().eq(1).attr("readonly", '');
         $(this).prevAll().eq(1).css("cursor", "default");
