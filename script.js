@@ -139,7 +139,7 @@ $( document ).ready(function() {
         input_checkbox.classList.add('check');
         let i_checksquare = document.createElement('i');
         i_checksquare.classList.add('fa-lg');
-        if (listState == "listDone") {
+        if (listState.classList.contains("listDone")) {
             i_checksquare.classList.add('fas');
             i_checksquare.classList.add('fa-check-square');
         } else {
