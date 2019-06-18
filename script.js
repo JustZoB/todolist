@@ -14,12 +14,6 @@ $( document ).ready(function() {
        localStorage.removeItem($(this).parent().find("[type = text]").val());
     });
     $('body').on('click', ".save", function() {
-        let li = $(this).parent();
-        let task = {};
-        task.name = li.find("[type = text]").val();
-        task.state = "." + li.parent().attr('class');
-        localStorage.setItem(task.name, JSON.stringify(task));
-
         $(this).prevAll().eq(2).removeAttr("disabled");
         $(this).prevAll().eq(1).attr("readonly", '');
         $(this).prevAll().eq(1).css("cursor", "default");
@@ -27,6 +21,12 @@ $( document ).ready(function() {
         $(this).prev().removeClass("hide");
         $(this).addClass("hide");
         $(this).next().removeAttr("disabled", '');
+
+        let li = $(this).parent();
+        let task = {};
+        task.name = li.find("[type = text]").val();
+        task.state = "." + li.parent().attr('class');
+        localStorage.setItem(task.name, JSON.stringify(task));
     });
     /*----------------------------------------*/
 
@@ -113,15 +113,25 @@ $( document ).ready(function() {
 
     /*-----------------Adding-----------------*/
     let list = $(".listStatuses");
+    
     $('#newTask_add').on('click', function() {
+        newTask();
+    });
+    $("#newTask_value").keypress( function(event) {
+        if ( event.which == 13 ) {
+            newTask();
+        }
+    })
+
+    function newTask() {
         let newTask_value = $("#newTask_value").val();
         if (newTask_value != "") {
             listState = document.querySelector(".listStatuses");
             addTask(newTask_value, listState);
         }
         $("#newTask_value").val("");
-    });
-   
+    }
+
     function addTask(newTask_value, listState) {
         htmlTask(newTask_value, listState);
         let task = {};
