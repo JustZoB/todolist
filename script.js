@@ -6,12 +6,16 @@ $( document ).ready(function() {
        $(this).prev().removeAttr("readonly");
        $(this).prev().css("cursor", "text");
        $(this).prev().addClass("active");
+       $(this).addClass("hide");
+       $(this).next().removeClass("hide");
     });
     $('body').on('click', ".save", function() {
         $(this).prevAll().eq(2).removeAttr("disabled");
         $(this).prevAll().eq(1).attr("readonly", '');
         $(this).prevAll().eq(1).css("cursor", "default");
         $(this).prevAll().eq(1).removeClass("active");
+        $(this).prev().removeClass("hide");
+        $(this).addClass("hide");
     });
     /*-------------------------------------------------*/
 
@@ -72,13 +76,14 @@ $( document ).ready(function() {
     $('#newTask_add').on('click', function() {
         let newTask_value = $("#newTask_value").val();
         if (newTask_value != "") {
-            addTask(newTask_value, true);
+            listState = document.querySelector(".list");
+            addTask(newTask_value, listState);
         }
         $("#newTask_value").val("");
     });
    
-    function addTask(newTask_value, state) {
-        htmlTask(newTask_value, state);
+    function addTask(newTask_value, listState) {
+        htmlTask(newTask_value, listState, false);
         let task = {};
         task.name = newTask_value;
         task.state = true;
@@ -91,7 +96,7 @@ $( document ).ready(function() {
         li.classList.add('task');
         let input_checkbox = document.createElement('input');
         input_checkbox.setAttribute('type', "checkbox");
-        if (checked = true) {
+        if (checked == true) {
             input_checkbox.setAttribute('checked', '');
         }
         input_checkbox.classList.add('check');
@@ -101,17 +106,24 @@ $( document ).ready(function() {
         input_text.setAttribute('readonly', '');
         let button_change = document.createElement('button');
         button_change.classList.add('change');
-        let change_text = document.createTextNode("Редактировать");
-        button_change.appendChild(change_text);
+        let i_pencil = document.createElement('i');
+        i_pencil.classList.add('fas');
+        i_pencil.classList.add('fa-pencil-alt');
+        i_pencil.classList.add('fa-lg');
+        button_change.appendChild(i_pencil);
         let button_save = document.createElement('button');
         button_save.classList.add('save');
         button_save.classList.add('hide');
-        let save_text = document.createTextNode("Сохранить");
-        button_save.appendChild(save_text);
+        let i_check = document.createElement('i');
+        i_check.classList.add('fas');
+        i_check.classList.add('fa-check-circle');
+        i_check.classList.add('fa-lg');
+        button_save.appendChild(i_check);
         li.appendChild(input_checkbox);
         li.appendChild(input_text);
         li.appendChild(button_change);
         li.appendChild(button_save);
         ul.appendChild(li);
+        // <i class="fas fa-trash-alt"></i> Удалить
     }
 });

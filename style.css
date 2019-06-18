@@ -16,13 +16,14 @@ h1 {
     margin-bottom: 40px;
 }
 button {
-    width: 125px;
-    height: 40px;
+    width: 36px;
+    height: 35px;
     border: 0;
     background: #4794FF;
     color: white;
     cursor: pointer;
-    margin: 1px;
+    margin: 0px;
+    
 }
 .active {
     background: #4763FF !important;
@@ -30,14 +31,14 @@ button {
 input[type="text"] {
     background: #4D79E8;
     color: white;
-    height: 38px;
+    height: 35px;
     border: 0;
-    padding-left: 7px;
-    margin: 2px 5px;
+    padding: 0 0 0 7px;
+    position: relative;
     cursor: default;
 } 
 .listDone input[type="text"]{
-    width: 310px;
+    width: 213px;
 }
 .listDone .change,
 .listDone .save{
