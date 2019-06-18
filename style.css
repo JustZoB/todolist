@@ -25,10 +25,6 @@ h1 {
 .cancel {
     background: red;
 }
-.listBacklog input[type="text"],
-.backlog {
-    background: rgb(143, 182, 238);
-}
 .listDone input[type="text"],
 .done {
     background: green;
@@ -41,9 +37,6 @@ h1 {
     display: none;
 }
 .listCancel .cancel {
-    display: none;
-}
-.listBacklog .backlog {
     display: none;
 }
 .listDone .done {
@@ -97,11 +90,3 @@ ul {
     list-style-type: none;
     padding: 0; 
 }
-
-/* 
-STATUSES blue
-PENDING yellow
-CANCEL red
-DONE green
-BACKLOG ice
-*/

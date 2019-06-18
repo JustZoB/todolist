@@ -1,5 +1,5 @@
 $( document ).ready(function() {
-    //localStorage.clear();
+    localStorage.clear();
     /*-----------------Rename------------------*/
     $('body').on('click', ".change", function() {
        $(this).prevAll().eq(1).attr("disabled", '');
@@ -82,12 +82,6 @@ $( document ).ready(function() {
         moveTo($(this).parent().parent(), ".listCancel");
     });
     
-    $('body').on('click', ".backlog", function() {
-        if ($(this).parent().parent().find(".check").hasClass('checked')) {
-            replaceCheckbox($(this).parent().parent().find(".check"));
-        }
-        moveTo($(this).parent().parent(), ".listBacklog");
-    });
     $('body').on('click', ".done", function() {
         if (!$(this).parent().parent().find(".check").hasClass('checked')) {
             replaceCheckbox($(this).parent().parent().find(".check"));
@@ -226,16 +220,6 @@ $( document ).ready(function() {
         move_buttons.appendChild(i_trash);
         button_cancel.appendChild(i_trash);
         move_buttons.appendChild(button_cancel);
-
-        let button_backlog = document.createElement('button');
-        button_backlog.classList.add('backlog');
-        let i_icicles = document.createElement('i');
-        i_icicles.classList.add('fas');
-        i_icicles.classList.add('fa-icicles');
-        i_icicles.classList.add('fa-lg');
-        move_buttons.appendChild(i_icicles);
-        button_backlog.appendChild(i_icicles);
-        move_buttons.appendChild(button_backlog);
 
         let button_done = document.createElement('button');
         button_done.classList.add('done');
