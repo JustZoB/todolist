@@ -227,16 +227,6 @@ $( document ).ready(function() {
         button_cancel.appendChild(i_trash);
         move_buttons.appendChild(button_cancel);
 
-        let button_done = document.createElement('button');
-        button_done.classList.add('done');
-        let i_check = document.createElement('i');
-        i_check.classList.add('fas');
-        i_check.classList.add('fa-check');
-        i_check.classList.add('fa-lg');
-        move_buttons.appendChild(i_check);
-        button_done.appendChild(i_check);
-        move_buttons.appendChild(button_done);
-
         let button_backlog = document.createElement('button');
         button_backlog.classList.add('backlog');
         let i_icicles = document.createElement('i');
@@ -246,6 +236,16 @@ $( document ).ready(function() {
         move_buttons.appendChild(i_icicles);
         button_backlog.appendChild(i_icicles);
         move_buttons.appendChild(button_backlog);
+
+        let button_done = document.createElement('button');
+        button_done.classList.add('done');
+        let i_check = document.createElement('i');
+        i_check.classList.add('fas');
+        i_check.classList.add('fa-check');
+        i_check.classList.add('fa-lg');
+        move_buttons.appendChild(i_check);
+        button_done.appendChild(i_check);
+        move_buttons.appendChild(button_done);
 
         return move_buttons;
     }
