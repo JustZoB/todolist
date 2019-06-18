@@ -19,6 +19,25 @@ $( document ).ready(function() {
     });
     /*-------------------------------------------------*/
 
+    $('body').on('click', ".move", function() {
+        $(this).next().toggleClass("hide");
+    });
+    $('body').on('click', ".statuses", function() {
+        moveTo($(this).parent().parent(), ".listStatuses");
+    });
+    $('body').on('click', ".pending", function() {
+        moveTo($(this).parent().parent(), ".listPending");
+    });
+    $('body').on('click', ".cancel", function() {
+        moveTo($(this).parent().parent(), ".listCancel");
+    });
+    $('body').on('click', ".done", function() {
+        moveTo($(this).parent().parent(), ".listDone");
+    });
+    $('body').on('click', ".backlog", function() {
+        moveTo($(this).parent().parent(), ".listBacklog");
+    });
+
     $('body').on('click', ".check", function() {
         if ($(this).prop('checked')) {
             completeTask($(this).parent());
@@ -59,7 +78,10 @@ $( document ).ready(function() {
             }
         }
     }
-    
+    function moveTo(li, newLi) {
+        li.detach().appendTo(newLi);
+        li.find('.block__move_buttons').addClass('hide');
+    }
     function completeTask(li) {
         li.detach().appendTo(".listDone");
         let taskName = li.find("[type = text]").val();
@@ -69,7 +91,7 @@ $( document ).ready(function() {
     }
 
     function returnTask(li) {
-        li.detach().appendTo(".listStatuses");
+        li.detach().appendTo(".listStatuses");        
     }
 
     let list = $(".listStatuses");
@@ -112,7 +134,6 @@ $( document ).ready(function() {
         i_pencil.classList.add('fa-pencil-alt');
         i_pencil.classList.add('fa-lg');
         button_change.appendChild(i_pencil);
-
         let button_save = document.createElement('button');
         button_save.classList.add('save');
         button_save.classList.add('hide');
@@ -121,7 +142,6 @@ $( document ).ready(function() {
         i_check.classList.add('fa-check-circle');
         i_check.classList.add('fa-lg');
         button_save.appendChild(i_check);
-
         let button_move = document.createElement('button');
         button_move.classList.add('move');
         let i_move = document.createElement('i');
@@ -142,12 +162,11 @@ $( document ).ready(function() {
         li.appendChild(move_buttons);
        
         ul.appendChild(li);
-        
-        // <i class="fas fa-arrows-alt fa-lg"></i> Переместить
     }
     function htmlMoveButtons() {
         let move_buttons = document.createElement('div');
-        //move_buttons.classList.add('hide');
+        move_buttons.classList.add('hide');
+        move_buttons.classList.add('block__move_buttons');
 
         let button_statuses = document.createElement('button');
         button_statuses.classList.add('statuses');
