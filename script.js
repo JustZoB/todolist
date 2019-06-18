@@ -1,6 +1,6 @@
 $( document ).ready(function() {
     localStorage.clear();
-    /*-----------Изменить название задачи--------------*/
+    /*-----------------Rename------------------*/
     $('body').on('click', ".change", function() {
        $(this).prevAll().eq(1).attr("disabled", '');
        $(this).prev().removeAttr("readonly");
@@ -17,35 +17,9 @@ $( document ).ready(function() {
         $(this).prev().removeClass("hide");
         $(this).addClass("hide");
     });
-    /*-------------------------------------------------*/
+    /*----------------------------------------*/
 
-    $('body').on('click', ".move", function() {
-        $(this).next().toggleClass("hide");
-    });
-    $('body').on('click', ".statuses", function() {
-        moveTo($(this).parent().parent(), ".listStatuses");
-    });
-    $('body').on('click', ".pending", function() {
-        moveTo($(this).parent().parent(), ".listPending");
-    });
-    $('body').on('click', ".cancel", function() {
-        moveTo($(this).parent().parent(), ".listCancel");
-    });
-    $('body').on('click', ".done", function() {
-        moveTo($(this).parent().parent(), ".listDone");
-    });
-    $('body').on('click', ".backlog", function() {
-        moveTo($(this).parent().parent(), ".listBacklog");
-    });
-
-    $('body').on('click', ".check", function() {
-        if ($(this).prop('checked')) {
-            completeTask($(this).parent());
-        } else {
-            returnTask($(this).parent());
-        }
-    });
-
+    /*--------------localStorage------------- */
     function lsTest(){
         var test = 'test';
         try {
@@ -78,10 +52,56 @@ $( document ).ready(function() {
             }
         }
     }
+    /*----------------------------------------*/
+
+    /*-----------------Moving-----------------*/
+    $('body').on('click', ".check", function() {
+        if (!$(this).hasClass('checked')) {
+            replaceCheckbox($(this));
+            moveTo($(this).parent(), ".listDone");
+        } else {
+            replaceCheckbox($(this));
+            moveTo($(this).parent(), ".listStatuses");
+        }
+    });
+    $('body').on('click', ".move", function() {
+        $(this).next().toggleClass("hide");
+    });
+    $('body').on('click', ".statuses", function() {
+        if ($(this).parent().parent().find(".check").hasClass('checked')) {
+            replaceCheckbox($(this).parent().parent().find(".check"));
+        }
+        moveTo($(this).parent().parent(), ".listStatuses");
+    });
+    $('body').on('click', ".pending", function() {
+        moveTo($(this).parent().parent(), ".listPending");
+    });
+    $('body').on('click', ".cancel", function() {
+        moveTo($(this).parent().parent(), ".listCancel");
+    });
+    $('body').on('click', ".done", function() {
+        if (!$(this).parent().parent().find(".check").hasClass('checked')) {
+            replaceCheckbox($(this).parent().parent().find(".check"));
+        }
+        moveTo($(this).parent().parent(), ".listDone");
+    });
+    $('body').on('click', ".backlog", function() {
+        moveTo($(this).parent().parent(), ".listBacklog");
+    });
+
+    function replaceCheckbox(checkbox) {
+        checkbox.toggleClass('checked');
+        checkbox.find("i").toggleClass('fas');
+        checkbox.find("i").toggleClass('fa-check-square');
+        checkbox.find("i").toggleClass('far');
+        checkbox.find("i").toggleClass('fa-square');
+    }
+
     function moveTo(li, newLi) {
         li.detach().appendTo(newLi);
         li.find('.block__move_buttons').addClass('hide');
     }
+    /*
     function completeTask(li) {
         li.detach().appendTo(".listDone");
         let taskName = li.find("[type = text]").val();
@@ -92,8 +112,10 @@ $( document ).ready(function() {
 
     function returnTask(li) {
         li.detach().appendTo(".listStatuses");        
-    }
+    }*/
+    /*----------------------------------------*/
 
+    /*-----------------Adding-----------------*/
     let list = $(".listStatuses");
     $('#newTask_add').on('click', function() {
         let newTask_value = $("#newTask_value").val();
@@ -111,17 +133,25 @@ $( document ).ready(function() {
         task.state = true;
         localStorage.setItem(newTask_value, JSON.stringify(task));
     }
-
+    /*----------------------------------------*/
     function htmlTask(newTask_value, listState, checked) {
         let ul = listState;
         let li = document.createElement('li');
         li.classList.add('task');
-        let input_checkbox = document.createElement('input');
-        input_checkbox.setAttribute('type', "checkbox");
-        if (checked == true) {
-            input_checkbox.setAttribute('checked', '');
-        }
+
+        let input_checkbox = document.createElement('button');
         input_checkbox.classList.add('check');
+        let i_checksquare = document.createElement('i');
+        i_checksquare.classList.add('fa-lg');
+        if (checked == true) {
+            i_checksquare.classList.add('fas');
+            i_checksquare.classList.add('fa-check-square');
+        } else {
+            i_checksquare.classList.add('far');
+            i_checksquare.classList.add('fa-square');
+        }
+        input_checkbox.appendChild(i_checksquare);
+
         let input_text = document.createElement('input');
         input_text.setAttribute('type', "text");
         input_text.setAttribute('value', newTask_value);

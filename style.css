@@ -12,9 +12,6 @@ h1 {
     margin-left: 24px;
     margin-bottom: 40px;
 }
-.listStatuses {
-    margin-bottom: 40px;
-}
 .listStatuses input[type="text"],
 .newTask input[type="text"],
 .statuses {
@@ -36,6 +33,24 @@ h1 {
 .backlog {
     background: rgb(143, 182, 238);
 }
+
+.listStatuses .statuses {
+    display: none;
+}
+.listPending .pending {
+    display: none;
+}
+.listCancel .cancel {
+    display: none;
+}
+.listDone .done {
+    display: none;
+}
+.listBacklog .backlog {
+    display: none;
+}
+
+
 
 button {
     width: 36px;
