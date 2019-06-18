@@ -1,5 +1,5 @@
 $( document ).ready(function() {
-    localStorage.clear();
+    //localStorage.clear();
     /*-----------------Rename------------------*/
     $('body').on('click', ".change", function() {
        $(this).prevAll().eq(1).attr("disabled", '');
