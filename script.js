@@ -8,6 +8,8 @@ $( document ).ready(function() {
        $(this).prev().addClass("active");
        $(this).addClass("hide");
        $(this).next().removeClass("hide");
+       $(this).nextAll().eq(1).attr("disabled", '');
+       $(this).nextAll().eq(2).addClass("hide");
     });
     $('body').on('click', ".save", function() {
         $(this).prevAll().eq(2).removeAttr("disabled");
@@ -16,6 +18,7 @@ $( document ).ready(function() {
         $(this).prevAll().eq(1).removeClass("active");
         $(this).prev().removeClass("hide");
         $(this).addClass("hide");
+        $(this).next().removeAttr("disabled", '');
     });
     /*----------------------------------------*/
 
