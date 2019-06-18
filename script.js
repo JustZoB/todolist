@@ -3,9 +3,7 @@ $( document ).ready(function() {
     /*-----------------Rename------------------*/
     $('body').on('click', ".change", function() {
        $(this).prevAll().eq(1).attr("disabled", '');
-       $(this).prev().removeAttr("readonly");
-       $(this).prev().css("cursor", "text");
-       $(this).prev().addClass("active");
+       $(this).prev().removeAttr("readonly").css("cursor", "text").addClass("active");
        $(this).addClass("hide");
        $(this).next().removeClass("hide");
        $(this).nextAll().eq(1).attr("disabled", '');
@@ -15,9 +13,7 @@ $( document ).ready(function() {
     });
     $('body').on('click', ".save", function() {
         $(this).prevAll().eq(2).removeAttr("disabled");
-        $(this).prevAll().eq(1).attr("readonly", '');
-        $(this).prevAll().eq(1).css("cursor", "default");
-        $(this).prevAll().eq(1).removeClass("active");
+        $(this).prevAll().eq(1).attr("readonly", '').css("cursor", "default").removeClass("active");
         $(this).prev().removeClass("hide");
         $(this).addClass("hide");
         $(this).next().removeAttr("disabled", '');
@@ -32,7 +28,7 @@ $( document ).ready(function() {
 
     /*--------------localStorage------------- */
     function lsTest(){
-        var test = 'test';
+        let test = 'test';
         try {
           localStorage.setItem(test, test);
           localStorage.removeItem(test);
@@ -94,10 +90,7 @@ $( document ).ready(function() {
 
     function replaceCheckbox(checkbox) {
         checkbox.toggleClass('checked');
-        checkbox.find("i").toggleClass('fas');
-        checkbox.find("i").toggleClass('fa-check-square');
-        checkbox.find("i").toggleClass('far');
-        checkbox.find("i").toggleClass('fa-square');
+        checkbox.find("i").toggleClass('fas fa-check-square far fa-square');
     }
 
     function moveTo(li, newLi) {
@@ -113,7 +106,7 @@ $( document ).ready(function() {
 
     /*-----------------Adding-----------------*/
     let list = $(".listStatuses");
-    
+
     $('#newTask_add').on('click', function() {
         newTask();
     });
