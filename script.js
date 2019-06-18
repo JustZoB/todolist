@@ -151,86 +151,44 @@ $( document ).ready(function() {
         input_text.setAttribute('value', newTask_value);
         input_text.setAttribute('readonly', '');
 
-        let button_change = document.createElement('button');
-        button_change.classList.add('change');
-        let i_pencil = document.createElement('i');
-        i_pencil.classList.add('fas');
-        i_pencil.classList.add('fa-pencil-alt');
-        i_pencil.classList.add('fa-lg');
-        button_change.appendChild(i_pencil);
-        let button_save = document.createElement('button');
-        button_save.classList.add('save');
-        button_save.classList.add('hide');
-        let i_check = document.createElement('i');
-        i_check.classList.add('fas');
-        i_check.classList.add('fa-check-circle');
-        i_check.classList.add('fa-lg');
-        button_save.appendChild(i_check);
-        let button_move = document.createElement('button');
-        button_move.classList.add('move');
-        let i_move = document.createElement('i');
-        i_move.classList.add('fas');
-        i_move.classList.add('fa-arrows-alt');
-        i_move.classList.add('fa-lg');
-        button_move.appendChild(i_move);
-
         move_buttons = htmlMoveButtons();
 
         li.appendChild(input_checkbox);
         li.appendChild(input_text);
 
-        li.appendChild(button_change);
-        li.appendChild(button_save);
-        li.appendChild(button_move);
+        createButton(li, "change", "fa-pencil-alt", false);
+        createButton(li, "save", "fa-check-circle", true);
+        createButton(li, "move", "fa-arrows-alt", false);
 
         li.appendChild(move_buttons);
        
         ul.appendChild(li);
     }
+    
     function htmlMoveButtons() {
         let move_buttons = document.createElement('div');
         move_buttons.classList.add('hide');
         move_buttons.classList.add('block__move_buttons');
 
-        let button_statuses = document.createElement('button');
-        button_statuses.classList.add('statuses');
-        let i_ellipsis = document.createElement('i');
-        i_ellipsis.classList.add('fas');
-        i_ellipsis.classList.add('fa-ellipsis-h');
-        i_ellipsis.classList.add('fa-lg');
-        button_statuses.appendChild(i_ellipsis);
-        move_buttons.appendChild(button_statuses);
-
-        let button_pending = document.createElement('button');
-        button_pending.classList.add('pending');
-        let i_clock = document.createElement('i');
-        i_clock.classList.add('fas');
-        i_clock.classList.add('fa-clock');
-        i_clock.classList.add('fa-lg');
-        move_buttons.appendChild(i_clock);
-        button_pending.appendChild(i_clock);
-        move_buttons.appendChild(button_pending);
-
-        let button_cancel = document.createElement('button');
-        button_cancel.classList.add('cancel');
-        let i_trash = document.createElement('i');
-        i_trash.classList.add('fas');
-        i_trash.classList.add('fa-trash-alt');
-        i_trash.classList.add('fa-lg');
-        move_buttons.appendChild(i_trash);
-        button_cancel.appendChild(i_trash);
-        move_buttons.appendChild(button_cancel);
-
-        let button_done = document.createElement('button');
-        button_done.classList.add('done');
-        let i_check = document.createElement('i');
-        i_check.classList.add('fas');
-        i_check.classList.add('fa-check');
-        i_check.classList.add('fa-lg');
-        move_buttons.appendChild(i_check);
-        button_done.appendChild(i_check);
-        move_buttons.appendChild(button_done);
+        createButton(move_buttons, "statuses", "fa-ellipsis-h", false);
+        createButton(move_buttons, "pending", "fa-clock", false);
+        createButton(move_buttons, "cancel", "fa-trash-alt", false);
+        createButton(move_buttons, "done", "fa-check", false);
 
         return move_buttons;
+    }
+
+    function createButton(place, buttonClass, i_icon, hide) {
+        let button = document.createElement('button');
+        if (hide == true) {
+            button.classList.add("hide");
+        }
+        button.classList.add(buttonClass);
+        let icon = document.createElement('i');
+        icon.classList.add("fas");
+        icon.classList.add(i_icon);
+        icon.classList.add('fa-lg');
+        button.appendChild(icon);
+        place.appendChild(button);
     }
 });
