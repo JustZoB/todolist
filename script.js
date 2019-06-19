@@ -39,13 +39,13 @@ $( document ).ready(function() {
     }
 
     let c = 0;
-    let listState = document.querySelector(".listStatuses");
+    let listState = $(".listStatuses");
     if(lsTest() === true){
         if (!localStorage.length == 0) {
             for (let key in localStorage) {
                 if (c < localStorage.length) {
                     let localTask = JSON.parse(localStorage.getItem(key));
-                    listState = document.querySelector(localTask.state);
+                    listState = $(localTask.state);
                     htmlTask(localTask.name, listState);
                 }
                 c++;
@@ -72,15 +72,15 @@ $( document ).ready(function() {
     function buttonEvent(button, listButton) {
         $('body').on('click', button, function() {
             if (button == ".done") {
-                if (!$(this).parent().parent().find(".check").hasClass('checked')) {
-                    replaceCheckbox($(this).parent().parent().find(".check"));
+                if (!$(this).parents().eq(1).find(".check").hasClass('checked')) {
+                    replaceCheckbox($(this).parents().eq(1).find(".check"));
                 }
             } else {
-                if ($(this).parent().parent().find(".check").hasClass('checked')) {
-                    replaceCheckbox($(this).parent().parent().find(".check"));
+                if ($(this).parents().eq(1).find(".check").hasClass('checked')) {
+                    replaceCheckbox($(this).parents().eq(1).find(".check"));
                 }
             }  
-            moveTo($(this).parent().parent(), listButton);
+            moveTo($(this).parents().eq(1), listButton);
         });
     }
 
@@ -119,7 +119,7 @@ $( document ).ready(function() {
     function newTask() {
         let newTask_value = $("#newTask_value").val();
         if (newTask_value != "") {
-            listState = document.querySelector(".listStatuses");
+            listState = $(".listStatuses");
             addTask(newTask_value, listState);
         }
         $("#newTask_value").val("");
@@ -134,67 +134,58 @@ $( document ).ready(function() {
     }
     /*----------------------------------------*/
     function htmlTask(newTask_value, listState) {
-        let ul = listState;
-        let li = document.createElement('li');
-        li.classList.add('task');
+        let ul = $(listState);
+        
+        $("<li/>", {
+            class: 'task'
+        }).appendTo(ul);
+        let li = ul.find(".task:last-child");
 
-        let input_checkbox = document.createElement('button');
-        input_checkbox.classList.add('check');
-        let i_checksquare = document.createElement('i');
-        i_checksquare.classList.add('fa-lg');
-        if (listState.classList.contains("listDone")) {
-            input_checkbox.classList.add('checked');
-            i_checksquare.classList.add('fas');
-            i_checksquare.classList.add('fa-check-square');
-        } else {
-            i_checksquare.classList.add('far');
-            i_checksquare.classList.add('fa-square');
+        createButton(li, "check", "", false);
+        if (listState.hasClass("listDone")) {
+            li.find(".check").addClass("checked");
+            li.find(".check i").addClass("fas fa-check-square");
         }
-        input_checkbox.appendChild(i_checksquare);
+        else {
+            li.find(".check i").addClass("far fa-square");
+        }
 
-        let input_text = document.createElement('input');
-        input_text.setAttribute('type', "text");
-        input_text.setAttribute('value', newTask_value);
-        input_text.setAttribute('readonly', '');
+        $("<input/>", {
+            type: 'text',
+            value: newTask_value,
+            readonly: ''
+        }).appendTo(li);
 
-        move_buttons = htmlMoveButtons();
+        createButton(li, "change", "fas fa-pencil-alt", false);
+        createButton(li, "save", "fas fa-check-circle", true);
+        createButton(li, "move", "fas fa-arrows-alt", false);
 
-        li.appendChild(input_checkbox);
-        li.appendChild(input_text);
-
-        createButton(li, "change", "fa-pencil-alt", false);
-        createButton(li, "save", "fa-check-circle", true);
-        createButton(li, "move", "fa-arrows-alt", false);
-
-        li.appendChild(move_buttons);
-       
-        ul.appendChild(li);
+        htmlMoveButtons(li);
     }
 
-    function htmlMoveButtons() {
-        let move_buttons = document.createElement('div');
-        move_buttons.classList.add('hide');
-        move_buttons.classList.add('block__move_buttons');
-
-        createButton(move_buttons, "statuses", "fa-ellipsis-h", false);
-        createButton(move_buttons, "pending", "fa-clock", false);
-        createButton(move_buttons, "cancel", "fa-trash-alt", false);
-        createButton(move_buttons, "done", "fa-check", false);
-
-        return move_buttons;
+    function htmlMoveButtons(li) {
+        $("<div/>", {
+            class: 'block__move_buttons hide'
+        }).appendTo(li);
+        let move_buttons = li.find('.block__move_buttons');
+        
+        createButton(move_buttons, "statuses", "fas fa-ellipsis-h", false);
+        createButton(move_buttons, "pending", "fas fa-clock", false);
+        createButton(move_buttons, "cancel", "fas fa-trash-alt", false);
+        createButton(move_buttons, "done", "fas fa-check", false);
     }
 
     function createButton(place, buttonClass, i_icon, hide) {
-        let button = document.createElement('button');
+        $("<button/>", {
+            class: buttonClass
+        }).appendTo(place);
+        let button = place.find(" ." + buttonClass);
+        $("<i/>", {
+            class: i_icon + ' fa-lg'
+        }).appendTo(button);
+
         if (hide == true) {
-            button.classList.add("hide");
+            $(button).addClass("hide");
         }
-        button.classList.add(buttonClass);
-        let icon = document.createElement('i');
-        icon.classList.add("fas");
-        icon.classList.add(i_icon);
-        icon.classList.add('fa-lg');
-        button.appendChild(icon);
-        place.appendChild(button);
     }
 });
