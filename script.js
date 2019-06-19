@@ -1,34 +1,55 @@
 $( document ).ready(function() {
     //localStorage.clear();
-    /*-----------------Rename-----------------*/
+    /*-----------------Rename-----------------*/ 
     $('body').on('click', ".change", function() {
-       $(this).prevAll().eq(1).attr("disabled", '');
-       $(this).prev().removeAttr("readonly").css("cursor", "text").addClass("active");
-       $(this).addClass("hide");
-       $(this).next().removeClass("hide");
-       $(this).nextAll().eq(1).attr("disabled", '');
-       $(this).nextAll().eq(2).addClass("hide");
-
-       let allTasks = JSON.parse(localStorage.getItem("todolist"));
-       allTasks.splice($(this).parent().find("[type = text]").val(), 1);
-       localStorage.setItem("todolist", JSON.stringify(allTasks));
+        Task.rename($(this));
     });
     $('body').on('click', ".save", function() {
-        $(this).prevAll().eq(2).removeAttr("disabled");
-        $(this).prevAll().eq(1).attr("readonly", '').css("cursor", "default").removeClass("active");
-        $(this).prev().removeClass("hide");
-        $(this).addClass("hide");
-        $(this).next().removeAttr("disabled", '');
-
-        let allTasks = JSON.parse(localStorage.getItem("todolist"));
-        let li = $(this).parent();
-        let task = {};
-        task.name = li.find("[type = text]").val();
-        task.state = "." + li.parent().attr('class');
-        allTasks.push(task);
-        localStorage.setItem("todolist", JSON.stringify(allTasks));
+        Task.saveRename($(this));
     });
-    /*----------------------------------------*/
+    /*-----------------Moving-----------------*/        
+    $('body').on('click', ".check", function() {
+        if (!$(this).hasClass('checked')) {
+            replaceCheckbox($(this));
+            Task.moveTo($(this).parent(), ".listDone");
+        } else {
+            replaceCheckbox($(this));
+            Task.moveTo($(this).parent(), ".listStatuses");
+        }
+    });
+    buttonEvent(".statuses", ".listStatuses");
+    buttonEvent(".pending", ".listPending");
+    buttonEvent(".cancel", ".listCancel");
+    buttonEvent(".done", ".listDone");
+
+    $('body').on('click', ".move", function() {
+        $(this).next().toggleClass("hide");
+    });
+
+    function buttonEvent(button, listButton) {
+        $('body').on('click', button, function() {
+            if (button == ".done") {
+                if (!$(this).parents().eq(1).find(".check").hasClass('checked')) {
+                    replaceCheckbox($(this).parents().eq(1).find(".check"));
+                }
+            } else {
+                if ($(this).parents().eq(1).find(".check").hasClass('checked')) {
+                    replaceCheckbox($(this).parents().eq(1).find(".check"));
+                }
+            }  
+            Task.moveTo($(this).parents().eq(1), listButton);
+        });
+    }
+    /*-----------------Adding-----------------*/
+    $('#newTask_add').on('click', function() {
+        newTask();
+    });
+    $("#newTask_value").keypress( function(event) {
+        if ( event.which == 13 ) {
+            newTask();
+        }
+    })
+    /*----------------------------------------*/    
 
     /*--------------localStorage------------- */
     function lsTest(){
@@ -42,7 +63,6 @@ $( document ).ready(function() {
         }
     }
 
-    let allTasks = [];
     let listState = $(".listStatuses");
     if(lsTest() === true){
         let localTasks = JSON.parse(localStorage.getItem("todolist"));
@@ -52,96 +72,78 @@ $( document ).ready(function() {
             }
         }
     }
-    /*----------------------------------------*/
+    /*----------------------------------------*/    
 
-    /*-----------------Moving-----------------*/
-    $('body').on('click', ".check", function() {
-        if (!$(this).hasClass('checked')) {
-            replaceCheckbox($(this));
-            moveTo($(this).parent(), ".listDone");
-        } else {
-            replaceCheckbox($(this));
-            moveTo($(this).parent(), ".listStatuses");
-        }
-    });
-    buttonEvent(".statuses", ".listStatuses");
-    buttonEvent(".pending", ".listPending");
-    buttonEvent(".cancel", ".listCancel");
-    buttonEvent(".done", ".listDone");
-
-    function buttonEvent(button, listButton) {
-        $('body').on('click', button, function() {
-            if (button == ".done") {
-                if (!$(this).parents().eq(1).find(".check").hasClass('checked')) {
-                    replaceCheckbox($(this).parents().eq(1).find(".check"));
-                }
-            } else {
-                if ($(this).parents().eq(1).find(".check").hasClass('checked')) {
-                    replaceCheckbox($(this).parents().eq(1).find(".check"));
-                }
-            }  
-            moveTo($(this).parents().eq(1), listButton);
-        });
-    }
-
-    $('body').on('click', ".move", function() {
-        $(this).next().toggleClass("hide");
-    });
-
-    function replaceCheckbox(checkbox) {
-        checkbox.toggleClass('checked');
-        checkbox.find("i").toggleClass('fas fa-check-square far fa-square');
-    }
-
-    function moveTo(li, newLi) {
-        li.detach().appendTo(newLi);
-        li.find('.block__move_buttons').addClass('hide');
-
-        let taskName = li.find("[type = text]").val();
-        let allTasks = JSON.parse(localStorage.getItem("todolist"));
-        for (let i = 0; i < allTasks.length; i++) {
-            if (allTasks[i].name == taskName) {
-                allTasks[i].state = newLi;
+    let Task = {
+        add: function (name, listState) {
+            htmlTask(name, listState);
+    
+            let allTasks = JSON.parse(localStorage.getItem("todolist"));
+            if (allTasks == null) {
+                allTasks = [];
             }
+            let localTask = {};
+            localTask.name = name;
+            localTask.state = ".listStatuses";
+            allTasks.push(localTask);
+            localStorage.setItem("todolist", JSON.stringify(allTasks));
+        },
+
+        rename: function (renameButton) {
+            renameButton.prevAll().eq(1).attr("disabled", '');
+            renameButton.prev().removeAttr("readonly").css("cursor", "text").addClass("active");
+            renameButton.addClass("hide");
+            renameButton.next().removeClass("hide");
+            renameButton.nextAll().eq(1).attr("disabled", '');
+            renameButton.nextAll().eq(2).addClass("hide");
+    
+            let allTasks = JSON.parse(localStorage.getItem("todolist"));
+            allTasks.splice(renameButton.parent().find("[type = text]").val(), 1);
+            localStorage.setItem("todolist", JSON.stringify(allTasks));
+        },
+
+        saveRename: function (saveButton) {
+            saveButton.prevAll().eq(2).removeAttr("disabled");
+            saveButton.prevAll().eq(1).attr("readonly", '').css("cursor", "default").removeClass("active");
+            saveButton.prev().removeClass("hide");
+            saveButton.addClass("hide");
+            saveButton.next().removeAttr("disabled", '');
+    
+            let allTasks = JSON.parse(localStorage.getItem("todolist"));
+            let li = saveButton.parent();
+            let localTask = {};
+            localTask.name = li.find("[type = text]").val();
+            localTask.state = "." + li.parent().attr('class');
+            allTasks.push(localTask);
+            localStorage.setItem("todolist", JSON.stringify(allTasks));
+        },
+
+        moveTo: function (li, newLi) {
+            li.detach().appendTo(newLi);
+            li.find('.block__move_buttons').addClass('hide');
+    
+            let taskName = li.find("[type = text]").val();
+            let allTasks = JSON.parse(localStorage.getItem("todolist"));
+            for (let i = 0; i < allTasks.length; i++) {
+                if (allTasks[i].name == taskName) {
+                    allTasks[i].state = newLi;
+                }
+            }
+            localStorage.setItem("todolist", JSON.stringify(allTasks));
         }
-        localStorage.setItem("todolist", JSON.stringify(allTasks));
     }
-    /*----------------------------------------*/
 
-    /*-----------------Adding-----------------*/
-    $('#newTask_add').on('click', function() {
-        newTask();
-    });
-    $("#newTask_value").keypress( function(event) {
-        if ( event.which == 13 ) {
-            newTask();
-        }
-    })
-
+    
     function newTask() {
-        let newTask_value = $("#newTask_value").val();
-        if (newTask_value != "") {
+        let name = $("#newTask_value").val();
+        if (name != "") {
             listState = $(".listStatuses");
-            addTask(newTask_value, listState);
+            Task.add(name, listState);
         }
         $("#newTask_value").val("");
     }
-
-    function addTask(newTask_value, listState) {
-        htmlTask(newTask_value, listState);
-
-        let allTasks = JSON.parse(localStorage.getItem("todolist"));
-        if (allTasks == null) {
-            allTasks = [];
-        }
-        let task = {};
-        task.name = newTask_value;
-        task.state = ".listStatuses";
-        allTasks.push(task);
-        localStorage.setItem("todolist", JSON.stringify(allTasks));
-    }
-    /*----------------------------------------*/
-    function htmlTask(newTask_value, listState) {
+    
+    function htmlTask(name, listState) {
         let ul = $(listState);
         
         $("<li/>", {
@@ -160,7 +162,7 @@ $( document ).ready(function() {
 
         $("<input/>", {
             type: 'text',
-            value: newTask_value,
+            value: name,
             readonly: ''
         }).appendTo(li);
 
@@ -195,5 +197,10 @@ $( document ).ready(function() {
         if (hide == true) {
             $(button).addClass("hide");
         }
+    }
+
+    function replaceCheckbox(checkbox) {
+        checkbox.toggleClass('checked');
+        checkbox.find("i").toggleClass('fas fa-check-square far fa-square');
     }
 });
