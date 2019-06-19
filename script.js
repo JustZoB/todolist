@@ -1,6 +1,6 @@
 $( document ).ready(function() {
     //localStorage.clear();
-    /*-----------------Rename------------------*/
+    /*-----------------Rename-----------------*/
     $('body').on('click', ".change", function() {
        $(this).prevAll().eq(1).attr("disabled", '');
        $(this).prev().removeAttr("readonly").css("cursor", "text").addClass("active");
@@ -9,7 +9,9 @@ $( document ).ready(function() {
        $(this).nextAll().eq(1).attr("disabled", '');
        $(this).nextAll().eq(2).addClass("hide");
 
-       localStorage.removeItem($(this).parent().find("[type = text]").val());
+       let allTasks = JSON.parse(localStorage.getItem("todolist"));
+       allTasks.splice($(this).parent().find("[type = text]").val(), 1);
+       localStorage.setItem("todolist", JSON.stringify(allTasks));
     });
     $('body').on('click', ".save", function() {
         $(this).prevAll().eq(2).removeAttr("disabled");
@@ -18,11 +20,13 @@ $( document ).ready(function() {
         $(this).addClass("hide");
         $(this).next().removeAttr("disabled", '');
 
+        let allTasks = JSON.parse(localStorage.getItem("todolist"));
         let li = $(this).parent();
         let task = {};
         task.name = li.find("[type = text]").val();
         task.state = "." + li.parent().attr('class');
-        localStorage.setItem(task.name, JSON.stringify(task));
+        allTasks.push(task);
+        localStorage.setItem("todolist", JSON.stringify(allTasks));
     });
     /*----------------------------------------*/
 
@@ -38,17 +42,13 @@ $( document ).ready(function() {
         }
     }
 
-    let c = 0;
+    let allTasks = [];
     let listState = $(".listStatuses");
     if(lsTest() === true){
-        if (!localStorage.length == 0) {
-            for (let key in localStorage) {
-                if (c < localStorage.length) {
-                    let localTask = JSON.parse(localStorage.getItem(key));
-                    listState = $(localTask.state);
-                    htmlTask(localTask.name, listState);
-                }
-                c++;
+        let localTasks = JSON.parse(localStorage.getItem("todolist"));
+        if (localTasks != null) {
+            for (let i = 0; i < localTasks.length; i++) {
+                htmlTask(localTasks[i].name, $(localTasks[i].state));
             }
         }
     }
@@ -98,15 +98,17 @@ $( document ).ready(function() {
         li.find('.block__move_buttons').addClass('hide');
 
         let taskName = li.find("[type = text]").val();
-        let task = JSON.parse(localStorage.getItem(taskName));
-        task.state = newLi;
-        localStorage.setItem(taskName, JSON.stringify(task));
+        let allTasks = JSON.parse(localStorage.getItem("todolist"));
+        for (let i = 0; i < allTasks.length; i++) {
+            if (allTasks[i].name == taskName) {
+                allTasks[i].state = newLi;
+            }
+        }
+        localStorage.setItem("todolist", JSON.stringify(allTasks));
     }
     /*----------------------------------------*/
 
     /*-----------------Adding-----------------*/
-    let list = $(".listStatuses");
-
     $('#newTask_add').on('click', function() {
         newTask();
     });
@@ -127,10 +129,16 @@ $( document ).ready(function() {
 
     function addTask(newTask_value, listState) {
         htmlTask(newTask_value, listState);
+
+        let allTasks = JSON.parse(localStorage.getItem("todolist"));
+        if (allTasks == null) {
+            allTasks = [];
+        }
         let task = {};
         task.name = newTask_value;
         task.state = ".listStatuses";
-        localStorage.setItem(newTask_value, JSON.stringify(task));
+        allTasks.push(task);
+        localStorage.setItem("todolist", JSON.stringify(allTasks));
     }
     /*----------------------------------------*/
     function htmlTask(newTask_value, listState) {
