@@ -1,7 +1,7 @@
 $( document ).ready(function() {
     //localStorage.clear();
     /*-----------------Rename-----------------*/ 
-    $('body').on('click', ".change", function() {
+    $('body').on('click', ".rename", function() {
         Task.rename($(this));
     });
     $('body').on('click', ".save", function() {
@@ -120,7 +120,7 @@ $( document ).ready(function() {
 
         moveTo: function (li, newLi) {
             li.detach().appendTo(newLi);
-            li.find('.block__move_buttons').addClass('hide');
+            li.find('.move_buttons').addClass('hide');
     
             let taskName = li.find("[type = text]").val();
             let allTasks = JSON.parse(localStorage.getItem("todolist"));
@@ -150,33 +150,81 @@ $( document ).ready(function() {
         }).appendTo(ul);
         let li = ul.find(".task:last-child");
 
-        createButton(li, "check", "", false);
+        $("<div/>", {
+            class: 'task__color',
+        }).appendTo(li);
+        $("<div/>", {
+            class: 'task__contant',
+        }).appendTo(li);
+
+        let contant = li.find(".task__contant");
+
+
+        htmlTaskMenu(contant);
+
+        htmlTaskName(contant, name);
+    }
+
+    function htmlTaskMenu(place) {
+        $("<div/>", {
+            class: 'task__menu',
+        }).appendTo(place);
+        let menu = place.find(".task__menu");
+
+        $("<div/>", {
+            class: 'task__menu__buttons',
+        }).appendTo(menu);
+        let buttons_block = menu.find(".task__menu__buttons");
+        createButton(buttons_block, "move", "fas fa-arrows-alt", false);
+        createButton(buttons_block, "rename", "fas fa-pencil-alt", false);
+        createButton(buttons_block, "save", "fas fa-check-circle", true);
+        createButton(buttons_block, "hashtag", "fas fa-hashtag", false);
+        
+        $("<div/>", {
+            class: 'task__menu__change',
+        }).appendTo(menu);
+        let change_block = menu.find(".task__menu__change");
+        createButton(change_block, "swap", "fas fa-arrow-right", false);
+        $("<input/>", {
+            type: 'text',
+            class: 'taskName',
+            readonly: ''
+        }).appendTo(change_block);
+
+        $("<div/>", {
+            class: 'move_buttons',
+        }).appendTo(change_block);
+        let move_buttons = change_block.find(".move_buttons")
+        htmlMoveButtons(move_buttons);
+    }
+
+    function htmlTaskName(place, name) {
+        $("<div/>", {
+            class: 'task__name',
+        }).appendTo(place);
+        let nameBlock = place.find(".task__name");
+
+        createButton(nameBlock, "check", "", false);
         if (listState.hasClass("listDone")) {
-            li.find(".check").addClass("checked");
-            li.find(".check i").addClass("fas fa-check-square");
+            nameBlock.find(".check").addClass("checked");
+            nameBlock.find(".check i").addClass("fas fa-check-square");
         }
         else {
-            li.find(".check i").addClass("far fa-square");
+            nameBlock.find(".check i").addClass("far fa-square");
         }
-
         $("<input/>", {
             type: 'text',
             value: name,
+            class: 'taskName',
             readonly: ''
-        }).appendTo(li);
-
-        createButton(li, "change", "fas fa-pencil-alt", false);
-        createButton(li, "save", "fas fa-check-circle", true);
-        createButton(li, "move", "fas fa-arrows-alt", false);
-
-        htmlMoveButtons(li);
+        }).appendTo(nameBlock);
     }
 
-    function htmlMoveButtons(li) {
+    function htmlMoveButtons(place) {
         $("<div/>", {
-            class: 'block__move_buttons hide'
-        }).appendTo(li);
-        let move_buttons = li.find('.block__move_buttons');
+            class: 'move_buttons hide'
+        }).appendTo(place);
+        let move_buttons = place.find('.move_buttons');
         
         createButton(move_buttons, "statuses", "fas fa-ellipsis-h", false);
         createButton(move_buttons, "pending", "fas fa-clock", false);

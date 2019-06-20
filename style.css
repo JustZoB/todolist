@@ -10,22 +10,22 @@ h1 {
 }
 .newTask {
     margin-left: 24px;
-    margin-bottom: 40px;
+    margin-bottom: 10px;
 }
-.listStatuses input[type="text"],
-.newTask input[type="text"],
+.listStatuses .task__color,
+.newTask .taskName,
 .statuses {
     background: #4D79E8;
 }
-.listPending input[type="text"],
+.listPending .task__color,
 .pending {
     background: rgb(218, 218, 55);
 }
-.listCancel input[type="text"],
+.listCancel .task__color,
 .cancel {
     background: red;
 }
-.listDone input[type="text"],
+.listDone .task__color,
 .done {
     background: green;
 }
@@ -50,27 +50,22 @@ button {
     background: #4794FF;
     color: white;
     cursor: pointer;
-    margin: 0px;
+    margin: 1px;
 }
 .active {
     background: #4763FF !important;
 }
-input[type="text"] {
+.taskName {
     color: white;
     height: 35px;
     border: 0;
     padding: 0 0 0 7px;
+    margin: 1px;
     position: relative;
     cursor: default;
 } 
-.listDone input[type="text"]{
-    width: 213px;
-}
-.listDone .change,
-.listDone .save{
-    display: none;
-}
-input[type="text"]::placeholder {
+
+.taskName::placeholder {
     color: rgb(171, 178, 185);
 } 
 .hide {
@@ -87,4 +82,65 @@ input[type="text"]::placeholder {
 ul {
     list-style-type: none;
     padding: 0; 
+    margin-top: 30px;
 }
+
+.task {
+    width: 380px;
+    margin: 5px auto 0 auto;
+}
+
+.task__color {
+    width: 380px;
+    height: 10px;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+}
+
+
+.task button {
+    border-radius: 4px;
+}
+.task__contant {
+    background: white;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+}
+.task__menu {
+    justify-content: space-between;
+}
+.task__menu .check{
+    margin-right: 10px; 
+}
+.task__menu,
+.task__name, 
+.task__hashTags {
+    padding: 5px;
+    display: flex;
+}
+.task__name,
+.task__hashTags {
+    padding-top: 0;
+}
+.task__menu input[type="text"],
+.task__name input[type="text"]{
+    background: #4D79E8;
+    border-radius: 4px;
+}
+.task__name input[type="text"]{
+    margin-left: 5px;
+    width: 325px;
+}
+.task__hashTags {
+    flex-wrap: wrap;
+}
+.task__hashTags div{
+    background: #4794FF;
+    font-size: 14px;
+    padding: 8px;
+    margin: 2px;
+    color: white;
+    border-radius: 15px;
+    border: 0;
+}
+
