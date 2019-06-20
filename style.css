@@ -14,6 +14,7 @@ h1 {
 }
 .listStatuses .task__color,
 .newTask .taskName,
+.newTask .taskChange,
 .statuses {
     background: #4D79E8;
 }
@@ -55,7 +56,8 @@ button {
 .active {
     background: #4763FF !important;
 }
-.taskName {
+.taskName,
+.taskChange {
     color: white;
     height: 35px;
     border: 0;
@@ -65,7 +67,8 @@ button {
     cursor: default;
 } 
 
-.taskName::placeholder {
+.taskName::placeholder,
+.taskChange::placeholder {
     color: rgb(171, 178, 185);
 } 
 .hide {
@@ -117,6 +120,12 @@ ul {
 .task__hashTags {
     padding: 5px;
     display: flex;
+}
+.task__menu__change {
+    display: flex;
+}
+.move_buttons {
+    margin-left: 20px;
 }
 .task__name,
 .task__hashTags {
