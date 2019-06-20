@@ -6,7 +6,7 @@ $( document ).ready(function() {
     });
     $('body').on('click', ".save", function() {
         Task.saveRename($(this).parents().eq(2));
-    });
+    });   
     /*-----------------Moving-----------------*/        
     $('body').on('click', ".check", function() {
         if (!$(this).hasClass('checked')) {
@@ -24,7 +24,7 @@ $( document ).ready(function() {
 
     $('body').on('click', ".move", function() {
         let contant = $(this).parents().eq(2);
-        contant.find(".taskChange").toggleClass("hide");
+        contant.find(".hashtagBlock").addClass("hide");
         contant.find(".move_buttons").toggleClass("hide");
     });
 
@@ -51,6 +51,27 @@ $( document ).ready(function() {
             newTask();
         }
     })
+    /*----------------Hashtag-----------------*/
+    $('body').on('click', ".hashtag", function() {    
+        let contant = $(this).parents().eq(2);
+        contant.find(".hashtagBlock").toggleClass("hide");
+        contant.find(".move_buttons").addClass("hide");
+        contant.find(".hashtagValue").removeAttr("readonly").css("cursor", "text").addClass("active");
+    });
+    $('body').on('click', ".saveHashtag", function() {
+        let task = $(this).parents().eq(3);
+        let hashtagName = "#" + task.find(".hashtagValue").val();
+        if (hashtagName != 0) { 
+            task.find(".hashtagBlock").toggleClass("hide");
+            if ((task.find(".task__hashTags").length == 0)) {
+                $("<div/>", {
+                    class: 'task__hashTags',
+                }).appendTo(task);
+            } 
+            $("<div>" + hashtagName + "<div/>").appendTo(task.find(".task__hashTags"));
+            task.find(".hashtagValue").val("");
+        }
+    });
     /*----------------------------------------*/    
 
     /*--------------localStorage------------- */
@@ -119,10 +140,14 @@ $( document ).ready(function() {
             localStorage.setItem("todolist", JSON.stringify(allTasks));
         },
 
+        saveHashtag: function(contant) {
+
+        },
+
         moveTo: function (li, newLi) {
             li.detach().appendTo(newLi);
             li.find('.move_buttons').addClass('hide');
-            li.find('.taskChange').removeClass('hide');
+            li.find('.hashtagBlock').removeClass('hide');
     
             let taskName = li.find("[type = text]").val();
             let allTasks = JSON.parse(localStorage.getItem("todolist"));
@@ -133,6 +158,7 @@ $( document ).ready(function() {
             }
             localStorage.setItem("todolist", JSON.stringify(allTasks));
         }
+        
     }
 
     function newTask() {
@@ -186,13 +212,7 @@ $( document ).ready(function() {
             class: 'task__menu__change',
         }).appendTo(menu);
         let change_block = menu.find(".task__menu__change");
-        createButton(change_block, "swap", "fas fa-arrow-right", false);
-        $("<input/>", {
-            type: 'text',
-            class: 'taskChange',
-            readonly: ''
-        }).appendTo(change_block);
-
+        htmlHashtagCreating(change_block);
         htmlMoveButtons(change_block);
     }
 
@@ -216,6 +236,19 @@ $( document ).ready(function() {
             class: 'taskName',
             readonly: ''
         }).appendTo(nameBlock);
+    }
+
+    function htmlHashtagCreating(place) {
+        $("<div/>", {
+            class: 'hashtagBlock hide',
+        }).appendTo(place);
+        let hashtagBlock = place.find(".hashtagBlock");
+        $("<input/>", {
+            type: 'text',
+            class: 'hashtagValue',
+            readonly: ''
+        }).appendTo(hashtagBlock);
+        createButton(hashtagBlock, "saveHashtag", "fas fa-check-circle", false);
     }
 
     function htmlMoveButtons(place) {
