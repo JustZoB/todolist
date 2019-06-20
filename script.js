@@ -133,7 +133,6 @@ $( document ).ready(function() {
         }
     }
 
-    
     function newTask() {
         let name = $("#newTask_value").val();
         if (name != "") {
