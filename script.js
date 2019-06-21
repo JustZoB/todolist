@@ -1,12 +1,18 @@
 $( document ).ready(function() {
     //localStorage.clear();
     /*-----------------Rename-----------------*/ 
-    $('body').on('click', ".rename", function() {
-        Task.rename($(this).parents().eq(2));
+    $('body').on('dblclick', ".taskName", function() {
+        Task.rename($(this).parents().eq(1));
     });
-    $('body').on('click', ".save", function() {
-        Task.saveRename($(this).parents().eq(2));
-    });   
+    
+    $('body').on('focusout', ".taskName", function(event) {
+        Task.saveRename($(this).parents().eq(1));
+    }); 
+    $('body').on('keydown', ".taskName", function(event) {
+        if ( event.which == 13 ) {
+            Task.saveRename($(this).parents().eq(1));
+        }
+    }); 
     /*-----------------Moving-----------------*/        
     $('body').on('click', ".check", function() {
         if (!$(this).hasClass('checked')) {
@@ -102,18 +108,11 @@ $( document ).ready(function() {
             localStorage.setItem("todolist", JSON.stringify(allTasks));
         },
 
-        rename: function (contant) {
-            contant.find(".move").attr("disabled", '');
-            contant.find(".hashtag").attr("disabled", '');
-            contant.find(".check").attr("disabled", '');
+        rename: function (contant) {  
             contant.find(".taskName").removeAttr("readonly").css("cursor", "text").addClass("active");
-            contant.find(".rename").addClass("hide");
-            contant.find(".hashtagBlock").addClass("hide");
-            contant.find(".save").removeClass("hide");
-            contant.find(".move_buttons").addClass("hide");
-    
-            let taskName = contant.find(".taskName").val();
+
             let allTasks = JSON.parse(localStorage.getItem("todolist"));
+            let taskName = contant.find(".taskName").val();
             for (let i = 0; i < allTasks.length; i++) {
                 if (allTasks[i].name == taskName) {
                     allTasks.splice(i, 1);
@@ -122,13 +121,8 @@ $( document ).ready(function() {
             localStorage.setItem("todolist", JSON.stringify(allTasks));
         },
 
-        saveRename: function (contant) {
-            contant.find(".move").removeAttr("disabled");
-            contant.find(".hashtag").removeAttr("disabled");
-            contant.find(".check").removeAttr("disabled");
+        saveRename: function (contant) { 
             contant.find(".taskName").attr("readonly", '').css("cursor", "default").removeClass("active");
-            contant.find(".rename").removeClass("hide");
-            contant.find(".save").addClass("hide");
             
             let allTasks = JSON.parse(localStorage.getItem("todolist"));
             let localTask = {};
@@ -137,6 +131,7 @@ $( document ).ready(function() {
             allTasks.push(localTask);
             localStorage.setItem("todolist", JSON.stringify(allTasks));
         },
+
 
         saveHashtag: function(task) {
             let hashtagName = "#" + task.find(".hashtagValue").val();
@@ -247,10 +242,8 @@ $( document ).ready(function() {
             class: 'task__menu__buttons',
         }).appendTo(menu);
         let buttons_block = menu.find(".task__menu__buttons");
-        createButton(buttons_block, "move", "fas fa-arrows-alt", false);
-        createButton(buttons_block, "rename", "fas fa-pencil-alt", false);
-        createButton(buttons_block, "save", "fas fa-check-circle", true);
-        createButton(buttons_block, "hashtag", "fas fa-hashtag", false);
+        createButton(buttons_block, "move", "fas fa-arrows-alt");
+        createButton(buttons_block, "hashtag", "fas fa-hashtag");
         
         $("<div/>", {
             class: 'task__menu__change',
@@ -266,7 +259,7 @@ $( document ).ready(function() {
         }).appendTo(place);
         let nameBlock = place.find(".task__name");
 
-        createButton(nameBlock, "check", "", false);
+        createButton(nameBlock, "check", "");
         if (place.parents().eq(1).hasClass("listDone")) {
             nameBlock.find(".check").addClass("checked");
             nameBlock.find(".check i").addClass("fas fa-check-square");
@@ -293,7 +286,7 @@ $( document ).ready(function() {
             class: 'hashtagValue',
             readonly: ''
         }).appendTo(hashtagBlock);
-        createButton(hashtagBlock, "saveHashtag", "fas fa-check-circle", false);
+        createButton(hashtagBlock, "saveHashtag", "fas fa-check-circle");
     }
 
     function htmlMoveButtons(place) {
@@ -302,13 +295,13 @@ $( document ).ready(function() {
         }).appendTo(place);
         let move_buttons = place.find('.move_buttons');
         
-        createButton(move_buttons, "statuses", "fas fa-ellipsis-h", false);
-        createButton(move_buttons, "pending", "fas fa-clock", false);
-        createButton(move_buttons, "cancel", "fas fa-trash-alt", false);
-        createButton(move_buttons, "done", "fas fa-check", false);
+        createButton(move_buttons, "statuses", "fas fa-ellipsis-h");
+        createButton(move_buttons, "pending", "fas fa-clock");
+        createButton(move_buttons, "cancel", "fas fa-trash-alt");
+        createButton(move_buttons, "done", "fas fa-check");
     }
 
-    function createButton(place, buttonClass, i_icon, hide) {
+    function createButton(place, buttonClass, i_icon) {
         $("<button/>", {
             class: buttonClass
         }).appendTo(place);
@@ -316,10 +309,6 @@ $( document ).ready(function() {
         $("<i/>", {
             class: i_icon + ' fa-lg'
         }).appendTo(button);
-
-        if (hide == true) {
-            $(button).addClass("hide");
-        }
     }
 
     function replaceCheckbox(checkbox) {

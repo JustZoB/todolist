@@ -15,7 +15,8 @@ h1 {
 .listStatuses .task__color,
 .newTask .taskName,
 .newTask .hashtagValue,
-.statuses {
+.statuses,
+.taskNameValue {
     background: #4D79E8;
 }
 .listPending .task__color,
@@ -56,6 +57,7 @@ button {
 .active {
     background: #4763FF !important;
 }
+.taskNameValue,
 .taskName,
 .hashtagValue {
     color: white;
@@ -66,7 +68,7 @@ button {
     position: relative;
     cursor: default;
 } 
-
+.taskNameValue::placeholder,
 .taskName::placeholder,
 .hashtagValue::placeholder {
     color: rgb(171, 178, 185);
