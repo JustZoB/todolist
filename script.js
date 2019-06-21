@@ -147,7 +147,7 @@ $( document ).ready(function() {
                         class: 'task__hashTags',
                     }).appendTo(task);
                 } 
-                $("<div>" + hashtagName + "<div/>").appendTo(task.find(".task__hashTags"));
+                $("<div>" + hashtagName + "</div>").appendTo(task.find(".task__hashTags"));
                 task.find(".hashtagValue").val("");
             }
 
@@ -222,7 +222,7 @@ $( document ).ready(function() {
             }).appendTo(contant);
             let hashtagBlock = li.find($(".task__hashTags"));
             for (let i = 0; i < tags.length; i++) {
-                $("<div>" + tags[i] + "<div/>").appendTo(hashtagBlock);
+                $("<div>" + tags[i] + "</div>").appendTo(hashtagBlock);
             }
         }
     }
