@@ -140,32 +140,38 @@ $( document ).ready(function() {
 
         saveHashtag: function(task) {
             let hashtagName = "#" + task.find(".hashtagValue").val();
-            if (hashtagName != 0) { 
-                task.find(".hashtagBlock").toggleClass("hide");
-                if ((task.find(".task__hashTags").length == 0)) {
-                    $("<div/>", {
-                        class: 'task__hashTags',
-                    }).appendTo(task);
-                } 
-                $("<div>" + hashtagName + "</div>").appendTo(task.find(".task__hashTags"));
-                task.find(".hashtagValue").val("");
-            }
-
-            let allTasks = JSON.parse(localStorage.getItem("todolist"));
-            let localTask = {};
-            let localHashtags = [];
-            let taskName = task.find(".taskName").val();
-            for (let i = 0; i < allTasks.length; i++) {
-                if (allTasks[i].name == taskName) {
-                    if (allTasks[i].tags == undefined) {
-                        localHashtags[0] = hashtagName;
-                        allTasks[i].tags = localHashtags;
-                    } else {
-                        allTasks[i].tags.push(hashtagName);
+            let hashtagsBlock = task.find(".task__hashTags");
+            let datalist = task.parents().find("#hashtags");
+            if (hashtagName != "#") { 
+                if (hashtagsBlock.find("div:contains('" + hashtagName + "')").length == 0) {
+                    task.find(".hashtagBlock").toggleClass("hide");
+                    if ((task.find(".task__hashTags").length == 0)) {
+                        $("<div/>", {
+                            class: 'task__hashTags',
+                        }).appendTo(task);
+                    } 
+                    $("<div>" + hashtagName + "</div>").appendTo(task.find(".task__hashTags"));
+                    if ($("[value='" + hashtagName.substr(1) + "']").length == 0) {
+                        $("<option value='" + hashtagName.substr(1) + "'></option>").appendTo(datalist);
                     }
+                    task.find(".hashtagValue").val("");
+
+                    let allTasks = JSON.parse(localStorage.getItem("todolist"));
+                    let localHashtags = [];
+                    let taskName = task.find(".taskName").val();
+                    for (let i = 0; i < allTasks.length; i++) {
+                        if (allTasks[i].name == taskName) {
+                            if (allTasks[i].tags == undefined) {
+                                localHashtags[0] = hashtagName;
+                                allTasks[i].tags = localHashtags;
+                            } else {
+                                allTasks[i].tags.push(hashtagName);
+                            }
+                        }
+                    }
+                    localStorage.setItem("todolist", JSON.stringify(allTasks));
                 }
             }
-            localStorage.setItem("todolist", JSON.stringify(allTasks));
         },
 
         moveTo: function (li, newState) {
@@ -221,8 +227,12 @@ $( document ).ready(function() {
                 class: 'task__hashTags',
             }).appendTo(contant);
             let hashtagBlock = li.find($(".task__hashTags"));
+            let datalist = contant.parents().eq(2).find("#hashtags");
             for (let i = 0; i < tags.length; i++) {
                 $("<div>" + tags[i] + "</div>").appendTo(hashtagBlock);
+                if ($("[value='" + tags[i].substr(1) + "']").length == 0) {
+                    $("<option value='" + tags[i].substr(1) + "'></option>").appendTo(datalist);
+                }
             }
         }
     }
@@ -279,6 +289,7 @@ $( document ).ready(function() {
         let hashtagBlock = place.find(".hashtagBlock");
         $("<input/>", {
             type: 'text',
+            list: 'hashtags',
             class: 'hashtagValue',
             readonly: ''
         }).appendTo(hashtagBlock);
