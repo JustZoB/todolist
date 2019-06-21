@@ -36,8 +36,7 @@ $( document ).ready(function() {
     $('body').on('click', ".hashtag", function() {    
         let contant = $(this).parents().eq(2);
         contant.find(".hashtagBlock").toggleClass("hide");
-        contant.find(".move_buttons").addClass("hide");
-        contant.find(".hashtagValue").removeAttr("readonly").css("cursor", "text").addClass("active");
+        contant.find(".hashtagValue").focus();
     });
     $('body').on('click', ".saveHashtag", function() {
         Task.saveHashtag($(this).parents().eq(3));
@@ -169,6 +168,21 @@ $( document ).ready(function() {
                 }
             }
             localStorage.setItem("todolist", JSON.stringify(allTasks));
+        },
+
+        moveTo: function (li, newState) {
+            li.detach().appendTo($(newState));
+            li.find('.move_buttons').addClass('hide');
+            li.find('.hashtagBlock').addClass('hide');
+            
+            let taskName = li.find(".taskName").val();
+            let allTasks = JSON.parse(localStorage.getItem("todolist"));
+            for (let i = 0; i < allTasks.length; i++) {
+                if (allTasks[i].name == taskName) {
+                    allTasks[i].state = newState;
+                }
+            }
+            localStorage.setItem("todolist", JSON.stringify(allTasks));
         }
     }
 
@@ -179,6 +193,7 @@ $( document ).ready(function() {
             Task.add(name, listState);
         }
         $("#newTask_value").val("");
+        //$( "#statuses, #pending, #cancel, #done" ).sortable( "refresh" );
     }
     
     function htmlTask(name, listState, tags) {
@@ -198,11 +213,8 @@ $( document ).ready(function() {
 
         let contant = li.find(".task__contant");
 
-
-        htmlTaskMenu(contant);
-
         htmlTaskName(contant, name);
-
+        htmlTaskMenu(contant);
         if (tags != undefined) {
             $("<div/>", {
                 class: 'task__hashTags',
@@ -267,8 +279,7 @@ $( document ).ready(function() {
         $("<input/>", {
             type: 'text',
             list: 'hashtags',
-            class: 'hashtagValue',
-            readonly: ''
+            class: 'hashtagValue active' 
         }).appendTo(hashtagBlock);
         createButton(hashtagBlock, "saveHashtag", "fas fa-check-circle");
     }

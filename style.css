@@ -144,7 +144,7 @@ ul {
 .task__menu__change {
     display: flex;
 }
-.task__name,
+.task__menu,
 .task__hashTags {
     padding-top: 0;
 }
