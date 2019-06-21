@@ -32,6 +32,19 @@ h1 {
     background: green;
 }
 
+.head_statuses {
+    color: #4D79E8;
+}
+.head_pending {
+    color: rgb(218, 218, 55);
+}
+.head_cancel {
+    color: red;
+}
+.head_done {
+    color: green;
+}
+
 .listStatuses .statuses {
     display: none;
 }
@@ -88,6 +101,7 @@ ul {
     list-style-type: none;
     padding: 0; 
     margin-top: 30px;
+    min-height: 30px;
 }
 
 .task {

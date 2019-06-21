@@ -13,7 +13,7 @@ $( document ).ready(function() {
             Task.saveRename($(this).parents().eq(1));
         }
     }); 
-    /*-----------------Moving-----------------*/        
+    /*-----------------Moving-----------------*/ 
     $('body').on('click', ".check", function() {
         if (!$(this).hasClass('checked')) {
             replaceCheckbox($(this));
@@ -71,6 +71,7 @@ $( document ).ready(function() {
     /*----------------------------------------*/    
 
     /*--------------localStorage------------- */
+    let prevName = "";
     function lsTest(){
         let test = 'test';
         try {
@@ -89,6 +90,9 @@ $( document ).ready(function() {
             for (let i = 0; i < localTasks.length; i++) {
                 htmlTask(localTasks[i].name, $(localTasks[i].state), localTasks[i].tags);
             }
+            $( "#statuses, #pending, #cancel, #done" ).sortable({
+                connectWith: ".list"
+                }).disableSelection();
         }
     }
     /*----------------------------------------*/    
@@ -110,15 +114,7 @@ $( document ).ready(function() {
 
         rename: function (contant) {  
             contant.find(".taskName").removeAttr("readonly").css("cursor", "text").addClass("active");
-
-            let allTasks = JSON.parse(localStorage.getItem("todolist"));
-            let taskName = contant.find(".taskName").val();
-            for (let i = 0; i < allTasks.length; i++) {
-                if (allTasks[i].name == taskName) {
-                    allTasks.splice(i, 1);
-                }
-            }
-            localStorage.setItem("todolist", JSON.stringify(allTasks));
+            prevName = contant.find(".taskName").val();
         },
 
         saveRename: function (contant) { 
@@ -126,8 +122,20 @@ $( document ).ready(function() {
             
             let allTasks = JSON.parse(localStorage.getItem("todolist"));
             let localTask = {};
+
+            for (let i = 0; i < allTasks.length; i++) {
+                if (allTasks[i].name == prevName) {
+                    allTasks.splice(i, 1);
+                }
+            }
+
             localTask.name = contant.find(".taskName").val();
-            localTask.state = "." + contant.parents().eq(1).attr('class');
+            let listClasses = contant.parents().eq(1).attr('class');
+            let listState = ".listStatuses"
+            if (listClasses.indexOf('listPending') >= 0) listState = ".listPending";
+            if (listClasses.indexOf('listCancel') >= 0) listState = ".listCancel";
+            if (listClasses.indexOf('listDone') >= 0) listState = ".listDone";
+            localTask.state = listState;
             allTasks.push(localTask);
             localStorage.setItem("todolist", JSON.stringify(allTasks));
         },
@@ -193,6 +201,7 @@ $( document ).ready(function() {
             Task.add(name, listState);
         }
         $("#newTask_value").val("");
+        /*$( ".statuses, .pending, .cancel, .done" ).sortable("refresh");*/
     }
     
     function htmlTask(name, listState, tags) {
