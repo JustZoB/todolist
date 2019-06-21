@@ -30,13 +30,14 @@ $( document ).ready(function() {
 
     function buttonEvent(button, listButton) {
         $('body').on('click', button, function() {
+            let contant = $(this).parents().eq(3);
             if (button == ".done") {
-                if (!$(this).parents().eq(1).find(".check").hasClass('checked')) {
-                    replaceCheckbox($(this).parents().eq(1).find(".check"));
+                if (!contant.find(".check").hasClass('checked')) {
+                    replaceCheckbox(contant.find(".check"));
                 }
             } else {
-                if ($(this).parents().eq(1).find(".check").hasClass('checked')) {
-                    replaceCheckbox($(this).parents().eq(1).find(".check"));
+                if (contant.find(".check").hasClass('checked')) {
+                    replaceCheckbox(contant.find(".check"));
                 }
             }  
             Task.moveTo($(this).parents().eq(4), listButton);
@@ -80,7 +81,7 @@ $( document ).ready(function() {
         let localTasks = JSON.parse(localStorage.getItem("todolist"));
         if (localTasks != null) {
             for (let i = 0; i < localTasks.length; i++) {
-                htmlTask(localTasks[i].name, $(localTasks[i].state));
+                htmlTask(localTasks[i].name, $(localTasks[i].state), localTasks[i].tags);
             }
         }
     }
@@ -193,7 +194,7 @@ $( document ).ready(function() {
         $("#newTask_value").val("");
     }
     
-    function htmlTask(name, listState) {
+    function htmlTask(name, listState, tags) {
         let ul = $(listState);
         
         $("<li/>", {
@@ -214,6 +215,16 @@ $( document ).ready(function() {
         htmlTaskMenu(contant);
 
         htmlTaskName(contant, name);
+
+        if (tags != undefined) {
+            $("<div/>", {
+                class: 'task__hashTags',
+            }).appendTo(contant);
+            let hashtagBlock = li.find($(".task__hashTags"));
+            for (let i = 0; i < tags.length; i++) {
+                $("<div>" + tags[i] + "<div/>").appendTo(hashtagBlock);
+            }
+        }
     }
 
     function htmlTaskMenu(place) {
