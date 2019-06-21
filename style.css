@@ -101,7 +101,7 @@ ul {
     list-style-type: none;
     padding: 0; 
     margin-top: 30px;
-    min-height: 30px;
+    min-height: 100px;
 }
 
 .task {
@@ -111,7 +111,8 @@ ul {
 
 .task__color {
     width: 380px;
-    height: 10px;
+    cursor: grabbing;
+    height: 15px;
     border-top-left-radius: 5px;
     border-top-right-radius: 5px;
 }

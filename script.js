@@ -23,32 +23,6 @@ $( document ).ready(function() {
             Task.moveTo($(this).parents().eq(2), ".listStatuses");
         }
     });
-    buttonEvent(".statuses", ".listStatuses");
-    buttonEvent(".pending", ".listPending");
-    buttonEvent(".cancel", ".listCancel");
-    buttonEvent(".done", ".listDone");
-
-    $('body').on('click', ".move", function() {
-        let contant = $(this).parents().eq(2);
-        contant.find(".hashtagBlock").addClass("hide");
-        contant.find(".move_buttons").toggleClass("hide");
-    });
-
-    function buttonEvent(button, listButton) {
-        $('body').on('click', button, function() {
-            let contant = $(this).parents().eq(3);
-            if (button == ".done") {
-                if (!contant.find(".check").hasClass('checked')) {
-                    replaceCheckbox(contant.find(".check"));
-                }
-            } else {
-                if (contant.find(".check").hasClass('checked')) {
-                    replaceCheckbox(contant.find(".check"));
-                }
-            }  
-            Task.moveTo($(this).parents().eq(4), listButton);
-        });
-    }
     /*-----------------Adding-----------------*/
     $('#newTask_add').on('click', function() {
         newTask();
@@ -91,8 +65,12 @@ $( document ).ready(function() {
                 htmlTask(localTasks[i].name, $(localTasks[i].state), localTasks[i].tags);
             }
             $( "#statuses, #pending, #cancel, #done" ).sortable({
-                connectWith: ".list"
-                }).disableSelection();
+                connectWith: ".list",
+                handle: ".task__color",
+                update: function(event, ui) {
+                    Task.moveTask(ui.item, findClass(ui.item.parent().attr('class')));
+                }
+            }).disableSelection();
         }
     }
     /*----------------------------------------*/    
@@ -130,12 +108,7 @@ $( document ).ready(function() {
             }
 
             localTask.name = contant.find(".taskName").val();
-            let listClasses = contant.parents().eq(1).attr('class');
-            let listState = ".listStatuses"
-            if (listClasses.indexOf('listPending') >= 0) listState = ".listPending";
-            if (listClasses.indexOf('listCancel') >= 0) listState = ".listCancel";
-            if (listClasses.indexOf('listDone') >= 0) listState = ".listDone";
-            localTask.state = listState;
+            localTask.state = findClass(contant.parents().eq(1).attr('class'));
             allTasks.push(localTask);
             localStorage.setItem("todolist", JSON.stringify(allTasks));
         },
@@ -177,11 +150,17 @@ $( document ).ready(function() {
             }
         },
 
-        moveTo: function (li, newState) {
-            li.detach().appendTo($(newState));
-            li.find('.move_buttons').addClass('hide');
-            li.find('.hashtagBlock').addClass('hide');
-            
+        moveTask: function (li, newState) {
+            if (newState == ".listDone") {
+                if (!li.find(".check").hasClass('checked')) {
+                    replaceCheckbox(li.find(".check"));
+                }
+            } else {
+                if (li.find(".check").hasClass('checked')) {
+                    replaceCheckbox(li.find(".check"));
+                }
+            }  
+
             let taskName = li.find(".taskName").val();
             let allTasks = JSON.parse(localStorage.getItem("todolist"));
             for (let i = 0; i < allTasks.length; i++) {
@@ -191,7 +170,6 @@ $( document ).ready(function() {
             }
             localStorage.setItem("todolist", JSON.stringify(allTasks));
         }
-        
     }
 
     function newTask() {
@@ -201,7 +179,6 @@ $( document ).ready(function() {
             Task.add(name, listState);
         }
         $("#newTask_value").val("");
-        /*$( ".statuses, .pending, .cancel, .done" ).sortable("refresh");*/
     }
     
     function htmlTask(name, listState, tags) {
@@ -251,7 +228,6 @@ $( document ).ready(function() {
             class: 'task__menu__buttons',
         }).appendTo(menu);
         let buttons_block = menu.find(".task__menu__buttons");
-        createButton(buttons_block, "move", "fas fa-arrows-alt");
         createButton(buttons_block, "hashtag", "fas fa-hashtag");
         
         $("<div/>", {
@@ -259,7 +235,6 @@ $( document ).ready(function() {
         }).appendTo(menu);
         let change_block = menu.find(".task__menu__change");
         htmlHashtagCreating(change_block);
-        htmlMoveButtons(change_block);
     }
 
     function htmlTaskName(place, name) {
@@ -298,18 +273,6 @@ $( document ).ready(function() {
         createButton(hashtagBlock, "saveHashtag", "fas fa-check-circle");
     }
 
-    function htmlMoveButtons(place) {
-        $("<div/>", {
-            class: 'move_buttons hide'
-        }).appendTo(place);
-        let move_buttons = place.find('.move_buttons');
-        
-        createButton(move_buttons, "statuses", "fas fa-ellipsis-h");
-        createButton(move_buttons, "pending", "fas fa-clock");
-        createButton(move_buttons, "cancel", "fas fa-trash-alt");
-        createButton(move_buttons, "done", "fas fa-check");
-    }
-
     function createButton(place, buttonClass, i_icon) {
         $("<button/>", {
             class: buttonClass
@@ -323,5 +286,13 @@ $( document ).ready(function() {
     function replaceCheckbox(checkbox) {
         checkbox.toggleClass('checked');
         checkbox.find("i").toggleClass('fas fa-check-square far fa-square');
+    }
+
+    function findClass(listClasses) {
+        let listState = ".listStatuses"
+        if (listClasses.indexOf('listPending') >= 0) listState = ".listPending";
+        if (listClasses.indexOf('listCancel') >= 0) listState = ".listCancel";
+        if (listClasses.indexOf('listDone') >= 0) listState = ".listDone";
+        return listState;
     }
 });
