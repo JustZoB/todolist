@@ -126,7 +126,7 @@ ul {
 .task button {
     border-radius: 4px;
 }
-.task__contant {
+.task__content {
     background: white;
     border-bottom-left-radius: 5px;
     border-bottom-right-radius: 5px;
