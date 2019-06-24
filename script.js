@@ -96,7 +96,7 @@ $( document ).ready(function() {
 
         saveRename: function (contant) { 
             contant.find(".taskName").attr("readonly", '').css("cursor", "default").removeClass("active");    
-            
+
             localStorageSaveRename(contant.parent());
         },
 
@@ -292,15 +292,13 @@ $( document ).ready(function() {
         let positionThatSet = 0;
         let thatToSet = {};
         for (let i = 0; i < allTasks.length; i++) {
-            if (allTasks[i].name == prevLiName) {
-                positionToSet = i;
-            }
-        }
-        for (let i = 0; i < allTasks.length; i++) {
             if (allTasks[i].name == liName) {
                 allTasks[i].state = newState;
                 thatToSet = allTasks[i];
                 positionThatSet = i;
+            }
+            if (allTasks[i].name == prevLiName) {
+                positionToSet = i;
             }
         }
         if ((positionThatSet < positionToSet) || (prevLiName == undefined)) {
