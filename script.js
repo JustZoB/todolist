@@ -115,7 +115,7 @@ $( document ).ready(function() {
             let hashtagsBlock = task.find(".task__hashTags");
             let datalist = task.parents().find("#hashtags");
             if ((hashtagName != "#") && (hashtagsBlock.find("div:contains('" + hashtagName + "')").length == 0)) { 
-                task.find(".hashtag").focus();
+                task.find(".hashtagBlock").focus();
                 if ((task.find(".task__hashTags").length == 0)) {
                     $("<div/>", {
                         class: 'task__hashTags',
