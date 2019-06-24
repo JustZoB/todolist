@@ -180,22 +180,34 @@ $( document ).ready(function() {
         },
 
         filterHashTags_add: function (tag) {
-            
+            filterTags.push(tag);
             let container = $(".container");
-            let taskfilter = container.find("li.task");
-            taskfilter.addClass("hashtagFilter_hide");
-            let visable = container.find("div div div:contains('" + tag + "')");
-            visable.each(function(i,elem) {
-                $(this).parents().eq(2).removeClass("hashtagFilter_hide");
-            }).addClass("active");
+            let taskFilter = container.find("li.task");
+            taskFilter.addClass("hashtagFilter_hide");
+
+            taskFilter.each(function(key,elem) {
+                let c = 0;
+                for (let i = 0; i < filterTags.length; i++) {
+                    let tagName = $(elem).find("div div div:contains('" + filterTags[i] + "')");
+                    if (tagName.length) {
+                        c++;
+                    }
+                }
+                if (c == filterTags.length) {
+                    $(this).removeClass("hashtagFilter_hide");
+                    $(this).find("div div div:contains('" + tag + "')").addClass("active");
+                }
+
+            });
         },
 
         filterHashTags_remove: function (tag) {
             let container = $(".container");
-            let taskfilter = container.find("li.task");
-            taskfilter.removeClass("hashtagFilter_hide");
+            let taskFilter = container.find("li.task");
+            taskFilter.removeClass("hashtagFilter_hide");
             let visable = container.find("div div div:contains('" + tag + "')");
             visable.each(function(i,elem) {}).removeClass("active");
+            filterTags.splice(filterTags.indexOf(tag), 1);
         }
     }
 
