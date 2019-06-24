@@ -8,10 +8,6 @@ body {
 h1 {
     color: white;
 }
-.newTask {
-    margin-left: 24px;
-    margin-bottom: 10px;
-}
 .listStatuses .task__color,
 .newTask .taskName,
 .newTask .hashtagValue,
@@ -69,6 +65,9 @@ button {
 }
 .active {
     background: #4763FF !important;
+}
+.taskNameValue {
+    width: 300px;
 }
 .taskNameValue,
 .taskName,

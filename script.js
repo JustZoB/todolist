@@ -23,6 +23,13 @@ $( document ).ready(function() {
             Task.moveTo($(this).parents().eq(2), ".listStatuses");
         }
     });
+    $( "#statuses, #pending, #cancel, #done" ).sortable({
+        connectWith: ".list",
+        handle: ".task__color",
+        update: function(event, ui) {
+            Task.moveTask(ui.item, findClass(ui.item.parent().attr('class')));
+        }
+    }).disableSelection();
     /*-----------------Adding-----------------*/
     $('#newTask_add').on('click', function() {
         newTask();
@@ -63,13 +70,6 @@ $( document ).ready(function() {
             for (let i = 0; i < localTasks.length; i++) {
                 htmlTask(localTasks[i].name, $(localTasks[i].state), localTasks[i].tags);
             }
-            $( "#statuses, #pending, #cancel, #done" ).sortable({
-                connectWith: ".list",
-                handle: ".task__color",
-                update: function(event, ui) {
-                    Task.moveTask(ui.item, findClass(ui.item.parent().attr('class')));
-                }
-            }).disableSelection();
         }
     }
     /*----------------------------------------*/    
@@ -99,53 +99,48 @@ $( document ).ready(function() {
             
             let allTasks = JSON.parse(localStorage.getItem("todolist"));
             let localTask = {};
-
             for (let i = 0; i < allTasks.length; i++) {
                 if (allTasks[i].name == prevName) {
                     allTasks.splice(i, 1);
                 }
             }
-
             localTask.name = contant.find(".taskName").val();
             localTask.state = findClass(contant.parents().eq(1).attr('class'));
             allTasks.push(localTask);
             localStorage.setItem("todolist", JSON.stringify(allTasks));
         },
 
-
         saveHashtag: function(task) {
             let hashtagName = "#" + task.find(".hashtagValue").val();
             let hashtagsBlock = task.find(".task__hashTags");
             let datalist = task.parents().find("#hashtags");
-            if (hashtagName != "#") { 
-                if (hashtagsBlock.find("div:contains('" + hashtagName + "')").length == 0) {
-                    task.find(".hashtagBlock").toggleClass("hide");
-                    if ((task.find(".task__hashTags").length == 0)) {
-                        $("<div/>", {
-                            class: 'task__hashTags',
-                        }).appendTo(task);
-                    } 
-                    $("<div>" + hashtagName + "</div>").appendTo(task.find(".task__hashTags"));
-                    if ($("[value='" + hashtagName.substr(1) + "']").length == 0) {
-                        $("<option value='" + hashtagName.substr(1) + "'></option>").appendTo(datalist);
-                    }
-                    task.find(".hashtagValue").val("");
+            if ((hashtagName != "#") && (hashtagsBlock.find("div:contains('" + hashtagName + "')").length == 0)) { 
+                task.find(".hashtagBlock").toggleClass("hide");
+                if ((task.find(".task__hashTags").length == 0)) {
+                    $("<div/>", {
+                        class: 'task__hashTags',
+                    }).appendTo(task);
+                } 
+                $("<div>" + hashtagName + "</div>").appendTo(task.find(".task__hashTags"));
+                if ($("[value='" + hashtagName.substr(1) + "']").length == 0) {
+                    $("<option value='" + hashtagName.substr(1) + "'></option>").appendTo(datalist);
+                }
+                task.find(".hashtagValue").val("");
 
-                    let allTasks = JSON.parse(localStorage.getItem("todolist"));
-                    let localHashtags = [];
-                    let taskName = task.find(".taskName").val();
-                    for (let i = 0; i < allTasks.length; i++) {
-                        if (allTasks[i].name == taskName) {
-                            if (allTasks[i].tags == undefined) {
-                                localHashtags[0] = hashtagName;
-                                allTasks[i].tags = localHashtags;
-                            } else {
-                                allTasks[i].tags.push(hashtagName);
-                            }
+                let allTasks = JSON.parse(localStorage.getItem("todolist"));
+                let localHashtags = [];
+                let taskName = task.find(".taskName").val();
+                for (let i = 0; i < allTasks.length; i++) {
+                    if (allTasks[i].name == taskName) {
+                        if (allTasks[i].tags == undefined) {
+                            localHashtags[0] = hashtagName;
+                            allTasks[i].tags = localHashtags;
+                        } else {
+                            allTasks[i].tags.push(hashtagName);
                         }
                     }
-                    localStorage.setItem("todolist", JSON.stringify(allTasks));
                 }
+                localStorage.setItem("todolist", JSON.stringify(allTasks));
             }
         },
 
@@ -159,15 +154,8 @@ $( document ).ready(function() {
                     replaceCheckbox(li.find(".check"));
                 }
             }  
-
-            let taskName = li.find(".taskName").val();
-            let allTasks = JSON.parse(localStorage.getItem("todolist"));
-            for (let i = 0; i < allTasks.length; i++) {
-                if (allTasks[i].name == taskName) {
-                    allTasks[i].state = newState;
-                }
-            }
-            localStorage.setItem("todolist", JSON.stringify(allTasks));
+            
+            localStorageOrder(li, newState);
         },
 
         moveTo: function (li, newState) {
@@ -193,7 +181,6 @@ $( document ).ready(function() {
             Task.add(name, listState);
         }
         $("#newTask_value").val("");
-        //$( "#statuses, #pending, #cancel, #done" ).sortable( "refresh" );
     }
     
     function htmlTask(name, listState, tags) {
@@ -305,5 +292,35 @@ $( document ).ready(function() {
         if (listClasses.indexOf('listCancel') >= 0) listState = ".listCancel";
         if (listClasses.indexOf('listDone') >= 0) listState = ".listDone";
         return listState;
+    }
+
+    function localStorageOrder(li, newState) {
+        let prevLiName = li.prev().find(".taskName").val();
+        let liName = li.find(".taskName").val();
+        let allTasks = JSON.parse(localStorage.getItem("todolist"));
+        let positionToSet = 0;
+        let positionThatSet = 0;
+        let thatToSet = {};
+        for (let i = 0; i < allTasks.length; i++) {
+            if (allTasks[i].name == prevLiName) {
+                positionToSet = i;
+            }
+        }
+        for (let i = 0; i < allTasks.length; i++) {
+            if (allTasks[i].name == liName) {
+                allTasks[i].state = newState;
+                thatToSet = allTasks[i];
+                positionThatSet = i;
+            }
+        }
+        if ((positionThatSet < positionToSet) || (prevLiName == undefined)) {
+            allTasks.splice(positionThatSet, 1);
+            allTasks.splice(positionToSet, 0, thatToSet);
+        } else {
+            allTasks.splice(positionThatSet, 1);
+            allTasks.splice(positionToSet + 1, 0, thatToSet);
+        }
+        
+        localStorage.setItem("todolist", JSON.stringify(allTasks));
     }
 });
