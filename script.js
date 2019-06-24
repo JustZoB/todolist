@@ -95,19 +95,9 @@ $( document ).ready(function() {
         },
 
         saveRename: function (contant) { 
-            contant.find(".taskName").attr("readonly", '').css("cursor", "default").removeClass("active");
+            contant.find(".taskName").attr("readonly", '').css("cursor", "default").removeClass("active");    
             
-            let allTasks = JSON.parse(localStorage.getItem("todolist"));
-            let localTask = {};
-            for (let i = 0; i < allTasks.length; i++) {
-                if (allTasks[i].name == prevName) {
-                    allTasks.splice(i, 1);
-                }
-            }
-            localTask.name = contant.find(".taskName").val();
-            localTask.state = findClass(contant.parents().eq(1).attr('class'));
-            allTasks.push(localTask);
-            localStorage.setItem("todolist", JSON.stringify(allTasks));
+            localStorageSaveRename(contant.parent());
         },
 
         saveHashtag: function(task) {
@@ -321,6 +311,17 @@ $( document ).ready(function() {
             allTasks.splice(positionToSet + 1, 0, thatToSet);
         }
         
+        localStorage.setItem("todolist", JSON.stringify(allTasks));
+    }
+
+    function localStorageSaveRename(li) {
+        let allTasks = JSON.parse(localStorage.getItem("todolist"));
+        let taskName = li.find(".taskName").val();
+        for (let i = 0; i < allTasks.length; i++) {
+            if (allTasks[i].name == prevName) {
+                allTasks[i].name = taskName;
+            }
+        }
         localStorage.setItem("todolist", JSON.stringify(allTasks));
     }
 });
