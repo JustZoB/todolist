@@ -40,6 +40,9 @@ h1 {
 .head_done {
     color: green;
 }
+.hashtagFilter_hide {
+    display: none;
+}
 
 .listStatuses .statuses {
     display: none;

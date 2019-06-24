@@ -57,10 +57,18 @@ $( document ).ready(function() {
             Task.saveHashtag($(this).parents().eq(3));
         }
     }); 
+    $('body').on('click', ".task__hashTags div", function() {
+        if ($(this).hasClass("active")) {
+            Task.filterHashTags_remove($(this).html());
+        } else {
+            Task.filterHashTags_add($(this).html());
+        }
+    });
     /*----------------------------------------*/    
 
     /*--------------localStorage------------- */
     let prevName = "";
+    let filterTags = [];
     function lsTest(){
         let test = 'test';
         try {
@@ -169,6 +177,25 @@ $( document ).ready(function() {
                 }
             }
             localStorage.setItem("todolist", JSON.stringify(allTasks));
+        },
+
+        filterHashTags_add: function (tag) {
+            
+            let container = $(".container");
+            let taskfilter = container.find("li.task");
+            taskfilter.addClass("hashtagFilter_hide");
+            let visable = container.find("div div div:contains('" + tag + "')");
+            visable.each(function(i,elem) {
+                $(this).parents().eq(2).removeClass("hashtagFilter_hide");
+            }).addClass("active");
+        },
+
+        filterHashTags_remove: function (tag) {
+            let container = $(".container");
+            let taskfilter = container.find("li.task");
+            taskfilter.removeClass("hashtagFilter_hide");
+            let visable = container.find("div div div:contains('" + tag + "')");
+            visable.each(function(i,elem) {}).removeClass("active");
         }
     }
 
@@ -182,12 +209,12 @@ $( document ).ready(function() {
     }
     
     function htmlTask(name, listState, tags) {
-        let ul = $(listState);
+        let list = $(listState);
         
         $("<li/>", {
             class: 'task'
-        }).appendTo(ul);
-        let li = ul.find(".task:last-child");
+        }).appendTo(list);
+        let li = list.find(".task:last-child");
 
         $("<div/>", {
             class: 'task__color',
