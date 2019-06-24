@@ -167,5 +167,7 @@ ul {
     color: white;
     border-radius: 15px;
     border: 0;
+    max-width: 350px;
+    overflow: hidden;
 }
 

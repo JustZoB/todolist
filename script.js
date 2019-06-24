@@ -52,6 +52,11 @@ $( document ).ready(function() {
     $('body').on('click', ".saveHashtag", function() {
         Task.saveHashtag($(this).parents().eq(3));
     });
+    $('body').on('keydown', ".hashtagValue", function(event) {
+        if ( event.which == 13 ) {
+            Task.saveHashtag($(this).parents().eq(3));
+        }
+    }); 
     /*----------------------------------------*/    
 
     /*--------------localStorage------------- */
@@ -110,7 +115,7 @@ $( document ).ready(function() {
             let hashtagsBlock = task.find(".task__hashTags");
             let datalist = task.parents().find("#hashtags");
             if ((hashtagName != "#") && (hashtagsBlock.find("div:contains('" + hashtagName + "')").length == 0)) { 
-                task.find(".hashtagBlock").toggleClass("hide");
+                task.find(".hashtag").focus();
                 if ((task.find(".task__hashTags").length == 0)) {
                     $("<div/>", {
                         class: 'task__hashTags',
@@ -155,8 +160,6 @@ $( document ).ready(function() {
 
         moveTo: function (li, newState) {
             li.detach().appendTo($(newState));
-            li.find('.move_buttons').addClass('hide');
-            li.find('.hashtagBlock').addClass('hide');
             
             let taskName = li.find(".taskName").val();
             let allTasks = JSON.parse(localStorage.getItem("todolist"));
