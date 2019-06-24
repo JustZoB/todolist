@@ -10,7 +10,11 @@ $( document ).ready(function() {
     }); 
     $('body').on('keydown', ".taskName", function(event) {
         if ( event.which == 13 ) {
-            Task.saveRename($(this).parents().eq(1));
+            if ($(this).hasClass("active")) {
+                Task.saveRename($(this).parents().eq(1));
+            } else {
+                Task.rename($(this).parents().eq(1));
+            }
         }
     }); 
     /*-----------------Moving-----------------*/ 
@@ -92,6 +96,7 @@ $( document ).ready(function() {
         rename: function (contant) {  
             contant.find(".taskName").removeAttr("readonly").css("cursor", "text").addClass("active");
             prevName = contant.find(".taskName").val();
+            contant.find(".taskName").focus();
         },
 
         saveRename: function (contant) { 
