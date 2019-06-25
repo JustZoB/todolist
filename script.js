@@ -25,12 +25,14 @@ $( document ).ready(function() {
                 $(content).append(`<div class='task__name'>
                 <button class='check checked'><i class='fas fa-check-square fa-lg'></i></button>
                 <input class='taskName' type='text' value='${ name }' readonly></input>
+                <p class="openText hide">${ name }</p>
                 </div>`);
             }
             else {
                 $(content).append(`<div class='task__name'>
                 <button class='check'><i class='far fa-square fa-lg'></i></button>
                 <input class='taskName' type='text' value='${ name }' readonly></input>
+                <p class="openText hide">${ name }</p>
                 </div>`);
             }
     
@@ -111,6 +113,16 @@ $( document ).ready(function() {
         check: function (checkbox) {
             checkbox.toggleClass('checked');
             checkbox.find("i").toggleClass('fas fa-check-square far fa-square');
+        },
+
+        touchValue: function(li) {
+            let taskName = li.find(".taskName"),
+                openText = li.find(".openText");
+                taskName.toggleClass("hide");
+                openText.toggleClass("hide");
+                if (window.getSelection) {
+                    window.getSelection().removeAllRanges();
+                } 
         },
 
         filterHashTags_add: function (tag) {
@@ -263,7 +275,7 @@ $( document ).ready(function() {
     }
 
     /*-----------------Rename-----------------*/ 
-    $('body').on('dblclick', ".taskName", function() {
+    $('body').on('click', ".taskName", function() {
         Task.rename($(this).parents().eq(1));
     });
     $('body').on('focusout', ".taskName", function() {
@@ -290,7 +302,6 @@ $( document ).ready(function() {
     });
     $( "#statuses, #pending, #cancel, #done" ).sortable({
         connectWith: ".list",
-        handle: ".task__color",
         update: function(event, ui) {
             Task.moveTask(ui.item, findClass(ui.item.parent().attr('class')));
         }
@@ -304,6 +315,13 @@ $( document ).ready(function() {
             Task.add();
         }
     })
+    /*----------------See all-----------------*/
+    $('body').on('dblclick', ".taskName", function() {
+        Task.touchValue($(this).parents().eq(1));
+    });
+    $('body').on('dblclick', ".openText", function() {
+        Task.touchValue($(this).parents().eq(1));
+    });
     /*----------------Hashtag-----------------*/
     $('body').on('click', ".hashtag", function() {    
         let content = $(this).parents().eq(2);

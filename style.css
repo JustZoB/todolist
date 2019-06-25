@@ -72,6 +72,7 @@ button {
 .taskNameValue {
     width: 300px;
 }
+.openText,
 .taskNameValue,
 .taskName,
 .hashtagValue {
@@ -150,6 +151,17 @@ ul {
 .task__hashTags {
     padding-top: 0;
 }
+.openText{
+    padding: 10px 10px 5px 10px;
+    font-size: 14px;
+    height: auto;
+    text-align: left;
+    width: 305px;
+    margin-left: 5px;
+    background: rgb(52, 73, 196) !important;
+    overflow: hidden;
+}
+.openText,
 .task__menu input[type="text"],
 .task__name input[type="text"]{
     background: #4D79E8;
