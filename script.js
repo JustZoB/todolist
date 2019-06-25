@@ -11,6 +11,12 @@ $( document ).ready(function() {
             $("#newTask_value").val("");
         },
 
+        delete: function(li) {
+            li.detach();
+
+            LS.delete(li);
+        },
+
         addHtml: function (name, listState, tags) {
             let list = $(listState);
             
@@ -39,6 +45,7 @@ $( document ).ready(function() {
             $(content).append(`<div class='task__menu'>
             <div class='task__menu__buttons'>
             <button class='hashtag'><i class='fas fa-hashtag fa-lg'></i></button>
+            <button class='delete'><i class="fas fa-trash fa-lg"></i></button>
             </div>
             <div class='task__menu__change'>
             <div class='hashtagBlock hide'>
@@ -181,6 +188,18 @@ $( document ).ready(function() {
             localStorage.setItem("todolist", JSON.stringify(allTasks));
         },
 
+        delete: function(li) {
+            let allTasks = JSON.parse(localStorage.getItem("todolist")),
+                liName = li.find(".taskName").val();
+            for (let i = 0; i < allTasks.length; i++) {
+                if (allTasks[i].name == liName) {
+                    allTasks.splice(i, 1);
+                    break;
+                }
+            }
+            localStorage.setItem("todolist", JSON.stringify(allTasks));
+        },
+
         order: function (li, newState) {
             let prevLiName = li.prev().find(".taskName").val(),
                 liName = li.find(".taskName").val(),
@@ -315,12 +334,16 @@ $( document ).ready(function() {
             Task.add();
         }
     })
-    /*----------------See all-----------------*/
+    /*-----------------See all----------------*/
     $('body').on('dblclick', ".taskName", function() {
         Task.touchValue($(this).parents().eq(1));
     });
     $('body').on('dblclick', ".openText", function() {
         Task.touchValue($(this).parents().eq(1));
+    });
+    /*-----------------Delete-----------------*/
+    $('body').on('click', ".delete", function() {
+        Task.delete($(this).parents().eq(3));
     });
     /*----------------Hashtag-----------------*/
     $('body').on('click', ".hashtag", function() {    
