@@ -102,14 +102,18 @@ button {
 }
 ul {
     list-style-type: none;
-    padding: 0; 
+    padding: 20px 0; 
     margin-top: 30px;
     min-height: 100px;
+    
+}
+li {
+    /*box-shadow: 0 0 10px rgba(0,0,0,0.5);*/
 }
 
 .task {
     width: 380px;
-    margin: 5px auto 0 auto;
+    margin: 10px auto 0 auto;
 }
 
 .task__color {
@@ -185,4 +189,42 @@ ul {
     max-width: 350px;
     overflow: hidden;
 }
+.containerNew {
+    position: relative;
+    padding-top: 20px;
+    overflow-x: scroll;
+    background: rgb(66, 49, 165);
+    margin: 0 10px;
+}
 
+.containerNew h1 {
+    position: absolute;
+    top: 20px;
+    right: 50%;
+    transform: translate(50%, -50%);
+}
+
+.containerNew .articles{
+    width: 2100px;
+    overflow: hidden;
+    margin: 70px 20px 20px 20px;
+}
+
+.containerNew article{
+    display: inline-block;
+    width: 400px;
+    vertical-align: top;
+    background: rgb(71, 49, 199);
+    border-radius: 5px;
+    margin: 5px;
+    box-shadow: 0 0 10px rgba(1, 8, 65, 0.5);
+}
+.containerNew article h2 {
+    text-align: center;
+}
+
+.time-buttons {
+    position: fixed;
+    top: 0;
+    right: 0;
+}

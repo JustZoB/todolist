@@ -21,6 +21,39 @@
         <h2 class="head_done">Done</h2><ul class="listDone list" id="done"></ul>
         <datalist id="hashtags"></datalist>
     </div>
+
+    <div class="containerNew">
+        <h1>To Do List</h1>
+        <div class="time-buttons">
+            <button>night</button>
+            <button>day</button>
+        </div>
+        <div class="articles">
+            <article class="article">
+                <h2 class="head_statuses">Statuses</h2>
+                <ul class="listStatuses list" id="statuses"></ul>
+            </article>
+            <article class="article">
+                <h2 class="head_pending">Pending</h2>
+                <ul class="listPending list" id="pending"></ul>
+            </article>
+            <article class="article">
+                <h2 class="head_cancel">Cancel</h2>
+                <ul class="listCancel list" id="cancel"></ul>
+            </article>
+            <article class="article">
+                <h2 class="head_done">Done</h2>
+                <ul class="listDone list" id="done"></ul>
+            </article>
+            <article class="article__new">
+                <h2 class="head__new">Your status</h2>
+                <input class="taskNameValue" id="newTask_value" type="text" placeholder="Новая задача..." autofocus>
+                <button id="newTask_add"><i class="fas fa-arrow-circle-right fa-lg"></i></button>
+            </article>
+        </div>
+    
+        <datalist id="hashtags"></datalist>
+    </div>
     
     <script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
