@@ -361,6 +361,7 @@ $( document ).ready(function() {
         }
     }); 
     $('body').on('click', function() {
+        console.log(window.event.target);
         if (window.event.target == document.body) {
             $(".hashtagBlock").addClass("hide");
         }
