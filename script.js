@@ -5,9 +5,7 @@ $( document ).ready(function() {
             let name = $("#newTask_value").val();
             if (name != "") {
                 listState = $(".listStatuses");
-                addHtml(name, listState);
-                //htmlTask(name, listState);
-        
+                Task.addHtml(name, listState);
                 LS.add(name);
             }
             $("#newTask_value").val("");
@@ -25,25 +23,25 @@ $( document ).ready(function() {
     
             if (content.parents().eq(1).hasClass("listDone")) {
                 $(content).append(`<div class='task__name'>
-                <button class='check checked'><i class='fas fa-check-square fa_lg'></i></button>
+                <button class='check checked'><i class='fas fa-check-square fa-lg'></i></button>
                 <input class='taskName' type='text' value='${ name }' readonly></input>
                 </div>`);
             }
             else {
                 $(content).append(`<div class='task__name'>
-                <button class='check'><i class='far fa-square fa_lg'></i></button>
+                <button class='check'><i class='far fa-square fa-lg'></i></button>
                 <input class='taskName' type='text' value='${ name }' readonly></input>
                 </div>`);
             }
     
             $(content).append(`<div class='task__menu'>
             <div class='task__menu__buttons'>
-            <button class='hashtag'><i class='fas fa-hashtag fa_lg'></i></button>
+            <button class='hashtag'><i class='fas fa-hashtag fa-lg'></i></button>
             </div>
             <div class='task__menu__change'>
             <div class='hashtagBlock hide'>
             <input class='hashtagValue active' type='text' list='hashtags'></input>
-            <button class='saveHashtag'><i class='fas fa-check-circle fa_lg'></i></button>
+            <button class='saveHashtag'><i class='fas fa-check-circle fa-lg'></i></button>
             </div></div></div>`);
     
             if (tags != undefined) {
@@ -66,7 +64,7 @@ $( document ).ready(function() {
         },
 
         saveRename: function (content) { 
-            content.find(".taskName").attr("readonly", '').css("cursor", "default").removeClass("active");    
+            content.find(".taskName").attr("readonly", '').css("cursor", "default").removeClass("active");
 
             LS.saveRename(content.parent());
         },
@@ -76,16 +74,16 @@ $( document ).ready(function() {
                 hashtagsBlock = task.find(".task__hashTags"),
                 datalist = task.parents().find("#hashtags");
             if ((hashtagName != "#") && (hashtagsBlock.find("div:contains('" + hashtagName + "')").length == 0)) { 
-                task.find(".hashtagBlock").focus();
                 if ((task.find(".task__hashTags").length == 0)) {
-                    $(task).append(`<div class="${ task__hashTags }"></div>`);
+                    $(task).append(`<div class="task__hashTags"></div>`);
+                    hashtagsBlock = task.find(".task__hashTags");
                 } 
-                hashtagsBlock.append(`<div>${ hashtagName }</div>`);
+                $(hashtagsBlock).append(`<div>${ hashtagName }</div>`);
                 if ($("[value='" + hashtagName.substr(1) + "']").length == 0) {
                     $(datalist).append(`<option value='${ hashtagName.substr(1) }'></option>`);
                 }
                 task.find(".hashtagValue").val("");
-
+                task.find(".hashtagBlock").focus();
                 LS.saveHashtag(task, hashtagName);
             }
         },
@@ -93,21 +91,26 @@ $( document ).ready(function() {
         moveTask: function (li, newState) {
             if (newState == ".listDone") {
                 if (!li.find(".check").hasClass('checked')) {
-                    replaceCheckbox(li.find(".check"));
+                    Task.check(li.find(".check"));
                 }
             } else {
                 if (li.find(".check").hasClass('checked')) {
-                    replaceCheckbox(li.find(".check"));
+                    Task.check(li.find(".check"));
                 }
             }  
             
             LS.order(li, newState);
         },
 
-        check: function (li, newState) {
+        checkMove: function (li, newState) {
             li.detach().appendTo($(newState));
             
-            LS.check(li, newState);
+            LS.checkMove(li, newState);
+        },
+
+        check: function (checkbox) {
+            checkbox.toggleClass('checked');
+            checkbox.find("i").toggleClass('fas fa-check-square far fa-square');
         },
 
         filterHashTags_add: function (tag) {
@@ -139,10 +142,21 @@ $( document ).ready(function() {
             let visable = container.find("div div div:contains('" + tag + "')");
             visable.each(function(i,elem) {}).removeClass("active");
             filterTags.splice(filterTags.indexOf(tag), 1);
-        }
+        }       
     }
 
     let LS = {
+        test: function () {
+            let test = 'test';
+            try {
+              localStorage.setItem(test, test);
+              localStorage.removeItem(test);
+              return true;
+            } catch(e) {
+              return false;
+            }
+        },
+
         add: function (name) {
             let allTasks = JSON.parse(localStorage.getItem("todolist")),
                 localTask = {};
@@ -183,7 +197,7 @@ $( document ).ready(function() {
             localStorage.setItem("todolist", JSON.stringify(allTasks));
         },
 
-        check: function(li, newState) {
+        checkMove: function(li, newState) {
             let taskName = li.find(".taskName").val(),
                 allTasks = JSON.parse(localStorage.getItem("todolist"));
             for (let i = 0; i < allTasks.length; i++) {
@@ -223,32 +237,17 @@ $( document ).ready(function() {
         }
     }
 
-    function lsTest(){
-        let test = 'test';
-        try {
-          localStorage.setItem(test, test);
-          localStorage.removeItem(test);
-          return true;
-        } catch(e) {
-          return false;
-        }
-    }
-
     let prevName = "",
         filterTags = [],
         listState = $(".listStatuses");
-    if(lsTest() === true){
+
+    if(LS.test() === true){
         let localTasks = JSON.parse(localStorage.getItem("todolist"));
         if (localTasks != null) {
             for (let i = 0; i < localTasks.length; i++) {
                 Task.addHtml(localTasks[i].name, $(localTasks[i].state), localTasks[i].tags);
             }
         }
-    }
-
-    function replaceCheckbox(checkbox) {
-        checkbox.toggleClass('checked');
-        checkbox.find("i").toggleClass('fas fa-check-square far fa-square');
     }
 
     function findClass(listClasses) {
@@ -267,7 +266,6 @@ $( document ).ready(function() {
     $('body').on('dblclick', ".taskName", function() {
         Task.rename($(this).parents().eq(1));
     });
-    
     $('body').on('focusout', ".taskName", function() {
         Task.saveRename($(this).parents().eq(1));
     }); 
@@ -283,11 +281,11 @@ $( document ).ready(function() {
     /*-----------------Moving-----------------*/ 
     $('body').on('click', ".check", function() {
         if (!$(this).hasClass('checked')) {
-            replaceCheckbox($(this));
-            Task.check($(this).parents().eq(2), ".listDone");
+            Task.check($(this));
+            Task.checkMove($(this).parents().eq(2), ".listDone");
         } else {
-            replaceCheckbox($(this));
-            Task.check($(this).parents().eq(2), ".listStatuses");
+            Task.check($(this));
+            Task.checkMove($(this).parents().eq(2), ".listStatuses");
         }
     });
     $( "#statuses, #pending, #cancel, #done" ).sortable({
