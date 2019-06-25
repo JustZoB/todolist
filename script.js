@@ -360,9 +360,11 @@ $( document ).ready(function() {
             Task.saveHashtag($(this).parents().eq(3));
         }
     }); 
-    /*$(':not(.container)').on('click', function() {
-        $(".hashtagBlock").addClass("hide");
-    }); */
+    $('body').on('click', function() {
+        if (window.event.target == document.body) {
+            $(".hashtagBlock").addClass("hide");
+        }
+    });
     $('body').on('click', ".task__hashTags div", function() {
         if ($(this).hasClass("active")) {
             Task.filterHashTags_remove($(this).html());

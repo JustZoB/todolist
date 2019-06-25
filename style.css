@@ -95,9 +95,9 @@ button {
 .container {
     background: rgb(66, 49, 165);
     width: 500px;
-    min-height: 650px;
-    text-align: center;
     margin: 50px auto 50px auto;
+    text-align: center;
+    min-height: 650px;
     padding: 10px;
 }
 ul {
