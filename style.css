@@ -9,7 +9,6 @@
     border-radius: 10px;
     -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.5); 
 }
-
 html, body {
     margin: 0;
     padding: 0;
@@ -20,6 +19,7 @@ body {
 h1 {
     color: white;
 }
+
 .listStatuses .task__color,
 .newTask .taskName,
 .newTask .hashtagValue,
@@ -52,56 +52,15 @@ h1 {
 .head_done {
     color: green;
 }
+
 .hashtagFilter_hide {
     display: none;
 }
 
-.listStatuses .statuses {
-    display: none;
-}
-.listPending .pending {
-    display: none;
-}
-.listCancel .cancel {
-    display: none;
-}
-.listDone .done {
-    display: none;
-}
-
-button.i {
-    width: 36px;
-    height: 35px;
-    border: 0;
-    background: #4794FF;
-    color: white;
-    cursor: pointer;
-    margin: 1px;
-    border-radius: 4px;
-}
-.active {
-    background: #4763FF !important;
-}
 .taskNameValue {
     width: 300px;
 }
-.openText,
-.taskNameValue,
-.taskName,
-.hashtagValue {
-    color: white;
-    height: 35px;
-    border: 0;
-    padding: 0 0 0 7px;
-    margin: 1px;
-    position: relative;
-    cursor: default;
-} 
-.taskNameValue::placeholder,
-.taskName::placeholder,
-.hashtagValue::placeholder {
-    color: rgb(171, 178, 185);
-} 
+
 .hide {
     display: none;
 }
@@ -215,8 +174,7 @@ li {
 }
 
 .containerNew .articles{
-    
-    width: 2100px;
+    width: 2500px;
     overflow: hidden;
     margin: 70px 20px 20px 20px;
 }
@@ -242,6 +200,91 @@ li {
     right: 0;
 }
 
+/*---------Buttons & Inputs----------*/
+button.i {
+    width: 36px;
+    height: 35px;
+    border: 0;
+    background: #4794FF;
+    color: white;
+    cursor: pointer;
+    margin: 1px;
+    border-radius: 4px;
+}
+.openText,
+.taskNameValue,
+.taskName,
+.hashtagValue {
+    color: white;
+    height: 35px;
+    border: 0;
+    padding: 0 0 0 7px;
+    margin: 1px;
+    position: relative;
+    cursor: default;
+} 
+.taskNameValue::placeholder,
+.taskName::placeholder,
+.hashtagValue::placeholder {
+    color: rgb(171, 178, 185);
+} 
+.active {
+    background: #4763FF !important;
+}
+
+.task__add__button_open,
+.status__add__button_open {
+    background: cornflowerblue;
+    color: white;
+    border: 0;
+    cursor: pointer;
+    margin: 10px;
+    width: 310px;
+    height: 35px;
+    border-radius: 5px;
+}
+
+.task__add__button_add,
+.status__add__button_add {
+    background: rgb(30, 153, 30);
+    color: white;
+    border: 0;
+    cursor: pointer;
+    margin: 1px;
+    width: 100px;
+    height: 35px;
+    border-radius: 5px;
+}
+.status__add__value,
+.task__add__value {
+    background: white;
+    color: black;
+    border: 0;
+    margin: 10px;
+    width: 303px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.5);
+    position: relative;
+    cursor: text;
+    border-radius: 5px;
+    vertical-align: top;
+    resize: none;
+}
+
+.status__add__buttons_change,
+.task__add__buttons_change {
+    margin-left: 9px;
+}
+
+/*--------------Status__add--------------*/
+.status__add {
+    width: 330px;
+    margin: 10px auto 0 auto;
+    padding-bottom: 20px;
+}
+.status__add__value {
+    padding: 10px 0 10px 7px;
+}
+/*--------------Task__add--------------*/
 .task__add {
     width: 330px;
     margin: 10px auto 0 auto;
@@ -254,53 +297,19 @@ li {
     background: white;
     border-radius: 5px;
 }
-
 .task__add__value {
-    background: white;
-    color: black;
-    border: 0;
-    margin: 10px;
-    width: 303px;
-    box-shadow: 0 0 10px rgba(0,0,0,0.5);
     padding: 10px 0 50px 7px;
-    position: relative;
-    cursor: text;
-    border-radius: 5px;
-    vertical-align: top;
-    resize: none;
 }
 .task__add__value::placeholder {
     color: rgb(124, 128, 133);
 }
-.task__add__buttons_change {
-    margin-left: 9px;
-}
+
 .task__add__button_menu {
     margin-right: 10px !important;
 }
 .task__add__buttons {
     display: flex;
     justify-content: space-between;
-}
-.task__add__button_open {
-    background: cornflowerblue;
-    color: white;
-    border: 0;
-    cursor: pointer;
-    margin: 10px;
-    width: 310px;
-    height: 35px;
-    border-radius: 5px;
-}
-.task__add__button_add{
-    background: rgb(30, 153, 30);
-    color: white;
-    border: 0;
-    cursor: pointer;
-    margin: 1px;
-    width: 100px;
-    height: 35px;
-    border-radius: 5px;
 }
 .task__add__menu {
     position: relative;
@@ -317,4 +326,3 @@ li {
 .task__add__menu__button_add-hashtags {
     margin: 5px 10px 5px 10px !important;
 }
-

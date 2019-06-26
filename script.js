@@ -171,6 +171,11 @@ $( document ).ready(function() {
 
         add_toggleButtonMenu: function (article) {
             article.find(".task__add__menu__buttons").toggleClass("hide");
+        },
+
+        status_toggleTextarea: function (article) {
+            article.find(".status__add__adding-block").toggleClass("hide");
+            article.find(".status__add__button_open").toggleClass("hide");
         }
     }
 
@@ -304,6 +309,15 @@ $( document ).ready(function() {
     }
 
 
+    $('body').on('click', ".status__add__button_open", function() {
+        Task.status_toggleTextarea($(this).parents().eq(1));
+    });
+    $('body').on('click', ".status__add__button_close", function() {
+        Task.status_toggleTextarea($(this).parents().eq(4));
+    });
+
+    
+
     $('body').on('click', ".task__add__button_open", function() {
         Task.add_toggleTextarea($(this).parents().eq(2));
     });
@@ -313,7 +327,7 @@ $( document ).ready(function() {
     $('body').on('click', ".task__add__button_menu", function() {
         Task.add_toggleButtonMenu($(this).parents().eq(5));
     });
-    
+
     
     /*-----------------Rename-----------------*/ 
     $('body').on('click', ".taskName", function() {
@@ -382,10 +396,17 @@ $( document ).ready(function() {
             Task.saveHashtag($(this).parents().eq(3));
         }
     }); 
+    /*---------------_CloseAll----------------*/
     $('body').on('click', function() {
         console.log(window.event.target);
         if (window.event.target == document.body) {
             $(".hashtagBlock").addClass("hide");
+        }
+        if (window.event.target.classList.contains("articles")) {
+            $(".task__add__adding-block").addClass("hide");
+            $(".task__add__button_open").removeClass("hide");
+            $(".status__add__adding-block").addClass("hide");
+            $(".status__add__button_open").removeClass("hide");
         }
     });
     $('body').on('click', ".task__hashTags div", function() {
