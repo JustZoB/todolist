@@ -12,6 +12,18 @@ $( document ).ready(function() {
             $("#newTask_value").val("");
         },
 
+        addNEW: function(article) {
+            let name = article.find(".task__add__value");
+            let nameValue = name.val();
+            if (nameValue != "") {
+                let listState = findClass(article.find(".list").attr("class"));
+                Task.addHtml(nameValue, listState);
+                LS.add(nameValue, listState);
+            }
+            name.val("");
+            article.find(".task__add__value").focus();
+        },
+
         delete: function(li) {
             li.detach();
 
@@ -173,14 +185,16 @@ $( document ).ready(function() {
             article.find(".task__add__menu__buttons").toggleClass("hide");
         },
 
-        status_toggleTextarea: function (article) {
-            article.find(".status__add__adding-block").toggleClass("hide");
-            article.find(".status__add__button_open").toggleClass("hide");
-        },
-
         head_toggleButtonMenu: function (article) {
             article.find(".article__head__menu__buttons").toggleClass("hide");
         }
+    }
+
+    let Status = {
+        toggleTextarea: function (article) {
+            article.find(".status__add__adding-block").toggleClass("hide");
+            article.find(".status__add__button_open").toggleClass("hide");
+        },
     }
 
     let LS = {
@@ -195,14 +209,14 @@ $( document ).ready(function() {
             }
         },
 
-        add: function (name) {
+        add: function (name, listState) {
             let allTasks = JSON.parse(localStorage.getItem("todolist")),
                 localTask = {};
             if (allTasks == null) {
                 allTasks = [];
             }
             localTask.name = name;
-            localTask.state = ".listStatuses";
+            localTask.state = listState;
             allTasks.push(localTask);
             localStorage.setItem("todolist", JSON.stringify(allTasks));
         },
@@ -312,19 +326,26 @@ $( document ).ready(function() {
         return listState;
     }
 
-
+    
     $('body').on('click', ".status__add__button_open", function() {
-        Task.status_toggleTextarea($(this).parents().eq(1));
+        Status.toggleTextarea($(this).parents().eq(1));
     });
     $('body').on('click', ".status__add__button_close", function() {
-        Task.status_toggleTextarea($(this).parents().eq(3));
+        Status.toggleTextarea($(this).parents().eq(3));
+    });
+    $('body').on('click', ".status__add__button_add", function() {
+        Status.add($(this).parents().eq(3));
     });
 
+    
     $('body').on('click', ".task__add__button_open", function() {
         Task.add_toggleTextarea($(this).parents().eq(2));
     });
     $('body').on('click', ".task__add__button_close", function() {
         Task.add_toggleTextarea($(this).parents().eq(5));
+    });
+    $('body').on('click', ".task__add__button_add", function() {
+        Task.addNEW($(this).parents().eq(5));
     });
 
     

@@ -191,7 +191,7 @@ li {
 .containerNew article{
     display: inline-block;
     overflow-y: auto;
-    max-height: 84vh;
+    max-height: 83vh;
     width: 370px;
     vertical-align: top;
     background: rgb(71, 49, 199);
@@ -318,7 +318,7 @@ button.i {
     padding-bottom: 10px;
 }
 .status__add__value {
-    padding: 10px 0 10px 7px;
+    padding: 12px 0 0px 10px;
 }
 /*--------------Task__add--------------*/
 .task__add {
