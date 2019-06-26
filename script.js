@@ -176,6 +176,10 @@ $( document ).ready(function() {
         status_toggleTextarea: function (article) {
             article.find(".status__add__adding-block").toggleClass("hide");
             article.find(".status__add__button_open").toggleClass("hide");
+        },
+
+        head_toggleButtonMenu: function (article) {
+            article.find(".article__head__menu__buttons").toggleClass("hide");
         }
     }
 
@@ -313,10 +317,8 @@ $( document ).ready(function() {
         Task.status_toggleTextarea($(this).parents().eq(1));
     });
     $('body').on('click', ".status__add__button_close", function() {
-        Task.status_toggleTextarea($(this).parents().eq(4));
+        Task.status_toggleTextarea($(this).parents().eq(3));
     });
-
-    
 
     $('body').on('click', ".task__add__button_open", function() {
         Task.add_toggleTextarea($(this).parents().eq(2));
@@ -324,9 +326,15 @@ $( document ).ready(function() {
     $('body').on('click', ".task__add__button_close", function() {
         Task.add_toggleTextarea($(this).parents().eq(5));
     });
+
+    
     $('body').on('click', ".task__add__button_menu", function() {
         Task.add_toggleButtonMenu($(this).parents().eq(5));
     });
+    $('body').on('click', ".article__head__button_menu", function() {
+        Task.head_toggleButtonMenu($(this).parents().eq(2));
+    });
+
 
     
     /*-----------------Rename-----------------*/ 
@@ -407,6 +415,8 @@ $( document ).ready(function() {
             $(".task__add__button_open").removeClass("hide");
             $(".status__add__adding-block").addClass("hide");
             $(".status__add__button_open").removeClass("hide");
+            $(".article__head__menu__buttons").addClass("hide");
+            $(".task__add__menu__buttons").addClass("hide");
         }
     });
     $('body').on('click', ".task__hashTags div", function() {

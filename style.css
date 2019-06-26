@@ -20,24 +20,28 @@ h1 {
     color: white;
 }
 
-.listStatuses .task__color,
+.blue .task__color,
+.blue .article__color,
 .newTask .taskName,
 .newTask .hashtagValue,
 .statuses,
 .taskNameValue {
     background: #4D79E8;
 }
-.listPending .task__color,
+.yellow .task__color,
+.yellow .article__color,
 .pending {
     background: rgb(218, 218, 55);
 }
-.listCancel .task__color,
+.red .task__color,
+.red .article__color,
 .cancel {
     background: red;
 }
-.listDone .task__color,
+.green .task__color,
+.green .article__color,
 .done {
-    background: green;
+    background: rgb(30, 153, 30);
 }
 
 .head_statuses {
@@ -50,7 +54,7 @@ h1 {
     color: red;
 }
 .head_done {
-    color: green;
+    color: rgb(30, 153, 30);
 }
 
 .hashtagFilter_hide {
@@ -86,7 +90,13 @@ li {
     width: 330px;
     margin: 10px auto 0 auto;
 }
-
+.article__color {
+    width: 150px;
+    cursor: grabbing;
+    height: 15px;
+    border-radius: 5px;
+    margin: 20px 0 0 15px;
+}
 .task__color {
     width: 330px;
     cursor: grabbing;
@@ -190,9 +200,7 @@ li {
     margin: 5px;
     box-shadow: 0 0 10px rgba(1, 8, 65, 0.5);
 }
-.containerNew article h2 {
-    text-align: center;
-}
+
 
 .time-buttons {
     position: fixed;
@@ -200,12 +208,40 @@ li {
     right: 0;
 }
 
+.article__head {
+    display: flex;
+    justify-content: space-between;
+    margin: 15px;
+}
+.article__head h2{
+    margin: auto 0;
+}
+.article__head__menu,
+.task__add__menu {
+    position: relative;
+}
+.article__head__menu__buttons,
+.task__add__menu__buttons {
+    position: absolute;
+    box-shadow: 0 0 10px rgba(1, 8, 65, 0.5);
+    background: white;
+    border-radius: 5px;
+}
+.article__head__menu__buttons {
+    top: -5px;
+    left: -160px;
+    
+}
+.article__head__menu__buttons button{
+    margin: 5px !important;
+}
+
 /*---------Buttons & Inputs----------*/
 button.i {
     width: 36px;
     height: 35px;
     border: 0;
-    background: #4794FF;
+    background: cornflowerblue;
     color: white;
     cursor: pointer;
     margin: 1px;
@@ -270,7 +306,7 @@ button.i {
     resize: none;
 }
 
-.status__add__buttons_change,
+.status__add__buttons,
 .task__add__buttons_change {
     margin-left: 9px;
 }
@@ -278,8 +314,10 @@ button.i {
 /*--------------Status__add--------------*/
 .status__add {
     width: 330px;
-    margin: 10px auto 0 auto;
-    padding-bottom: 20px;
+    margin: 10px auto;
+}
+.status__add__buttons {
+    padding-bottom: 10px;
 }
 .status__add__value {
     padding: 10px 0 10px 7px;
@@ -311,18 +349,11 @@ button.i {
     display: flex;
     justify-content: space-between;
 }
-.task__add__menu {
-    position: relative;
-}
 .task__add__menu__buttons {
-    position: absolute;
     top: -40px;
     left: -60px;
-
-    box-shadow: 0 0 10px rgba(1, 8, 65, 0.5);
-    background: white;
-    border-radius: 5px;
+    padding: 0 5px;
 }
-.task__add__menu__button_add-hashtags {
-    margin: 5px 10px 5px 10px !important;
+.task__add__menu__buttons button {
+    margin: 5px !important;
 }
