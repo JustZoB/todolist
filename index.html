@@ -25,8 +25,8 @@
     <div class="containerNew">
         <h1>To Do List</h1>
         <div class="time-buttons">
-            <button>night</button>
-            <button>day</button>
+            <button class="i">night</button>
+            <button class="i">day</button>
         </div>
         <div class="articles">
             <article class="article">
@@ -40,6 +40,26 @@
             <article class="article">
                 <h2 class="head_cancel">Cancel</h2>
                 <ul class="listCancel list" id="cancel"></ul>
+                <div class="task__add">
+                    <div class="task__add__content">
+                        <button class="task__add__button_open">+ Add card</button>
+                        <div class="task__add__adding-block hide">
+                            <textarea class="task__add__value" type="text" placeholder="Enter a head of your task..."></textarea>
+                            <div class="task__add__buttons">
+                                <div class="task__add__buttons_change">
+                                    <button class="task__add__button_add">Add card</button>
+                                    <button class="task__add__button_close i"><i class="fas fa-times fa-lg"></i></button>
+                                </div>
+                                <div class="task__add__menu">
+                                    <button class="task__add__button_menu i"><i class="fas fa-ellipsis-v fa-lg"></i></button>
+                                    <div class="task__add__menu__buttons hide">
+                                        <button class="task__add__menu__button_add-hashtags i"><i class='fas fa-hashtag fa-lg'></i></button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </article>
             <article class="article">
                 <h2 class="head_done">Done</h2>
@@ -48,7 +68,7 @@
             <article class="article__new">
                 <h2 class="head__new">Your status</h2>
                 <input class="taskNameValue" id="newTask_value" type="text" placeholder="Новая задача...">
-                <button id="newTask_add"><i class="fas fa-arrow-circle-right fa-lg"></i></button>
+                <button class="i" id="newTask_add"><i class="fas fa-arrow-circle-right fa-lg"></i></button>
             </article>
         </div>
     

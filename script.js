@@ -2,6 +2,7 @@ $( document ).ready(function() {
 
     let Task = {
         add: function () {
+            // .class
             let name = $("#newTask_value").val();
             if (name != "") {
                 listState = $(".listStatuses");
@@ -29,14 +30,14 @@ $( document ).ready(function() {
     
             if (content.parents().eq(1).hasClass("listDone")) {
                 $(content).append(`<div class='task__name'>
-                <button class='check checked'><i class='fas fa-check-square fa-lg'></i></button>
+                <button class='check checked i'><i class='fas fa-check-square fa-lg'></i></button>
                 <input class='taskName' type='text' value='${ name }' readonly></input>
                 <p class="openText hide">${ name }</p>
                 </div>`);
             }
             else {
                 $(content).append(`<div class='task__name'>
-                <button class='check'><i class='far fa-square fa-lg'></i></button>
+                <button class='check i'><i class='far fa-square fa-lg'></i></button>
                 <input class='taskName' type='text' value='${ name }' readonly></input>
                 <p class="openText hide">${ name }</p>
                 </div>`);
@@ -44,13 +45,13 @@ $( document ).ready(function() {
     
             $(content).append(`<div class='task__menu'>
             <div class='task__menu__buttons'>
-            <button class='hashtag'><i class='fas fa-hashtag fa-lg'></i></button>
-            <button class='delete'><i class="fas fa-trash fa-lg"></i></button>
+            <button class='hashtag i'><i class='fas fa-hashtag fa-lg'></i></button>
+            <button class='delete i'><i class="fas fa-trash fa-lg"></i></button>
             </div>
             <div class='task__menu__change'>
             <div class='hashtagBlock hide'>
             <input class='hashtagValue active' type='text' list='hashtags'></input>
-            <button class='saveHashtag'><i class='fas fa-check-circle fa-lg'></i></button>
+            <button class='saveHashtag i'><i class='fas fa-check-circle fa-lg'></i></button>
             </div></div></div>`);
     
             if (tags != undefined) {
@@ -161,7 +162,16 @@ $( document ).ready(function() {
             let visable = container.find("div div div:contains('" + tag + "')");
             visable.each(function(i,elem) {}).removeClass("active");
             filterTags.splice(filterTags.indexOf(tag), 1);
-        }       
+        },
+
+        add_toggleTextarea: function (article) {
+            article.find(".task__add__adding-block").toggleClass("hide");
+            article.find(".task__add__button_open").toggleClass("hide");
+        },
+
+        add_toggleButtonMenu: function (article) {
+            article.find(".task__add__menu__buttons").toggleClass("hide");
+        }
     }
 
     let LS = {
@@ -293,6 +303,18 @@ $( document ).ready(function() {
         return listState;
     }
 
+
+    $('body').on('click', ".task__add__button_open", function() {
+        Task.add_toggleTextarea($(this).parents().eq(2));
+    });
+    $('body').on('click', ".task__add__button_close", function() {
+        Task.add_toggleTextarea($(this).parents().eq(5));
+    });
+    $('body').on('click', ".task__add__button_menu", function() {
+        Task.add_toggleButtonMenu($(this).parents().eq(5));
+    });
+    
+    
     /*-----------------Rename-----------------*/ 
     $('body').on('click', ".taskName", function() {
         Task.rename($(this).parents().eq(1));
