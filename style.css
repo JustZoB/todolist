@@ -102,22 +102,21 @@ button {
 }
 ul {
     list-style-type: none;
-    padding: 20px 0; 
-    margin-top: 30px;
+    padding: 0; 
     min-height: 100px;
-    
+    padding-bottom: 80px;
 }
 li {
     /*box-shadow: 0 0 10px rgba(0,0,0,0.5);*/
 }
 
 .task {
-    width: 380px;
+    width: 330px;
     margin: 10px auto 0 auto;
 }
 
 .task__color {
-    width: 380px;
+    width: 330px;
     cursor: grabbing;
     height: 15px;
     border-top-left-radius: 5px;
@@ -160,7 +159,7 @@ li {
     font-size: 14px;
     height: auto;
     text-align: left;
-    width: 305px;
+    width: 255px;
     margin-left: 5px;
     background: rgb(52, 73, 196) !important;
     overflow: hidden;
@@ -194,17 +193,20 @@ li {
     padding-top: 20px;
     overflow-x: scroll;
     background: rgb(66, 49, 165);
-    margin: 0 10px;
+    margin: 10px;
+    height: 96vh;
 }
 
 .containerNew h1 {
-    position: absolute;
+    position: fixed;
     top: 20px;
     right: 50%;
-    transform: translate(50%, -50%);
+    transform: translate(50%, 0);
+    margin-top: 10px;
 }
 
 .containerNew .articles{
+    
     width: 2100px;
     overflow: hidden;
     margin: 70px 20px 20px 20px;
@@ -212,7 +214,9 @@ li {
 
 .containerNew article{
     display: inline-block;
-    width: 400px;
+    overflow-y: scroll;
+    max-height: 84vh;
+    width: 370px;
     vertical-align: top;
     background: rgb(71, 49, 199);
     border-radius: 5px;
