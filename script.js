@@ -335,7 +335,16 @@ $( document ).ready(function() {
         Task.head_toggleButtonMenu($(this).parents().eq(2));
     });
 
-
+    $('.sun').on('click', function() {
+        toggleTime($(this).parent());
+    });
+    $('.moon').on('click', function() {
+        toggleTime($(this).parent());
+    });
+    function toggleTime (menu) {
+        menu.find(".sun").toggleClass("hide");
+        menu.find(".moon").toggleClass("hide");
+    }
     
     /*-----------------Rename-----------------*/ 
     $('body').on('click', ".taskName", function() {
