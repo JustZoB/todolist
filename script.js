@@ -2,7 +2,6 @@ $( document ).ready(function() {
 
     let Task = {
         add: function () {
-            // .class
             let name = $("#newTask_value").val();
             if (name != "") {
                 listState = $(".listStatuses");
@@ -20,8 +19,8 @@ $( document ).ready(function() {
                 Task.addHtml(nameValue, listState);
                 LS.add(nameValue, listState);
             }
-            name.val("");
             article.find(".task__add__value").focus();
+            name.val("");
         },
 
         delete: function(li) {
@@ -195,6 +194,50 @@ $( document ).ready(function() {
             article.find(".status__add__adding-block").toggleClass("hide");
             article.find(".status__add__button_open").toggleClass("hide");
         },
+
+        add: function (block) {
+            let color = "gray";
+            let name = block.find(".status__add__value");
+            let nameValue = name.val();
+            if (nameValue != "") {
+                Status.addHtml(nameValue, color);
+                name.focus();
+                name.val("");
+            }
+        },
+
+        addHtml: function (name, color) {
+            let articles = $(".articles");
+            let wtf = "gray";
+            let newStatuses = articles.find(".newStatus");
+            $(`<article class="${ color }">
+                <div class="article__color"></div>
+                <div class="article__head">
+                    <h2 class="head_${ wtf }">${ name }</h2>
+                    <div class="article__head__menu">
+                        <button class="article__head__button_menu i"><i class="fas fa-ellipsis-h fa-lg"></i></button>
+                        <div class="article__head__menu__buttons hide">
+                            <button class="article__head__menu__button_rename i"><i class='fas fa-pen fa-lg'></i></button>
+                            <button class="article__head__menu__button_color i"><i class='fas fa-palette fa-lg'></i></button>
+                            <button class="article__head__menu__button_delete i"><i class='fas fa-trash fa-lg'></i></button>
+                        </div>
+                    </div>
+                </div>
+                <ul class="list${ wtf } list" id="${ wtf }"></ul>
+            </article>`).insertBefore(newStatuses);
+
+            // push in string
+            // push ${ wtf }
+            $( "#statuses, #pending, #cancel, #done, #gray" ).sortable({
+                connectWith: ".list",
+                update: function(event, ui) {
+                    Task.moveTask(ui.item, findClass(ui.item.parent().attr('class')));
+                }
+            }).disableSelection();
+
+            articles.width(articles.width() + 390);
+            
+        }
     }
 
     let LS = {
@@ -326,9 +369,10 @@ $( document ).ready(function() {
         return listState;
     }
 
-    
+    /*-----------------Status-----------------*/ 
     $('body').on('click', ".status__add__button_open", function() {
         Status.toggleTextarea($(this).parents().eq(1));
+        $(this).parent().find(".status__add__value").focus();
     });
     $('body').on('click', ".status__add__button_close", function() {
         Status.toggleTextarea($(this).parents().eq(3));
@@ -336,8 +380,15 @@ $( document ).ready(function() {
     $('body').on('click', ".status__add__button_add", function() {
         Status.add($(this).parents().eq(3));
     });
+    $('body').on('keydown', ".status__add__value", function() {
+        if ( event.which == 13 ) {
+            Status.add($(this).parents().eq(3));
+        }
+    });
 
     
+
+    /*----------------AddButtons---------------*/ 
     $('body').on('click', ".task__add__button_open", function() {
         Task.add_toggleTextarea($(this).parents().eq(2));
     });
@@ -348,14 +399,14 @@ $( document ).ready(function() {
         Task.addNEW($(this).parents().eq(5));
     });
 
-    
+    /*-----------------AddMenu-----------------*/ 
     $('body').on('click', ".task__add__button_menu", function() {
         Task.add_toggleButtonMenu($(this).parents().eq(5));
     });
     $('body').on('click', ".article__head__button_menu", function() {
         Task.head_toggleButtonMenu($(this).parents().eq(2));
     });
-
+    /*------------------Time-------------------*/ 
     $('.sun').on('click', function() {
         toggleTime($(this).parent());
     });

@@ -183,11 +183,12 @@ li {
 }
 
 .containerNew .articles{
-    width: 2500px;
+    width: 1950px;
     overflow: hidden;
     margin: 0px 20px 20px 20px;
 }
 
+.newStatus,
 .containerNew article{
     display: inline-block;
     overflow-y: auto;
