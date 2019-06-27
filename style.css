@@ -26,36 +26,40 @@ h1 {
 .blue .article__color,
 .newTask .taskName,
 .newTask .hashtagValue,
-.statuses,
 .taskNameValue {
     background: #4D79E8;
 }
 .yellow .task__color,
-.yellow .article__color,
-.pending {
+.yellow .article__color {
     background: rgb(218, 218, 55);
 }
 .red .task__color,
-.red .article__color,
-.cancel {
+.red .article__color {
     background: red;
 }
 .green .task__color,
-.green .article__color,
-.done {
+.green .article__color {
     background: rgb(30, 153, 30);
 }
+.purple .task__color,
+.purple .article__color {
+    background: slateblue;
+}
 
-.head_statuses {
+
+.purple h2 {
+    color: slateblue;
+}
+.blue h2 {
     color: #4D79E8;
 }
-.head_pending {
+.yellow h2 {
     color: rgb(218, 218, 55);
 }
-.head_cancel {
+.red h2 {
     color: red;
 }
-.head_done {
+.green h2 {
     color: rgb(30, 153, 30);
 }
 
@@ -81,7 +85,6 @@ h1 {
 ul {
     list-style-type: none;
     padding: 0; 
-    min-height: 100px;
     padding-bottom: 20px;
 }
 li {
@@ -183,7 +186,7 @@ li {
 }
 
 .containerNew .articles{
-    width: 1950px;
+    width: 370px;
     overflow: hidden;
     margin: 0px 20px 20px 20px;
 }

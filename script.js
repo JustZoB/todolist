@@ -1,7 +1,12 @@
 $( document ).ready(function() {
 
+    let prevName = "",
+        filterTags = [],
+        /*listState = $(".listStatuses"),*/
+        articles_array = [];
+
     let Task = {
-        add: function () {
+        /*add: function () {
             let name = $("#newTask_value").val();
             if (name != "") {
                 listState = $(".listStatuses");
@@ -9,7 +14,7 @@ $( document ).ready(function() {
                 LS.add(name);
             }
             $("#newTask_value").val("");
-        },
+        },*/
 
         addNEW: function(article) {
             let name = article.find(".task__add__value");
@@ -190,30 +195,40 @@ $( document ).ready(function() {
     }
 
     let Status = {
+
         toggleTextarea: function (article) {
             article.find(".status__add__adding-block").toggleClass("hide");
             article.find(".status__add__button_open").toggleClass("hide");
         },
 
-        add: function (block) {
-            let color = "gray";
-            let name = block.find(".status__add__value");
-            let nameValue = name.val();
-            if (nameValue != "") {
-                Status.addHtml(nameValue, color);
-                name.focus();
-                name.val("");
+        add: function (block, color, nameValue) {
+            if (nameValue == undefined) {
+                nameValue = block.find(".status__add__value").val();
             }
+            if (nameValue != "") {
+                Status.addHtml(color, nameValue);
+            }
+
+            block.parents().eq(1).scrollLeft(block.parents().eq(1).width());
+            block.find(".status__add__value").val("");
+            block.find(".status__add__value").focus();
         },
 
-        addHtml: function (name, color) {
+        addHtml: function (color, name) {
             let articles = $(".articles");
-            let wtf = "gray";
+            let id = articles_array.length;
+            articles_array.push(id);
+            let ids_array = articles_array.slice(0);
+            for (let i = 0; i < ids_array.length; i++) {
+                ids_array[i] = "#" + ids_array[i];
+            }
             let newStatuses = articles.find(".newStatus");
+            let listClass = name[0].toUpperCase() + name.slice(1);;
+
             $(`<article class="${ color }">
                 <div class="article__color"></div>
                 <div class="article__head">
-                    <h2 class="head_${ wtf }">${ name }</h2>
+                    <h2>${ name }</h2>
                     <div class="article__head__menu">
                         <button class="article__head__button_menu i"><i class="fas fa-ellipsis-h fa-lg"></i></button>
                         <div class="article__head__menu__buttons hide">
@@ -223,12 +238,31 @@ $( document ).ready(function() {
                         </div>
                     </div>
                 </div>
-                <ul class="list${ wtf } list" id="${ wtf }"></ul>
+                <ul class="list${ listClass } list" id="${ id }"></ul>
+                <div class="task__add">
+                    <div class="task__add__content">
+                        <button class="task__add__button_open">Add card</button>
+                        <div class="task__add__adding-block hide">
+                            <textarea class="task__add__value" type="text" placeholder="Enter a head of your task..."></textarea>
+                            <div class="task__add__buttons">
+                                <div class="task__add__buttons_change">
+                                    <button class="task__add__button_add">Add card</button>
+                                    <button class="task__add__button_close i"><i class="fas fa-times fa-lg"></i></button>
+                                </div>
+                                <div class="task__add__menu">
+                                    <button class="task__add__button_menu i"><i class="fas fa-ellipsis-v fa-lg"></i></button>
+                                    <div class="task__add__menu__buttons hide">
+                                        <button class="task__add__menu__button_add-hashtags i"><i class='fas fa-hashtag fa-lg'></i></button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </article>`).insertBefore(newStatuses);
 
-            // push in string
-            // push ${ wtf }
-            $( "#statuses, #pending, #cancel, #done, #gray" ).sortable({
+            let string = ids_array.join(', ');
+            $( string ).sortable({
                 connectWith: ".list",
                 update: function(event, ui) {
                     Task.moveTask(ui.item, findClass(ui.item.parent().attr('class')));
@@ -236,7 +270,6 @@ $( document ).ready(function() {
             }).disableSelection();
 
             articles.width(articles.width() + 390);
-            
         }
     }
 
@@ -344,9 +377,11 @@ $( document ).ready(function() {
         }
     }
 
-    let prevName = "",
-        filterTags = [],
-        listState = $(".listStatuses");
+
+    Status.add($(".articles"), "blue", "Statuses");
+    Status.add($(".articles"), "yellow", "Pending");
+    Status.add($(".articles"), "red", "Cancel");
+    Status.add($(".articles"), "green", "Done");
 
     if(LS.test() === true){
         let localTasks = JSON.parse(localStorage.getItem("todolist"));
@@ -372,17 +407,20 @@ $( document ).ready(function() {
     /*-----------------Status-----------------*/ 
     $('body').on('click', ".status__add__button_open", function() {
         Status.toggleTextarea($(this).parents().eq(1));
+
+        $(this).parents().eq(3).scrollLeft($(this).parents().eq(3).width());
         $(this).parent().find(".status__add__value").focus();
     });
     $('body').on('click', ".status__add__button_close", function() {
         Status.toggleTextarea($(this).parents().eq(3));
     });
+
     $('body').on('click', ".status__add__button_add", function() {
-        Status.add($(this).parents().eq(3));
+        Status.add($(this).parents().eq(3), "purple");
     });
     $('body').on('keydown', ".status__add__value", function() {
         if ( event.which == 13 ) {
-            Status.add($(this).parents().eq(3));
+            Status.add($(this).parents().eq(2), "purple");
         }
     });
 
@@ -391,12 +429,19 @@ $( document ).ready(function() {
     /*----------------AddButtons---------------*/ 
     $('body').on('click', ".task__add__button_open", function() {
         Task.add_toggleTextarea($(this).parents().eq(2));
+        $(this).parents().eq(2).scrollTop($(this).parents().eq(2).height());
+        $(this).parent().find(".task__add__value").focus();
     });
     $('body').on('click', ".task__add__button_close", function() {
         Task.add_toggleTextarea($(this).parents().eq(5));
     });
     $('body').on('click', ".task__add__button_add", function() {
         Task.addNEW($(this).parents().eq(5));
+    });
+    $('body').on('keypress', ".task__add__value", function() {
+        if ( event.which == 13 ) {
+            Task.addNEW($(this).parents().eq(3));
+        }
     });
 
     /*-----------------AddMenu-----------------*/ 
@@ -425,7 +470,7 @@ $( document ).ready(function() {
     $('body').on('focusout', ".taskName", function() {
         Task.saveRename($(this).parents().eq(1));
     }); 
-    $('body').on('keydown', ".taskName", function(event) {
+    $('body').on('keypress', ".taskName", function(event) {
         if ( event.which == 13 ) {
             if ($(this).hasClass("active")) {
                 Task.saveRename($(this).parents().eq(1));
@@ -444,21 +489,15 @@ $( document ).ready(function() {
             Task.checkMove($(this).parents().eq(2), ".listStatuses");
         }
     });
-    $( "#statuses, #pending, #cancel, #done" ).sortable({
-        connectWith: ".list",
-        update: function(event, ui) {
-            Task.moveTask(ui.item, findClass(ui.item.parent().attr('class')));
-        }
-    }).disableSelection();
     /*-----------------Adding-----------------*/
-    $('#newTask_add').on('click', function() {
+    /*$('#newTask_add').on('click', function() {
        Task.add();
     });
     $("#newTask_value").keypress( function(event) {
         if ( event.which == 13 ) {
             Task.add();
         }
-    })
+    })*/
     /*-----------------See all----------------*/
     $('body').on('dblclick', ".taskName", function() {
         Task.touchValue($(this).parents().eq(1));
