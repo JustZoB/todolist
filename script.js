@@ -206,9 +206,9 @@ $( document ).ready(function() {
                     <h2>${ name }</h2>
                     <div class="article__head__menu">
                         <button class="article__head__button_menu i"><i class="fas fa-ellipsis-h fa-lg"></i></button>
-                        <div class="article__head__menu__buttons hide">
-                            <button class="article__head__menu__button_rename i"><i class='fas fa-pen fa-lg'></i></button>
-                            <button class="article__head__menu__button_color i"><i class='fas fa-palette fa-lg'></i></button>
+                        <div class="article__buttons hide">
+                            <button class="article__button_rename i"><i class='fas fa-pen fa-lg'></i></button>
+                            <button class="article__button_color i"><i class='fas fa-palette fa-lg'></i></button>
                             <div class="choose-color hide">
                                 <span class="blue"></span>
                                 <span class="yellow"></span>
@@ -218,7 +218,11 @@ $( document ).ready(function() {
                                 <span class="lightgreen"></span>
                                 <span class="orange"></span>
                             </div>
-                            <button class="article__head__menu__button_delete i"><i class='fas fa-trash fa-lg'></i></button>
+                            <button class="article__button_delete i"><i class='fas fa-trash fa-lg'></i></button>
+                            <div class="article__delete_confirm hide">
+                                <button class="article__delete_yes i"><i class='fas fa-check fa-lg'></i></button>
+                                <button class="article__delete_no i"><i class='fas fa-times fa-lg'></i></button>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -266,11 +270,22 @@ $( document ).ready(function() {
         },
 
         head_toggleButtonMenu: function (article) {
-            article.find(".article__head__menu__buttons").toggleClass("hide");
+            article.find(".article__buttons").toggleClass("hide");
         },
 
         toggleChoosingcolor: function (article) {
             article.find(".choose-color").toggleClass("hide");
+        },
+
+        toggleConfirmDelete: function (article) {
+            article.find(".article__delete_confirm").toggleClass("hide");
+        },
+        
+        delete: function (article) {
+            article.detach();
+
+            let articles = $(".articles");
+            articles.width(articles.width() - 390);
         }
     }
 
@@ -404,71 +419,8 @@ $( document ).ready(function() {
         return listState;
     }
 
-    $('body').on('click', ".article__head__menu__button_color", function() {
-        Status.toggleChoosingcolor($(this).parents().eq(3));
-    });
-    $('body').on('click', ".choose-color span", function() {
-        Status.changeColor($(this).parents().eq(4), $(this).attr("class"));
-        Status.head_toggleButtonMenu($(this).parents().eq(4));
-        Status.toggleChoosingcolor($(this).parents().eq(4));
-    });
-    
-
-    /*-----------------Status-----------------*/ 
-    $('body').on('click', ".status__add__button_open", function() {
-        Status.toggleTextarea($(this).parents().eq(1));
-
-        $(this).parent().find(".status__add__value").focus();
-        $(".container").scrollLeft($(".container").width());
-    });
-    $('body').on('click', ".status__add__button_close", function() {
-        Status.toggleTextarea($(this).parents().eq(3));
-    });
-
-    $('body').on('click', ".status__add__button_add", function() {
-        Status.add("purple");
-
-        $(".container").scrollLeft($(".container").width());
-        $(".status__add__value").val("");
-        $(".status__add__value").focus();
-    });
-    $('body').on('keydown', ".status__add__value", function() {
-        if ( event.which == 13 ) {
-            Status.add("purple");
-
-            $(".container").scrollLeft($(".container").width());
-            $(".status__add__value").val("");
-            $(".status__add__value").focus();
-        }
-    });
-
-    /*----------------AddButtons---------------*/ 
-    $('body').on('click', ".task__add__button_open", function() {
-        Task.add_toggleTextarea($(this).parents().eq(2));
-        $(this).parents().eq(2).scrollTop($(this).parents().eq(2).height());
-        $(this).parent().find(".task__add__value").focus();
-    });
-    $('body').on('click', ".task__add__button_close", function() {
-        Task.add_toggleTextarea($(this).parents().eq(5));
-    });
-    $('body').on('click', ".task__add__button_add", function() {
-        Task.add($(this).parents().eq(5));
-    });
-    $('body').on('keypress', ".task__add__value", function() {
-        if ( event.which == 13 ) {
-            Task.add($(this).parents().eq(3));
-        }
-    });
-
-    /*-----------------AddMenu-----------------*/ 
-    $('body').on('click', ".task__add__button_menu", function() {
-        Task.add_toggleButtonMenu($(this).parents().eq(5));
-    });
-    $('body').on('click', ".article__head__button_menu", function() {
-        Status.head_toggleButtonMenu($(this).parents().eq(2));
-    });
-    /*------------------Time-------------------*/ 
-    $('.sun').on('click', function() {
+    /*-----------------Time-----------------*/ 
+     $('.sun').on('click', function() {
         toggleTime($(this).parent());
     });
     $('.moon').on('click', function() {
@@ -478,14 +430,106 @@ $( document ).ready(function() {
         menu.find(".sun").toggleClass("hide");
         menu.find(".moon").toggleClass("hide");
     }
+    /*---------------New Task---------------*/
+        /*-----------Open menu----------*/ 
+    $('body').on('click', ".status__add__button_open", function() {
+        Status.toggleTextarea($(this).parents().eq(1));
+        $(this).parent().find(".status__add__value").focus();
+        $(".container").scrollLeft($(".articles").width());
+    });
+        /*----------Close menu----------*/
+    $('body').on('click', ".status__add__button_close", function() {
+        Status.toggleTextarea($(this).parents().eq(3));
+    });
+        /*----------Add column----------*/
+    $('body').on('click', ".status__add__button_add", function() {
+        Status.add("purple");
+
+        $(".container").scrollLeft($(".articles").width());
+        $(".status__add__value").val("");
+        $(".status__add__value").focus();
+    });
+    $('body').on('keydown', ".status__add__value", function() {
+        if ( event.which == 13 ) {
+            Status.add("purple");
+
+            $(".container").scrollLeft($(".articles").width());
+            $(".status__add__value").val("");
+            $(".status__add__value").focus();
+
+            event.preventDefault();
+        }
+        
+    });
+    /*----------------Column----------------*/
+        /*-----------Open menu----------*/
+     $('body').on('click', ".article__head__button_menu", function() {
+        Status.head_toggleButtonMenu($(this).parents().eq(2));
+    });
+        /*--------Open color menu-------*/
+    $('body').on('click', ".article__button_color", function() {
+        Status.toggleChoosingcolor($(this).parents().eq(3));
+    });
+        /*---------Choose color---------*/
+    $('body').on('click', ".choose-color span", function() {
+        Status.changeColor($(this).parents().eq(4), $(this).attr("class"));
+        Status.head_toggleButtonMenu($(this).parents().eq(4));
+        Status.toggleChoosingcolor($(this).parents().eq(4));
+    });
+        /*---------Delete confirm-------*/
+    $('body').on('click', ".article__button_delete", function() {
+        Status.toggleConfirmDelete($(this).parents().eq(3));
+    });
+        /*------Delete confirm yes------*/ 
+    $('body').on('click', ".article__delete_yes", function() {
+        Status.delete($(this).parents().eq(4));
+    });
+        /*-------Delete confirm no------*/
+    $('body').on('click', ".article__delete_no", function() {
+        $(this).parent().addClass("hide");
+    });
     
-    /*-----------------Rename-----------------*/ 
+    
+    
+
+
+    /*-----------------Task-----------------*/ 
+        /*-------Touch adding menu------*/ 
+    $('body').on('click', ".task__add__button_menu", function() {
+        Task.add_toggleButtonMenu($(this).parents().eq(5));
+    });
+        /*---------Open adding----------*/
+    $('body').on('click', ".task__add__button_open", function() {
+        Task.add_toggleTextarea($(this).parents().eq(2));
+        $(this).parents().eq(2).scrollTop($(this).parents().eq(2).height());
+        $(this).parent().find(".task__add__value").focus();
+    });
+        /*---------Close adding----------*/
+    $('body').on('click', ".task__add__button_close", function() {
+        Task.add_toggleTextarea($(this).parents().eq(5));
+    });
+        /*-----------Add task------------*/
+    $('body').on('click', ".task__add__button_add", function() {
+        Task.add($(this).parents().eq(5));
+        $(this).parents().eq(5).scrollTop($(this).parents().eq(5).height());
+    });
+    $('body').on('keypress', ".task__add__value", function() {
+        if ( event.which == 13 ) {
+            Task.add($(this).parents().eq(3));
+            $(this).parents().eq(3).scrollTop($(this).parents().eq(3).height());
+            event.preventDefault();
+        }
+        
+    });
+        /*--------------Rename--------------*/ 
     $('body').on('click', ".taskName", function() {
         Task.rename($(this).parents().eq(1));
     });
+        /*------------Save rename-----------*/
     $('body').on('focusout', ".taskName", function() {
         Task.saveRename($(this).parents().eq(1));
     }); 
+        /*------Rename or Save rename-------*/
     $('body').on('keypress', ".taskName", function(event) {
         if ( event.which == 13 ) {
             if ($(this).hasClass("active")) {
@@ -495,7 +539,7 @@ $( document ).ready(function() {
             }
         }
     }); 
-    /*-----------------Moving-----------------*/ 
+        /*--------------Check---------------*/ 
     $('body').on('click', ".check", function() {
         if (!$(this).hasClass('checked')) {
             Task.check($(this));
@@ -505,24 +549,25 @@ $( document ).ready(function() {
             Task.checkMove($(this).parents().eq(2), ".listStatuses");
         }
     });
-    /*-----------------See all----------------*/
+        /*----------Open task name----------*/
     $('body').on('dblclick', ".taskName", function() {
         Task.touchValue($(this).parents().eq(1));
     });
+        /*---------Close task name----------*/
     $('body').on('dblclick', ".openText", function() {
         Task.touchValue($(this).parents().eq(1));
     });
-    /*-----------------Delete-----------------*/
+        /*-------------Delete---------------*/
     $('body').on('click', ".delete", function() {
         Task.delete($(this).parents().eq(3));
     });
-    /*----------------Hashtag-----------------*/
+        /*-------Touch hashtag menu---------*/
     $('body').on('click', ".hashtag", function() {    
         let content = $(this).parents().eq(2);
         content.find(".hashtagBlock").toggleClass("hide");
         content.find(".hashtagValue").focus();
     });
-    
+        /*-----------Save hashtag-----------*/
     $('body').on('click', ".saveHashtag", function() {
         Task.saveHashtag($(this).parents().eq(3));
     });
@@ -531,7 +576,8 @@ $( document ).ready(function() {
             Task.saveHashtag($(this).parents().eq(3));
         }
     }); 
-    /*---------------_CloseAll----------------*/
+    
+    /*----------------CloseAll----------------*/
     $('body').on('click', function() {
         console.log(window.event.target);
         if (window.event.target == document.body) {
@@ -542,9 +588,10 @@ $( document ).ready(function() {
             $(".task__add__button_open").removeClass("hide");
             $(".status__add__adding-block").addClass("hide");
             $(".status__add__button_open").removeClass("hide");
-            $(".article__head__menu__buttons").addClass("hide");
+            $(".article__buttons").addClass("hide");
             $(".task__add__menu__buttons").addClass("hide");
             $(".choose-color").addClass("hide");
+            $(".article__delete_confirm").addClass("hide");
         }
     });
     $('body').on('click', ".task__hashTags div", function() {

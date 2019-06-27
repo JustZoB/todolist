@@ -162,20 +162,37 @@ li.task {
 .task__add__menu {
     position: relative;
 }
+
+.article__delete_confirm,
 .choose-color,
-.article__head__menu__buttons,
+.article__buttons,
 .task__add__menu__buttons {
     position: absolute;
     box-shadow: 0 0 10px rgba(1, 8, 65, 0.5);
     background: white;
     border-radius: 5px;
 }
-.article__head__menu__buttons {
+.article__buttons {
     top: -5px;
     left: -160px;
 }
-.article__head__menu__buttons button{
+.article__buttons button{
     margin: 5px !important;
+}
+
+.article__delete_confirm {
+    display: flex;
+    bottom: -50px;
+    right: 23px;
+    z-index: 1;
+    transform: translate(50%, 0);
+}
+
+.article__delete_yes {
+    background: green !important;
+}
+.article__delete_no {
+    background: red !important;
 }
 
 .choose-color {
