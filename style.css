@@ -18,83 +18,55 @@ html, body {
 body {
     background: rgb(66, 49, 165);
 }
-h1 {
-    color: white;
+.hide {
+    display: none !important;
 }
-
-.blue .task__color,
-.blue .article__color,
-.newTask .taskName,
-.newTask .hashtagValue,
-.taskNameValue {
-    background: #4D79E8;
-}
-.yellow .task__color,
-.yellow .article__color {
-    background: rgb(218, 218, 55);
-}
-.red .task__color,
-.red .article__color {
-    background: red;
-}
-.green .task__color,
-.green .article__color {
-    background: rgb(30, 153, 30);
-}
-.purple .task__color,
-.purple .article__color {
-    background: slateblue;
-}
-
-
-.purple h2 {
-    color: slateblue;
-}
-.blue h2 {
-    color: #4D79E8;
-}
-.yellow h2 {
-    color: rgb(218, 218, 55);
-}
-.red h2 {
-    color: red;
-}
-.green h2 {
-    color: rgb(30, 153, 30);
-}
-
 .hashtagFilter_hide {
     display: none;
 }
 
-.taskNameValue {
-    width: 300px;
+.menu h1 {
+    text-align: center;
+    color: white;
+    margin: 20px 0 10px 0;
 }
 
-.hide {
-    display: none;
-}
 .container {
+    position: relative;
+    padding-top: 20px;
+    overflow-x: auto;
     background: rgb(66, 49, 165);
-    width: 500px;
-    margin: 50px auto 50px auto;
-    text-align: center;
-    min-height: 650px;
-    padding: 10px;
+    margin: 0 10px;
+    height: 90vh;
 }
+.articles {
+    width: 370px;
+    overflow: hidden;
+    margin: 0px 20px 20px 20px;
+}
+.newStatus,
+.articles article{
+    display: inline-block;
+    overflow-y: auto;
+    max-height: 83vh;
+    width: 370px;
+    vertical-align: top;
+    background: rgb(71, 49, 199);
+    border-radius: 5px;
+    margin: 5px;
+    box-shadow: 0 0 10px rgba(1, 8, 65, 0.5);
+}
+
 ul {
     list-style-type: none;
     padding: 0; 
     padding-bottom: 20px;
 }
-li {
-    /*box-shadow: 0 0 10px rgba(0,0,0,0.5);*/
-}
-
-.task {
+li.task {
     width: 330px;
     margin: 10px auto 0 auto;
 }
+
 .article__color {
     width: 150px;
     cursor: grabbing;
@@ -171,38 +143,6 @@ li {
     max-width: 350px;
     overflow: hidden;
 }
-.containerNew {
-    position: relative;
-    padding-top: 20px;
-    overflow-x: auto;
-    background: rgb(66, 49, 165);
-    margin: 0 10px;
-    height: 90vh;
-}
-
-.menu h1 {
-    text-align: center;
-    margin: 20px 0 10px 0;
-}
-
-.containerNew .articles{
-    width: 370px;
-    overflow: hidden;
-    margin: 0px 20px 20px 20px;
-}
-
-.newStatus,
-.containerNew article{
-    display: inline-block;
-    overflow-y: auto;
-    max-height: 83vh;
-    width: 370px;
-    vertical-align: top;
-    background: rgb(71, 49, 199);
-    border-radius: 5px;
-    margin: 5px;
-    box-shadow: 0 0 10px rgba(1, 8, 65, 0.5);
-}
 
 .time-buttons {
     position: fixed;
@@ -222,6 +162,7 @@ li {
 .task__add__menu {
     position: relative;
 }
+.choose-color,
 .article__head__menu__buttons,
 .task__add__menu__buttons {
     position: absolute;
@@ -232,12 +173,25 @@ li {
 .article__head__menu__buttons {
     top: -5px;
     left: -160px;
-    
 }
 .article__head__menu__buttons button{
     margin: 5px !important;
 }
 
+.choose-color {
+    display: flex;
+    bottom: -33px;
+    right: -10px;
+    z-index: 1;
+    padding: 2px;
+}
+.choose-color span {
+    width: 20px;
+    height: 20px;
+    margin: 2px;
+    border-radius: 4px;
+    cursor: pointer;
+}
 /*---------Buttons & Inputs----------*/
 button.i {
     width: 36px;
@@ -312,7 +266,6 @@ button.i {
 .task__add__buttons_change {
     margin-left: 9px;
 }
-
 /*--------------Status__add--------------*/
 .status__add {
     width: 330px;
@@ -359,3 +312,67 @@ button.i {
 .task__add__menu__buttons button {
     margin: 5px !important;
 }
+
+/*--------------Colors--------------*/
+.blue,
+.blue .task__color,
+.blue .article__color,
+.newTask .taskName,
+.newTask .hashtagValue,
+.taskNameValue {
+    background: #4D79E8;
+}
+.yellow,
+.yellow .task__color,
+.yellow .article__color {
+    background: rgb(218, 218, 55);
+}
+.red,
+.red .task__color,
+.red .article__color {
+    background: red;
+}
+.green,
+.green .task__color,
+.green .article__color {
+    background: rgb(30, 153, 30);
+}
+.purple,
+.purple .task__color,
+.purple .article__color {
+    background: slateblue;
+}
+.lightgreen,
+.lightgreen .task__color,
+.lightgreen .article__color {
+    background: rgb(173, 255, 47);
+}
+.orange,
+.orange .task__color,
+.orange .article__color {
+    background: rgb(233, 142, 23);
+}
+
+
+.blue h2 {
+    color: #4D79E8;
+}
+.yellow h2 {
+    color: rgb(218, 218, 55);
+}
+.red h2 {
+    color: red;
+}
+.green h2 {
+    color: rgb(30, 153, 30);
+}
+.purple h2 {
+    color: slateblue;   
+}
+.lightgreen h2 {
+    color: rgb(173, 255, 47);
+}
+.orange h2 {
+    color: rgb(233, 142, 23);
+}
+/*------------------------------------*/

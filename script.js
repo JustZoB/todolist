@@ -2,21 +2,10 @@ $( document ).ready(function() {
 
     let prevName = "",
         filterTags = [],
-        /*listState = $(".listStatuses"),*/
         articles_array = [];
 
     let Task = {
-        /*add: function () {
-            let name = $("#newTask_value").val();
-            if (name != "") {
-                listState = $(".listStatuses");
-                Task.addHtml(name, listState);
-                LS.add(name);
-            }
-            $("#newTask_value").val("");
-        },*/
-
-        addNEW: function(article) {
+        add: function(article) {
             let name = article.find(".task__add__value");
             let nameValue = name.val();
             if (nameValue != "") {
@@ -188,31 +177,17 @@ $( document ).ready(function() {
         add_toggleButtonMenu: function (article) {
             article.find(".task__add__menu__buttons").toggleClass("hide");
         },
-
-        head_toggleButtonMenu: function (article) {
-            article.find(".article__head__menu__buttons").toggleClass("hide");
-        }
     }
 
     let Status = {
-
-        toggleTextarea: function (article) {
-            article.find(".status__add__adding-block").toggleClass("hide");
-            article.find(".status__add__button_open").toggleClass("hide");
-        },
-
-        add: function (block, color, nameValue) {
+        add: function (color, nameValue) {
             if (nameValue == undefined) {
-                nameValue = block.find(".status__add__value").val();
+                nameValue = $(".status__add__value").val();
             }
             if (nameValue != "") {
                 Status.addHtml(color, nameValue);
             }
-
-            block.parents().eq(1).scrollLeft(block.parents().eq(1).width());
-            block.find(".status__add__value").val("");
-            block.find(".status__add__value").focus();
-        },
+        },      
 
         addHtml: function (color, name) {
             let articles = $(".articles");
@@ -234,6 +209,15 @@ $( document ).ready(function() {
                         <div class="article__head__menu__buttons hide">
                             <button class="article__head__menu__button_rename i"><i class='fas fa-pen fa-lg'></i></button>
                             <button class="article__head__menu__button_color i"><i class='fas fa-palette fa-lg'></i></button>
+                            <div class="choose-color hide">
+                                <span class="blue"></span>
+                                <span class="yellow"></span>
+                                <span class="red"></span>
+                                <span class="green"></span>
+                                <span class="purple"></span>
+                                <span class="lightgreen"></span>
+                                <span class="orange"></span>
+                            </div>
                             <button class="article__head__menu__button_delete i"><i class='fas fa-trash fa-lg'></i></button>
                         </div>
                     </div>
@@ -270,6 +254,23 @@ $( document ).ready(function() {
             }).disableSelection();
 
             articles.width(articles.width() + 390);
+        },
+
+        changeColor: function (article, color) {
+            article.removeClass().addClass(color);
+        },
+
+        toggleTextarea: function (article) {
+            article.find(".status__add__adding-block").toggleClass("hide");
+            article.find(".status__add__button_open").toggleClass("hide");
+        },
+
+        head_toggleButtonMenu: function (article) {
+            article.find(".article__head__menu__buttons").toggleClass("hide");
+        },
+
+        toggleChoosingcolor: function (article) {
+            article.find(".choose-color").toggleClass("hide");
         }
     }
 
@@ -377,11 +378,10 @@ $( document ).ready(function() {
         }
     }
 
-
-    Status.add($(".articles"), "blue", "Statuses");
-    Status.add($(".articles"), "yellow", "Pending");
-    Status.add($(".articles"), "red", "Cancel");
-    Status.add($(".articles"), "green", "Done");
+    Status.add("blue", "Statuses");
+    Status.add("yellow", "Pending");
+    Status.add("red", "Cancel");
+    Status.add("green", "Done");
 
     if(LS.test() === true){
         let localTasks = JSON.parse(localStorage.getItem("todolist"));
@@ -404,27 +404,43 @@ $( document ).ready(function() {
         return listState;
     }
 
+    $('body').on('click', ".article__head__menu__button_color", function() {
+        Status.toggleChoosingcolor($(this).parents().eq(3));
+    });
+    $('body').on('click', ".choose-color span", function() {
+        Status.changeColor($(this).parents().eq(4), $(this).attr("class"));
+        Status.head_toggleButtonMenu($(this).parents().eq(4));
+        Status.toggleChoosingcolor($(this).parents().eq(4));
+    });
+    
+
     /*-----------------Status-----------------*/ 
     $('body').on('click', ".status__add__button_open", function() {
         Status.toggleTextarea($(this).parents().eq(1));
 
-        $(this).parents().eq(3).scrollLeft($(this).parents().eq(3).width());
         $(this).parent().find(".status__add__value").focus();
+        $(".container").scrollLeft($(".container").width());
     });
     $('body').on('click', ".status__add__button_close", function() {
         Status.toggleTextarea($(this).parents().eq(3));
     });
 
     $('body').on('click', ".status__add__button_add", function() {
-        Status.add($(this).parents().eq(3), "purple");
+        Status.add("purple");
+
+        $(".container").scrollLeft($(".container").width());
+        $(".status__add__value").val("");
+        $(".status__add__value").focus();
     });
     $('body').on('keydown', ".status__add__value", function() {
         if ( event.which == 13 ) {
-            Status.add($(this).parents().eq(2), "purple");
+            Status.add("purple");
+
+            $(".container").scrollLeft($(".container").width());
+            $(".status__add__value").val("");
+            $(".status__add__value").focus();
         }
     });
-
-    
 
     /*----------------AddButtons---------------*/ 
     $('body').on('click', ".task__add__button_open", function() {
@@ -436,11 +452,11 @@ $( document ).ready(function() {
         Task.add_toggleTextarea($(this).parents().eq(5));
     });
     $('body').on('click', ".task__add__button_add", function() {
-        Task.addNEW($(this).parents().eq(5));
+        Task.add($(this).parents().eq(5));
     });
     $('body').on('keypress', ".task__add__value", function() {
         if ( event.which == 13 ) {
-            Task.addNEW($(this).parents().eq(3));
+            Task.add($(this).parents().eq(3));
         }
     });
 
@@ -449,7 +465,7 @@ $( document ).ready(function() {
         Task.add_toggleButtonMenu($(this).parents().eq(5));
     });
     $('body').on('click', ".article__head__button_menu", function() {
-        Task.head_toggleButtonMenu($(this).parents().eq(2));
+        Status.head_toggleButtonMenu($(this).parents().eq(2));
     });
     /*------------------Time-------------------*/ 
     $('.sun').on('click', function() {
@@ -489,15 +505,6 @@ $( document ).ready(function() {
             Task.checkMove($(this).parents().eq(2), ".listStatuses");
         }
     });
-    /*-----------------Adding-----------------*/
-    /*$('#newTask_add').on('click', function() {
-       Task.add();
-    });
-    $("#newTask_value").keypress( function(event) {
-        if ( event.which == 13 ) {
-            Task.add();
-        }
-    })*/
     /*-----------------See all----------------*/
     $('body').on('dblclick', ".taskName", function() {
         Task.touchValue($(this).parents().eq(1));
@@ -530,13 +537,14 @@ $( document ).ready(function() {
         if (window.event.target == document.body) {
             $(".hashtagBlock").addClass("hide");
         }
-        if (window.event.target.classList.contains("articles")) {
+        if (window.event.target.classList.contains("articles") || window.event.target.classList.contains("container")) {
             $(".task__add__adding-block").addClass("hide");
             $(".task__add__button_open").removeClass("hide");
             $(".status__add__adding-block").addClass("hide");
             $(".status__add__button_open").removeClass("hide");
             $(".article__head__menu__buttons").addClass("hide");
             $(".task__add__menu__buttons").addClass("hide");
+            $(".choose-color").addClass("hide");
         }
     });
     $('body').on('click', ".task__hashTags div", function() {
