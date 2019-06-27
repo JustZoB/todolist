@@ -10,7 +10,7 @@ $( document ).ready(function() {
             let nameValue = name.val();
             if (nameValue != "") {
                 let listState = findClass(article.find(".list").attr("class"));
-                Task.addHtml(nameValue, listState);
+                Task.addHtml(nameValue, article.find(".list"));
                 LS.add(nameValue, listState);
             }
             article.find(".task__add__value").focus();
@@ -24,41 +24,57 @@ $( document ).ready(function() {
         },
 
         addHtml: function (name, listState, tags) {
-            let list = $(listState);
-            
+            let list = $(listState),
+                check_icon = "",
+                checked = "";
+
+            if (listState.hasClass("listDone")) {
+                checked = " checked";
+                check_icon = "fas fa-check-square";
+            } else {
+                check_icon = "far fa-square";
+            }
+
             $(list).append(`<li class="task">
-            <div class="task__color"></div>
-            <div class="task__content"></div>
+                <div class="task__color"></div>
+                <div class="task__content">
+                    <div class='task__name'>
+                        <button class='check${ checked } i'><i class='${ check_icon } fa-lg'></i></button>
+                        <input class='taskName' type='text' value='${ name }' readonly></input>
+                        <p class="openText hide">${ name }</p>
+                        <button class='task__menu_open i'><i class='fas fa-ellipsis-h fa-lg'></i></button>
+                        <div class="task__buttons hide">
+                            <button class="task__button_rename i"><i class='fas fa-pen fa-lg'></i></button>
+                            <button class="task__button_hashtag i"><i class='fas fa-hashtag fa-lg'></i></button>
+                            <button class="task__button_show i"><i class='fas fa-eye fa-lg'></i></button>
+                            <button class="task__button_delete i"><i class='fas fa-trash fa-lg'></i></button>
+                            <div class="task__delete_confirm hide">
+                                <button class="task__delete_yes i"><i class='fas fa-check fa-lg'></i></button>
+                                <button class="task__delete_no i"><i class='fas fa-times fa-lg'></i></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </li>`);
+
+            /* 
+            <div class='task__menu'>
+                <div class='task__menu__buttons'>
+                    <button class='hashtag i'><i class='fas fa-hashtag fa-lg'></i></button>
+                    <button class='delete i'><i class="fas fa-trash fa-lg"></i></button>
+                </div>
+                <div class='task__menu__change'>
+                    <div class='hashtagBlock hide'>
+                        <input class='hashtagValue active' type='text' list='hashtags'></input>
+                        <button class='saveHashtag i'><i class='fas fa-check-circle fa-lg'></i></button>
+                    </div>
+                </div>
+            </div>
+            */
+
             let li = list.find(".task:last-child"),
                 content = li.find(".task__content");
-    
-            if (content.parents().eq(1).hasClass("listDone")) {
-                $(content).append(`<div class='task__name'>
-                <button class='check checked i'><i class='fas fa-check-square fa-lg'></i></button>
-                <input class='taskName' type='text' value='${ name }' readonly></input>
-                <p class="openText hide">${ name }</p>
-                </div>`);
-            }
-            else {
-                $(content).append(`<div class='task__name'>
-                <button class='check i'><i class='far fa-square fa-lg'></i></button>
-                <input class='taskName' type='text' value='${ name }' readonly></input>
-                <p class="openText hide">${ name }</p>
-                </div>`);
-            }
-    
-            $(content).append(`<div class='task__menu'>
-            <div class='task__menu__buttons'>
-            <button class='hashtag i'><i class='fas fa-hashtag fa-lg'></i></button>
-            <button class='delete i'><i class="fas fa-trash fa-lg"></i></button>
-            </div>
-            <div class='task__menu__change'>
-            <div class='hashtagBlock hide'>
-            <input class='hashtagValue active' type='text' list='hashtags'></input>
-            <button class='saveHashtag i'><i class='fas fa-check-circle fa-lg'></i></button>
-            </div></div></div>`);
-    
+
             if (tags != undefined) {
                 $(content).append(`<div class="task__hashTags"></div>`);
                 let hashtagBlock = li.find($(".task__hashTags")),
@@ -177,6 +193,14 @@ $( document ).ready(function() {
         add_toggleButtonMenu: function (article) {
             article.find(".task__add__menu__buttons").toggleClass("hide");
         },
+
+        touchMenu : function (task) {
+            task.find(".task__buttons").toggleClass("hide");
+        },
+
+        touchConfirmDelete: function (task) {
+            task.find(".task__delete_confirm").toggleClass("hide");
+        },
     }
 
     let Status = {
@@ -273,11 +297,11 @@ $( document ).ready(function() {
             article.find(".article__buttons").toggleClass("hide");
         },
 
-        toggleChoosingcolor: function (article) {
+        touchChoosingcolor: function (article) {
             article.find(".choose-color").toggleClass("hide");
         },
 
-        toggleConfirmDelete: function (article) {
+        touchConfirmDelete: function (article) {
             article.find(".article__delete_confirm").toggleClass("hide");
         },
         
@@ -468,17 +492,17 @@ $( document ).ready(function() {
     });
         /*--------Open color menu-------*/
     $('body').on('click', ".article__button_color", function() {
-        Status.toggleChoosingcolor($(this).parents().eq(3));
+        Status.touchChoosingcolor($(this).parents().eq(3));
     });
         /*---------Choose color---------*/
     $('body').on('click', ".choose-color span", function() {
         Status.changeColor($(this).parents().eq(4), $(this).attr("class"));
         Status.head_toggleButtonMenu($(this).parents().eq(4));
-        Status.toggleChoosingcolor($(this).parents().eq(4));
+        Status.touchChoosingcolor($(this).parents().eq(4));
     });
         /*---------Delete confirm-------*/
     $('body').on('click', ".article__button_delete", function() {
-        Status.toggleConfirmDelete($(this).parents().eq(3));
+        Status.touchConfirmDelete($(this).parents().eq(3));
     });
         /*------Delete confirm yes------*/ 
     $('body').on('click', ".article__delete_yes", function() {
@@ -490,9 +514,6 @@ $( document ).ready(function() {
     });
     
     
-    
-
-
     /*-----------------Task-----------------*/ 
         /*-------Touch adding menu------*/ 
     $('body').on('click', ".task__add__button_menu", function() {
@@ -519,11 +540,13 @@ $( document ).ready(function() {
             $(this).parents().eq(3).scrollTop($(this).parents().eq(3).height());
             event.preventDefault();
         }
-        
     });
+    
+    
         /*--------------Rename--------------*/ 
-    $('body').on('click', ".taskName", function() {
-        Task.rename($(this).parents().eq(1));
+    $('body').on('click', ".task__button_rename", function() {
+        Task.rename($(this).parents().eq(2));
+        $(this).parent().addClass("hide");
     });
         /*------------Save rename-----------*/
     $('body').on('focusout', ".taskName", function() {
@@ -550,17 +573,15 @@ $( document ).ready(function() {
         }
     });
         /*----------Open task name----------*/
-    $('body').on('dblclick', ".taskName", function() {
-        Task.touchValue($(this).parents().eq(1));
+    $('body').on('click', ".task__button_show", function() {
+        Task.touchValue($(this).parents().eq(3));
+        $(this).parent().addClass("hide");
     });
         /*---------Close task name----------*/
     $('body').on('dblclick', ".openText", function() {
         Task.touchValue($(this).parents().eq(1));
     });
-        /*-------------Delete---------------*/
-    $('body').on('click', ".delete", function() {
-        Task.delete($(this).parents().eq(3));
-    });
+    
         /*-------Touch hashtag menu---------*/
     $('body').on('click', ".hashtag", function() {    
         let content = $(this).parents().eq(2);
@@ -576,6 +597,22 @@ $( document ).ready(function() {
             Task.saveHashtag($(this).parents().eq(3));
         }
     }); 
+         /*-------Open task name--------*/
+    $('body').on('click', ".task__menu_open", function() {
+        Task.touchMenu($(this).parents().eq(2));
+    });
+        /*--------Delete confirm--------*/
+    $('body').on('click', ".task__button_delete", function() {
+        Task.touchConfirmDelete($(this).parents().eq(3));
+    });
+        /*------Delete confirm yes------*/ 
+    $('body').on('click', ".task__delete_yes", function() {
+        Task.delete($(this).parents().eq(4));
+    });
+        /*-------Delete confirm no------*/
+    $('body').on('click', ".task__delete_no", function() {
+        $(this).parent().addClass("hide");
+    });
     
     /*----------------CloseAll----------------*/
     $('body').on('click', function() {
@@ -584,6 +621,8 @@ $( document ).ready(function() {
             $(".hashtagBlock").addClass("hide");
         }
         if (window.event.target.classList.contains("articles") || window.event.target.classList.contains("container")) {
+            $(".taskName").removeClass("hide");
+            $(".openText").addClass("hide");
             $(".task__add__adding-block").addClass("hide");
             $(".task__add__button_open").removeClass("hide");
             $(".status__add__adding-block").addClass("hide");
@@ -592,6 +631,8 @@ $( document ).ready(function() {
             $(".task__add__menu__buttons").addClass("hide");
             $(".choose-color").addClass("hide");
             $(".article__delete_confirm").addClass("hide");
+            $(".task__delete_confirm").addClass("hide");
+            $(".task__buttons").addClass("hide");
         }
     });
     $('body').on('click', ".task__hashTags div", function() {

@@ -96,6 +96,10 @@ li.task {
 .task__menu .check{
     margin-right: 10px; 
 }
+.task__name {
+    position: relative;
+}
+
 .task__menu,
 .task__name, 
 .task__hashTags {
@@ -109,28 +113,29 @@ li.task {
 .task__hashTags {
     padding-top: 0;
 }
-.openText{
-    padding: 10px 10px 5px 10px;
-    font-size: 14px;
-    height: auto;
-    text-align: left;
-    width: 255px;
-    margin-left: 5px;
-    background: rgb(52, 73, 196) !important;
-    overflow: hidden;
-}
+
 .openText,
-.task__menu input[type="text"],
-.task__name input[type="text"]{
+.taskName {
     background: #4D79E8;
     border-radius: 4px;
 }
-.task__name input[type="text"]{
+.taskName {
     margin-left: 5px;
-    width: 325px;
+    width: 236px;
 }
 .task__hashTags {
     flex-wrap: wrap;
+}
+
+.openText {
+    padding: 10px 10px 5px 10px !important;
+    font-size: 14px;
+    height: auto;
+    text-align: left;
+    width: 223px;
+    margin-left: 5px;
+    background: rgb(52, 73, 196) !important;
+    overflow: hidden;
 }
 .task__hashTags div{
     background: #4794FF;
@@ -163,6 +168,8 @@ li.task {
     position: relative;
 }
 
+.task__buttons,
+.task__delete_confirm,
 .article__delete_confirm,
 .choose-color,
 .article__buttons,
@@ -171,36 +178,35 @@ li.task {
     box-shadow: 0 0 10px rgba(1, 8, 65, 0.5);
     background: white;
     border-radius: 5px;
+    padding: 2px;
+    z-index: 1;
 }
+
+
 .article__buttons {
     top: -5px;
     left: -160px;
 }
-.article__buttons button{
-    margin: 5px !important;
-}
 
+.task__delete_confirm,
 .article__delete_confirm {
     display: flex;
-    bottom: -50px;
+    bottom: -45px;
     right: 23px;
-    z-index: 1;
     transform: translate(50%, 0);
+    z-index: 5;
 }
 
-.article__delete_yes {
-    background: green !important;
-}
-.article__delete_no {
-    background: red !important;
+.task__buttons {
+    display: flex;
+    bottom: -40px;
+    right: 6px;
 }
 
 .choose-color {
     display: flex;
     bottom: -33px;
     right: -10px;
-    z-index: 1;
-    padding: 2px;
 }
 .choose-color span {
     width: 20px;
@@ -391,5 +397,14 @@ button.i {
 }
 .orange h2 {
     color: rgb(233, 142, 23);
+}
+
+.article__delete_yes,
+.task__delete_yes {
+    background: green !important;
+}
+.article__delete_no,
+.task__delete_no {
+    background: red !important;
 }
 /*------------------------------------*/
