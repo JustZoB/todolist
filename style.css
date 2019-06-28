@@ -90,28 +90,18 @@ li.task {
     border-bottom-left-radius: 5px;
     border-bottom-right-radius: 5px;
 }
-.task__menu {
-    justify-content: space-between;
-}
-.task__menu .check{
-    margin-right: 10px; 
-}
 .task__name {
     position: relative;
 }
-
-.task__menu,
 .task__name, 
-.task__hashTags {
+.task__hashtags {
     padding: 5px;
     display: flex;
 }
-.task__menu__change {
-    display: flex;
-}
-.task__menu,
-.task__hashTags {
+.task__hashtags {
     padding-top: 0;
+    padding-bottom: 0;
+    flex-wrap: wrap;
 }
 
 .openText,
@@ -123,8 +113,18 @@ li.task {
     margin-left: 5px;
     width: 236px;
 }
-.task__hashTags {
-    flex-wrap: wrap;
+.hashtagValue {
+    border-radius: 15px;
+    padding: 0 15px 0 15px !important;
+    width: 60px;
+    min-width: 60px;
+}
+.hashtagBuffer {
+    position: absolute;
+    top: -1000px;
+    left: -1000px;
+    visibility: hidden;
+    white-space: nowrap;
 }
 
 .openText {
@@ -137,7 +137,7 @@ li.task {
     background: rgb(52, 73, 196) !important;
     overflow: hidden;
 }
-.task__hashTags div{
+.task__hashtags div{
     background: #4794FF;
     font-size: 14px;
     padding: 4px 8px;
@@ -147,6 +147,7 @@ li.task {
     border: 0;
     max-width: 350px;
     overflow: hidden;
+    height: 16px;
 }
 
 .time-buttons {
@@ -216,6 +217,12 @@ li.task {
     cursor: pointer;
 }
 /*---------Buttons & Inputs----------*/
+
+button:disabled {
+    background: rgb(164, 188, 233) !important;
+    cursor: default !important;
+}
+
 button.i {
     width: 36px;
     height: 35px;

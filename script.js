@@ -54,33 +54,20 @@ $( document ).ready(function() {
                             </div>
                         </div>
                     </div>
+                    <div class='task__hashtags'>
+                        <input class='hashtagValue active hide' type='text' list='hashtags'></input>
+                        <div class="hashtagBuffer"></div>
+                    </div>
                 </div>
             </li>`);
 
-            /* 
-            <div class='task__menu'>
-                <div class='task__menu__buttons'>
-                    <button class='hashtag i'><i class='fas fa-hashtag fa-lg'></i></button>
-                    <button class='delete i'><i class="fas fa-trash fa-lg"></i></button>
-                </div>
-                <div class='task__menu__change'>
-                    <div class='hashtagBlock hide'>
-                        <input class='hashtagValue active' type='text' list='hashtags'></input>
-                        <button class='saveHashtag i'><i class='fas fa-check-circle fa-lg'></i></button>
-                    </div>
-                </div>
-            </div>
-            */
-
-            let li = list.find(".task:last-child"),
-                content = li.find(".task__content");
-
             if (tags != undefined) {
-                $(content).append(`<div class="task__hashTags"></div>`);
-                let hashtagBlock = li.find($(".task__hashTags")),
-                    datalist = content.parents().eq(2).find("#hashtags");
+                let li = list.find(".task:last-child"),
+                    hashtagBlock = li.find($(".task__hashtags")),
+                    datalist = li.parents().eq(3).find("#hashtags");
+
                 for (let i = 0; i < tags.length; i++) {
-                    $(hashtagBlock).append(`<div>${ tags[i] }</div>`);
+                    $(`<div>${ tags[i] }</div>`).insertBefore(hashtagBlock.find(".hashtagValue"));
                     if ($("[value='" + tags[i].substr(1) + "']").length == 0) {
                         $(datalist).append(`<option value='${ tags[i].substr(1) }'></option>`);
                     }
@@ -91,7 +78,7 @@ $( document ).ready(function() {
         rename: function (content) {  
             content.find(".taskName").removeAttr("readonly").css("cursor", "text").addClass("active");
             prevName = content.find(".taskName").val();
-            content.find(".taskName").focus();
+            content.find(".taskName").focus().val('').val(prevName);
         },
 
         saveRename: function (content) { 
@@ -101,21 +88,19 @@ $( document ).ready(function() {
         },
 
         saveHashtag: function(task) {
-            let hashtagName = "#" + task.find(".hashtagValue").val(),
-                hashtagsBlock = task.find(".task__hashTags"),
+            let hashtagInput = task.find(".hashtagValue"); 
+            let hashtagName = "#" + hashtagInput.val(),
+                hashtagsBlock = task.find(".task__hashtags"),
                 datalist = task.parents().find("#hashtags");
             if ((hashtagName != "#") && (hashtagsBlock.find("div:contains('" + hashtagName + "')").length == 0)) { 
-                if ((task.find(".task__hashTags").length == 0)) {
-                    $(task).append(`<div class="task__hashTags"></div>`);
-                    hashtagsBlock = task.find(".task__hashTags");
-                } 
-                $(hashtagsBlock).append(`<div>${ hashtagName }</div>`);
+                $(`<div>${ hashtagName }</div>`).insertBefore(hashtagInput);
                 if ($("[value='" + hashtagName.substr(1) + "']").length == 0) {
                     $(datalist).append(`<option value='${ hashtagName.substr(1) }'></option>`);
                 }
-                task.find(".hashtagValue").val("");
-                task.find(".hashtagBlock").focus();
-                LS.saveHashtag(task, hashtagName);
+                hashtagInput.width(60);
+                hashtagInput.val('');
+                hashtagInput.focus();
+                /*LS.saveHashtag(task, hashtagName);*/
             }
         },
 
@@ -201,19 +186,32 @@ $( document ).ready(function() {
         touchConfirmDelete: function (task) {
             task.find(".task__delete_confirm").toggleClass("hide");
         },
+
+        hashtag_showAdding: function (task) {
+            task.find(".hashtagValue").removeClass("hide");
+            task.find(".hashtagValue").focus();
+        },
+
+        hashtag_checkHeight: function (task) {
+            if (task.find(".task__hashtags").height() == 0) {
+                task.find(".task__hashtags").css({"padding-bottom" : "0"});
+            } else {
+                task.find(".task__hashtags").css({"padding-bottom" : "5px"});
+            }
+        },
     }
 
     let Status = {
-        add: function (color, nameValue) {
+        add: function (color, nameValue, deleteDisabled) {
             if (nameValue == undefined) {
                 nameValue = $(".status__add__value").val();
             }
             if (nameValue != "") {
-                Status.addHtml(color, nameValue);
+                Status.addHtml(color, nameValue, deleteDisabled);
             }
         },      
 
-        addHtml: function (color, name) {
+        addHtml: function (color, name, deleteDisabled) {
             let articles = $(".articles");
             let id = articles_array.length;
             articles_array.push(id);
@@ -223,6 +221,9 @@ $( document ).ready(function() {
             }
             let newStatuses = articles.find(".newStatus");
             let listClass = name[0].toUpperCase() + name.slice(1);;
+            if (deleteDisabled == true) {
+                deleteDisabled = " disabled";
+            }
 
             $(`<article class="${ color }">
                 <div class="article__color"></div>
@@ -242,7 +243,7 @@ $( document ).ready(function() {
                                 <span class="lightgreen"></span>
                                 <span class="orange"></span>
                             </div>
-                            <button class="article__button_delete i"><i class='fas fa-trash fa-lg'></i></button>
+                            <button class="article__button_delete i"${ deleteDisabled }><i class='fas fa-trash fa-lg'></i></button>
                             <div class="article__delete_confirm hide">
                                 <button class="article__delete_yes i"><i class='fas fa-check fa-lg'></i></button>
                                 <button class="article__delete_no i"><i class='fas fa-times fa-lg'></i></button>
@@ -417,10 +418,10 @@ $( document ).ready(function() {
         }
     }
 
-    Status.add("blue", "Statuses");
+    Status.add("blue", "Statuses", true);
     Status.add("yellow", "Pending");
     Status.add("red", "Cancel");
-    Status.add("green", "Done");
+    Status.add("green", "Done", true);
 
     if(LS.test() === true){
         let localTasks = JSON.parse(localStorage.getItem("todolist"));
@@ -581,22 +582,28 @@ $( document ).ready(function() {
     $('body').on('dblclick', ".openText", function() {
         Task.touchValue($(this).parents().eq(1));
     });
-    
-        /*-------Touch hashtag menu---------*/
-    $('body').on('click', ".hashtag", function() {    
-        let content = $(this).parents().eq(2);
-        content.find(".hashtagBlock").toggleClass("hide");
-        content.find(".hashtagValue").focus();
+
+        /*------Show Adding new hashtag-----*/ 
+    $('body').on('click', ".task__button_hashtag", function() {
+        Task.touchMenu($(this).parents().eq(3));
+        Task.hashtag_showAdding($(this).parents().eq(3));
+        Task.hashtag_checkHeight($(this).parents().eq(3));
     });
-        /*-----------Save hashtag-----------*/
-    $('body').on('click', ".saveHashtag", function() {
-        Task.saveHashtag($(this).parents().eq(3));
+        /*------Width of hashtag-input------*/
+    $('body').on('input', ".hashtagValue", function() {
+        let value = $(this),
+            buffer = $(this).parent().find('.hashtagBuffer')
+        buffer.text(value.val());
+        value.width(buffer.width() + 35);
     });
-    $('body').on('keydown', ".hashtagValue", function(event) {
-        if ( event.which == 13 ) {
-            Task.saveHashtag($(this).parents().eq(3));
+        /*-----------Add hashtag------------*/
+    $('body').on('keypress', ".hashtagValue", function() {
+        if ( (event.which == 13) || (event.which == 44)) {
+            Task.saveHashtag($(this).parents().eq(2));
+            event.preventDefault();
         }
-    }); 
+    });
+
          /*-------Open task name--------*/
     $('body').on('click', ".task__menu_open", function() {
         Task.touchMenu($(this).parents().eq(2));
@@ -617,9 +624,6 @@ $( document ).ready(function() {
     /*----------------CloseAll----------------*/
     $('body').on('click', function() {
         console.log(window.event.target);
-        if (window.event.target == document.body) {
-            $(".hashtagBlock").addClass("hide");
-        }
         if (window.event.target.classList.contains("articles") || window.event.target.classList.contains("container")) {
             $(".taskName").removeClass("hide");
             $(".openText").addClass("hide");
@@ -633,9 +637,14 @@ $( document ).ready(function() {
             $(".article__delete_confirm").addClass("hide");
             $(".task__delete_confirm").addClass("hide");
             $(".task__buttons").addClass("hide");
+            $(".hashtagValue").addClass("hide");
+            $(".task").each(function(key, elem) {
+                Task.hashtag_checkHeight($(elem));
+            });
+            
         }
     });
-    $('body').on('click', ".task__hashTags div", function() {
+    $('body').on('click', ".task__hashtags div", function() {
         if ($(this).hasClass("active")) {
             Task.filterHashTags_remove($(this).html());
         } else {
