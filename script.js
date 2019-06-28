@@ -44,13 +44,13 @@ $( document ).ready(function() {
                         <p class="openText hide">${ name }</p>
                         <button class='task__menu_open i'><i class='fas fa-ellipsis-h fa-lg'></i></button>
                         <div class="task__buttons hide">
-                            <button class="task__button_rename i"><i class='fas fa-pen fa-lg'></i></button>
-                            <button class="task__button_hashtag i"><i class='fas fa-hashtag fa-lg'></i></button>
-                            <button class="task__button_show i"><i class='fas fa-eye fa-lg'></i></button>
-                            <button class="task__button_delete i"><i class='fas fa-trash fa-lg'></i></button>
+                            <button class="task__button_rename i" title="Rename"><i class='fas fa-pen fa-lg'></i></button>
+                            <button class="task__button_hashtag i" title="Add tag"><i class='fas fa-hashtag fa-lg'></i></button>
+                            <button class="task__button_show i" title="Show all text"><i class='fas fa-eye fa-lg'></i></button>
+                            <button class="task__button_delete i" title="Delete"><i class='fas fa-trash fa-lg'></i></button>
                             <div class="task__delete_confirm hide">
-                                <button class="task__delete_yes i"><i class='fas fa-check fa-lg'></i></button>
-                                <button class="task__delete_no i"><i class='fas fa-times fa-lg'></i></button>
+                                <button class="task__delete_yes i" title="Delete"><i class='fas fa-check fa-lg'></i></button>
+                                <button class="task__delete_no i" title="Don't delete"><i class='fas fa-times fa-lg'></i></button>
                             </div>
                         </div>
                     </div>
@@ -183,7 +183,7 @@ $( document ).ready(function() {
             task.find(".task__buttons").toggleClass("hide");
         },
 
-        touchConfirmDelete: function (task) {
+        delete_touchConfirm: function (task) {
             task.find(".task__delete_confirm").toggleClass("hide");
         },
 
@@ -229,11 +229,12 @@ $( document ).ready(function() {
                 <div class="article__color"></div>
                 <div class="article__head">
                     <h2>${ name }</h2>
+                    <input class='statusName active hide' type='text' value='${ name }'></input>
                     <div class="article__head__menu">
                         <button class="article__head__button_menu i"><i class="fas fa-ellipsis-h fa-lg"></i></button>
                         <div class="article__buttons hide">
-                            <button class="article__button_rename i"><i class='fas fa-pen fa-lg'></i></button>
-                            <button class="article__button_color i"><i class='fas fa-palette fa-lg'></i></button>
+                            <button class="article__button_rename i" title="Rename"><i class='fas fa-pen fa-lg'></i></button>
+                            <button class="article__button_color i" title="Paint"><i class='fas fa-palette fa-lg'></i></button>
                             <div class="choose-color hide">
                                 <span class="blue"></span>
                                 <span class="yellow"></span>
@@ -243,10 +244,10 @@ $( document ).ready(function() {
                                 <span class="lightgreen"></span>
                                 <span class="orange"></span>
                             </div>
-                            <button class="article__button_delete i"${ deleteDisabled }><i class='fas fa-trash fa-lg'></i></button>
+                            <button class="article__button_delete i" title="Delete"${ deleteDisabled }><i class='fas fa-trash fa-lg'></i></button>
                             <div class="article__delete_confirm hide">
-                                <button class="article__delete_yes i"><i class='fas fa-check fa-lg'></i></button>
-                                <button class="article__delete_no i"><i class='fas fa-times fa-lg'></i></button>
+                                <button class="article__delete_yes i" title="Delete"><i class='fas fa-check fa-lg'></i></button>
+                                <button class="article__delete_no i" title="Don't delete"><i class='fas fa-times fa-lg'></i></button>
                             </div>
                         </div>
                     </div>
@@ -260,12 +261,12 @@ $( document ).ready(function() {
                             <div class="task__add__buttons">
                                 <div class="task__add__buttons_change">
                                     <button class="task__add__button_add">Add card</button>
-                                    <button class="task__add__button_close i"><i class="fas fa-times fa-lg"></i></button>
+                                    <button class="task__add__button_close i" title="Close"><i class="fas fa-times fa-lg"></i></button>
                                 </div>
                                 <div class="task__add__menu">
                                     <button class="task__add__button_menu i"><i class="fas fa-ellipsis-v fa-lg"></i></button>
                                     <div class="task__add__menu__buttons hide">
-                                        <button class="task__add__menu__button_add-hashtags i"><i class='fas fa-hashtag fa-lg'></i></button>
+                                        <button class="task__add__menu__button_add-hashtags i" title="Add tag"><i class='fas fa-hashtag fa-lg'></i></button>
                                     </div>
                                 </div>
                             </div>
@@ -285,7 +286,7 @@ $( document ).ready(function() {
             articles.width(articles.width() + 390);
         },
 
-        changeColor: function (article, color) {
+        color_change: function (article, color) {
             article.removeClass().addClass(color);
         },
 
@@ -294,15 +295,15 @@ $( document ).ready(function() {
             article.find(".status__add__button_open").toggleClass("hide");
         },
 
-        head_toggleButtonMenu: function (article) {
+        head_menu_touch: function (article) {
             article.find(".article__buttons").toggleClass("hide");
         },
 
-        touchChoosingcolor: function (article) {
+        color_touchChoosing: function (article) {
             article.find(".choose-color").toggleClass("hide");
         },
 
-        touchConfirmDelete: function (article) {
+        delete_touchConfirm: function (article) {
             article.find(".article__delete_confirm").toggleClass("hide");
         },
         
@@ -311,7 +312,20 @@ $( document ).ready(function() {
 
             let articles = $(".articles");
             articles.width(articles.width() - 390);
-        }
+        },
+
+        rename_start: function (article) {
+            article.find("h2").addClass("hide");
+            article.find(".statusName").removeClass("hide").focus().val('').val(article.find("h2").text());
+        },
+
+        rename_finish: function (article) {
+            article.find("h2").text(article.find(".statusName").val());
+            article.find("h2").removeClass("hide");
+            article.find(".statusName").addClass("hide");
+
+            /*LS */
+        },
     }
 
     let LS = {
@@ -487,23 +501,24 @@ $( document ).ready(function() {
         
     });
     /*----------------Column----------------*/
-        /*-----------Open menu----------*/
+        /*-----------Touch menu----------*/
      $('body').on('click', ".article__head__button_menu", function() {
-        Status.head_toggleButtonMenu($(this).parents().eq(2));
+        Status.head_menu_touch($(this).parents().eq(2));
+        $(this).parents().eq(2).find(".article__delete_confirm").addClass("hide");
     });
         /*--------Open color menu-------*/
     $('body').on('click', ".article__button_color", function() {
-        Status.touchChoosingcolor($(this).parents().eq(3));
+        Status.color_touchChoosing($(this).parents().eq(3));
     });
         /*---------Choose color---------*/
     $('body').on('click', ".choose-color span", function() {
-        Status.changeColor($(this).parents().eq(4), $(this).attr("class"));
-        Status.head_toggleButtonMenu($(this).parents().eq(4));
-        Status.touchChoosingcolor($(this).parents().eq(4));
+        Status.color_change($(this).parents().eq(4), $(this).attr("class"));
+        Status.head_menu_touch($(this).parents().eq(4));
+        Status.color_touchChoosing($(this).parents().eq(4));
     });
         /*---------Delete confirm-------*/
     $('body').on('click', ".article__button_delete", function() {
-        Status.touchConfirmDelete($(this).parents().eq(3));
+        Status.delete_touchConfirm($(this).parents().eq(3));
     });
         /*------Delete confirm yes------*/ 
     $('body').on('click', ".article__delete_yes", function() {
@@ -513,6 +528,22 @@ $( document ).ready(function() {
     $('body').on('click', ".article__delete_no", function() {
         $(this).parent().addClass("hide");
     });
+        /*---------Start rename---------*/
+    $('body').on('click', ".article__button_rename", function() {
+        Status.rename_start($(this).parents().eq(3));
+        Status.head_menu_touch($(this).parents().eq(3));
+    });
+        /*--------Finish rename---------*/
+    $('body').on('focusout', ".statusName", function() {
+        Status.rename_finish($(this).parents().eq(1));
+    });
+    $('body').on('keypress', ".statusName", function() {
+        if ( event.which == 13 ) {
+            Status.rename_finish($(this).parents().eq(1));
+        }
+    });
+    
+    
     
     
     /*-----------------Task-----------------*/ 
@@ -610,7 +641,7 @@ $( document ).ready(function() {
     });
         /*--------Delete confirm--------*/
     $('body').on('click', ".task__button_delete", function() {
-        Task.touchConfirmDelete($(this).parents().eq(3));
+        Task.delete_touchConfirm($(this).parents().eq(3));
     });
         /*------Delete confirm yes------*/ 
     $('body').on('click', ".task__delete_yes", function() {

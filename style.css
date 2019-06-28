@@ -103,7 +103,7 @@ li.task {
     padding-bottom: 0;
     flex-wrap: wrap;
 }
-
+.statusName,
 .openText,
 .taskName {
     background: #4D79E8;
@@ -130,7 +130,7 @@ li.task {
 .openText {
     padding: 10px 10px 5px 10px !important;
     font-size: 14px;
-    height: auto;
+    height: auto !important;
     text-align: left;
     width: 223px;
     margin-left: 5px;
@@ -185,8 +185,8 @@ li.task {
 
 
 .article__buttons {
-    top: -5px;
-    left: -160px;
+    top: -3px;
+    left: -130px;
 }
 
 .task__delete_confirm,
@@ -233,6 +233,7 @@ button.i {
     margin: 1px;
     border-radius: 4px;
 }
+.statusName,
 .openText,
 .taskNameValue,
 .taskName,
