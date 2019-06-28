@@ -55,8 +55,8 @@ $( document ).ready(function() {
                         </div>
                     </div>
                     <div class='task__hashtags'>
-                        <input class='hashtagValue active hide' type='text' list='hashtags'></input>
-                        <div class="hashtagBuffer"></div>
+                        <input class='hashtagValue lightblue hide' type='text' list='hashtags'></input>
+                        <span class="hashtagBuffer"></span>
                     </div>
                 </div>
             </li>`);
@@ -67,7 +67,28 @@ $( document ).ready(function() {
                     datalist = li.parents().eq(3).find("#hashtags");
 
                 for (let i = 0; i < tags.length; i++) {
-                    $(`<div>${ tags[i] }</div>`).insertBefore(hashtagBlock.find(".hashtagValue"));
+                    $(`<div class="tag">
+                        <div class="tag_name lightblue">${ tags[i] }</div>
+                        <div class="tag__buttons hide">
+                            <button class="tag__button_rename i" title="Rename"><i class='fas fa-pen fa-lg'></i></button>
+                            <button class="tag__button_filter i" title="Filter"><i class='fas fa-filter fa-lg'></i></button>
+                            <button class="tag__button_color i" title="Paint"><i class='fas fa-palette fa-lg'></i></button>
+                            <div class="tag__choose-color hide">
+                                <span class="lightblue"></span>
+                                <span class="yellow"></span>
+                                <span class="red"></span>
+                                <span class="green"></span>
+                                <span class="purple"></span>
+                                <span class="lightgreen"></span>
+                                <span class="orange"></span>
+                            </div>
+                            <button class="tag__button_delete i" title="Delete"><i class='fas fa-trash fa-lg'></i></button>
+                            <div class="tag__delete_confirm hide">
+                                <button class="tag__delete_yes i" title="Delete"><i class='fas fa-check fa-lg'></i></button>
+                                <button class="tag__delete_no i" title="Don't delete"><i class='fas fa-times fa-lg'></i></button>
+                            </div>
+                        </div>
+                    </div>`).insertBefore(hashtagBlock.find(".hashtagValue"));
                     if ($("[value='" + tags[i].substr(1) + "']").length == 0) {
                         $(datalist).append(`<option value='${ tags[i].substr(1) }'></option>`);
                     }
@@ -75,36 +96,57 @@ $( document ).ready(function() {
             }
         },
 
-        rename: function (content) {  
+        rename_start: function (content) {  
             content.find(".taskName").removeAttr("readonly").css("cursor", "text").addClass("active");
             prevName = content.find(".taskName").val();
             content.find(".taskName").focus().val('').val(prevName);
         },
 
-        saveRename: function (content) { 
+        rename_finish: function (content) { 
             content.find(".taskName").attr("readonly", '').css("cursor", "default").removeClass("active");
 
-            LS.saveRename(content.parent());
+            LS.rename_finish(content.parent());
         },
 
-        saveHashtag: function(task) {
+        tag_add: function(task) {
             let hashtagInput = task.find(".hashtagValue"); 
             let hashtagName = "#" + hashtagInput.val(),
                 hashtagsBlock = task.find(".task__hashtags"),
                 datalist = task.parents().find("#hashtags");
             if ((hashtagName != "#") && (hashtagsBlock.find("div:contains('" + hashtagName + "')").length == 0)) { 
-                $(`<div>${ hashtagName }</div>`).insertBefore(hashtagInput);
+                $(`<div class="tag">
+                    <div class="tag_name lightblue">${ hashtagName }</div>
+                    <div class="tag__buttons hide">
+                        <button class="tag__button_rename i" title="Rename"><i class='fas fa-pen fa-lg'></i></button>
+                        <button class="tag__button_filter i" title="Filter"><i class='fas fa-filter fa-lg'></i></button>
+                        <button class="tag__button_color i" title="Paint"><i class='fas fa-palette fa-lg'></i></button>
+                        <div class="tag__choose-color hide">
+                            <span class="lightblue"></span>
+                            <span class="yellow"></span>
+                            <span class="red"></span>
+                            <span class="green"></span>
+                            <span class="purple"></span>
+                            <span class="lightgreen"></span>
+                            <span class="orange"></span>
+                        </div>
+                        <button class="tag__button_delete i" title="Delete"><i class='fas fa-trash fa-lg'></i></button>
+                        <div class="tag__delete_confirm hide">
+                            <button class="tag__delete_yes i" title="Delete"><i class='fas fa-check fa-lg'></i></button>
+                            <button class="tag__delete_no i" title="Don't delete"><i class='fas fa-times fa-lg'></i></button>
+                        </div>
+                    </div>
+                </div>`).insertBefore(hashtagInput);
                 if ($("[value='" + hashtagName.substr(1) + "']").length == 0) {
                     $(datalist).append(`<option value='${ hashtagName.substr(1) }'></option>`);
                 }
                 hashtagInput.width(60);
                 hashtagInput.val('');
                 hashtagInput.focus();
-                /*LS.saveHashtag(task, hashtagName);*/
+                /*LS.tag_add(task, hashtagName);*/
             }
         },
 
-        moveTask: function (li, newState) {
+        move_dd: function (li, newState) {
             if (newState == ".listDone") {
                 if (!li.find(".check").hasClass('checked')) {
                     Task.check(li.find(".check"));
@@ -118,10 +160,10 @@ $( document ).ready(function() {
             LS.order(li, newState);
         },
 
-        checkMove: function (li, newState) {
+        move_check: function (li, newState) {
             li.detach().appendTo($(newState));
             
-            LS.checkMove(li, newState);
+            LS.move_check(li, newState);
         },
 
         check: function (checkbox) {
@@ -129,14 +171,9 @@ $( document ).ready(function() {
             checkbox.find("i").toggleClass('fas fa-check-square far fa-square');
         },
 
-        touchValue: function(li) {
-            let taskName = li.find(".taskName"),
-                openText = li.find(".openText");
-                taskName.toggleClass("hide");
-                openText.toggleClass("hide");
-                if (window.getSelection) {
-                    window.getSelection().removeAllRanges();
-                } 
+        name_show: function(li) {
+            li.find(".taskName").toggleClass("hide");
+            li.find(".openText").toggleClass("hide");
         },
 
         filterHashTags_add: function (tag) {
@@ -170,16 +207,16 @@ $( document ).ready(function() {
             filterTags.splice(filterTags.indexOf(tag), 1);
         },
 
-        add_toggleTextarea: function (article) {
+        adding_textarea_touch: function (article) {
             article.find(".task__add__adding-block").toggleClass("hide");
             article.find(".task__add__button_open").toggleClass("hide");
         },
 
-        add_toggleButtonMenu: function (article) {
+        adding_menu_touch: function (article) {
             article.find(".task__add__menu__buttons").toggleClass("hide");
         },
 
-        touchMenu : function (task) {
+        menu_touch : function (task) {
             task.find(".task__buttons").toggleClass("hide");
         },
 
@@ -199,6 +236,8 @@ $( document ).ready(function() {
                 task.find(".task__hashtags").css({"padding-bottom" : "5px"});
             }
         },
+
+        
     }
 
     let Status = {
@@ -235,7 +274,7 @@ $( document ).ready(function() {
                         <div class="article__buttons hide">
                             <button class="article__button_rename i" title="Rename"><i class='fas fa-pen fa-lg'></i></button>
                             <button class="article__button_color i" title="Paint"><i class='fas fa-palette fa-lg'></i></button>
-                            <div class="choose-color hide">
+                            <div class="article__choose-color hide">
                                 <span class="blue"></span>
                                 <span class="yellow"></span>
                                 <span class="red"></span>
@@ -279,7 +318,7 @@ $( document ).ready(function() {
             $( string ).sortable({
                 connectWith: ".list",
                 update: function(event, ui) {
-                    Task.moveTask(ui.item, findClass(ui.item.parent().attr('class')));
+                    Task.move_dd(ui.item, findClass(ui.item.parent().attr('class')));
                 }
             }).disableSelection();
 
@@ -290,7 +329,7 @@ $( document ).ready(function() {
             article.removeClass().addClass(color);
         },
 
-        toggleTextarea: function (article) {
+        textarea_touch: function (article) {
             article.find(".status__add__adding-block").toggleClass("hide");
             article.find(".status__add__button_open").toggleClass("hide");
         },
@@ -299,8 +338,8 @@ $( document ).ready(function() {
             article.find(".article__buttons").toggleClass("hide");
         },
 
-        color_touchChoosing: function (article) {
-            article.find(".choose-color").toggleClass("hide");
+        menu_color_touch: function (article) {
+            article.find(".article__choose-color").toggleClass("hide");
         },
 
         delete_touchConfirm: function (article) {
@@ -392,7 +431,7 @@ $( document ).ready(function() {
             localStorage.setItem("todolist", JSON.stringify(allTasks));
         },
 
-        checkMove: function(li, newState) {
+        move_check: function(li, newState) {
             let taskName = li.find(".taskName").val(),
                 allTasks = JSON.parse(localStorage.getItem("todolist"));
             for (let i = 0; i < allTasks.length; i++) {
@@ -403,7 +442,7 @@ $( document ).ready(function() {
             localStorage.setItem("todolist", JSON.stringify(allTasks));
         },
 
-        saveRename: function (li) {
+        rename_finish: function (li) {
             let allTasks = JSON.parse(localStorage.getItem("todolist")),
                 taskName = li.find(".taskName").val();
             for (let i = 0; i < allTasks.length; i++) {
@@ -414,7 +453,7 @@ $( document ).ready(function() {
             localStorage.setItem("todolist", JSON.stringify(allTasks));
         },
 
-        saveHashtag: function (task, hashtagName) {
+        tag_add: function (task, hashtagName) {
             let allTasks = JSON.parse(localStorage.getItem("todolist")),
                 localHashtags = [],
                 taskName = task.find(".taskName").val();
@@ -430,6 +469,43 @@ $( document ).ready(function() {
             }
             localStorage.setItem("todolist", JSON.stringify(allTasks));
         }
+    }
+
+    let Tag = {
+        menu_touch : function (tag) {
+            tag.find(".tag__buttons").toggleClass("hide");
+        },
+
+        menu_color_touch: function (tag) {
+            tag.find(".tag__choose-color").toggleClass("hide");
+        },
+
+        color_change: function (tag, color) {
+            tag.find(".tag_name").removeClass().addClass(color).addClass("tag_name");
+
+            // LS
+        },
+
+        delete_touchConfirm: function (tag) {
+            tag.find(".tag__delete_confirm").toggleClass("hide");
+        },
+        
+        rename: function (tag) {
+            tag.addClass("hide");
+            let nameClone = tag.find(".tag_name").clone();
+            let name = nameClone.text().substring(1);
+            let color = nameClone.removeClass("tag_name").attr("class");
+            tag.parent().find(".hashtagValue").removeClass().addClass("hashtagValue").addClass(color).val(name).focus();
+
+            // LS
+        },
+
+
+        delete: function (tag) {
+            tag.detach();
+
+            // LS
+        },
     }
 
     Status.add("blue", "Statuses", true);
@@ -472,13 +548,13 @@ $( document ).ready(function() {
     /*---------------New Task---------------*/
         /*-----------Open menu----------*/ 
     $('body').on('click', ".status__add__button_open", function() {
-        Status.toggleTextarea($(this).parents().eq(1));
+        Status.textarea_touch($(this).parents().eq(1));
         $(this).parent().find(".status__add__value").focus();
         $(".container").scrollLeft($(".articles").width());
     });
         /*----------Close menu----------*/
     $('body').on('click', ".status__add__button_close", function() {
-        Status.toggleTextarea($(this).parents().eq(3));
+        Status.textarea_touch($(this).parents().eq(3));
     });
         /*----------Add column----------*/
     $('body').on('click', ".status__add__button_add", function() {
@@ -501,20 +577,20 @@ $( document ).ready(function() {
         
     });
     /*----------------Column----------------*/
-        /*-----------Touch menu----------*/
+        /*----------Touch menu----------*/
      $('body').on('click', ".article__head__button_menu", function() {
         Status.head_menu_touch($(this).parents().eq(2));
         $(this).parents().eq(2).find(".article__delete_confirm").addClass("hide");
     });
         /*--------Open color menu-------*/
     $('body').on('click', ".article__button_color", function() {
-        Status.color_touchChoosing($(this).parents().eq(3));
+        Status.menu_color_touch($(this).parents().eq(3));
     });
         /*---------Choose color---------*/
-    $('body').on('click', ".choose-color span", function() {
+    $('body').on('click', ".article__choose-color span", function() {
         Status.color_change($(this).parents().eq(4), $(this).attr("class"));
         Status.head_menu_touch($(this).parents().eq(4));
-        Status.color_touchChoosing($(this).parents().eq(4));
+        Status.menu_color_touch($(this).parents().eq(4));
     });
         /*---------Delete confirm-------*/
     $('body').on('click', ".article__button_delete", function() {
@@ -549,17 +625,17 @@ $( document ).ready(function() {
     /*-----------------Task-----------------*/ 
         /*-------Touch adding menu------*/ 
     $('body').on('click', ".task__add__button_menu", function() {
-        Task.add_toggleButtonMenu($(this).parents().eq(5));
+        Task.adding_menu_touch($(this).parents().eq(5));
     });
         /*---------Open adding----------*/
     $('body').on('click', ".task__add__button_open", function() {
-        Task.add_toggleTextarea($(this).parents().eq(2));
+        Task.adding_textarea_touch($(this).parents().eq(2));
         $(this).parents().eq(2).scrollTop($(this).parents().eq(2).height());
         $(this).parent().find(".task__add__value").focus();
     });
         /*---------Close adding----------*/
     $('body').on('click', ".task__add__button_close", function() {
-        Task.add_toggleTextarea($(this).parents().eq(5));
+        Task.adding_textarea_touch($(this).parents().eq(5));
     });
         /*-----------Add task------------*/
     $('body').on('click', ".task__add__button_add", function() {
@@ -575,69 +651,109 @@ $( document ).ready(function() {
     });
     
     
-        /*--------------Rename--------------*/ 
+        /*------------Rename------------*/ 
     $('body').on('click', ".task__button_rename", function() {
-        Task.rename($(this).parents().eq(2));
+        Task.rename_start($(this).parents().eq(2));
         $(this).parent().addClass("hide");
     });
-        /*------------Save rename-----------*/
+        /*----------Save rename---------*/
     $('body').on('focusout', ".taskName", function() {
-        Task.saveRename($(this).parents().eq(1));
+        Task.rename_finish($(this).parents().eq(1));
     }); 
-        /*------Rename or Save rename-------*/
+        /*----Rename or Save rename-----*/
     $('body').on('keypress', ".taskName", function(event) {
         if ( event.which == 13 ) {
             if ($(this).hasClass("active")) {
-                Task.saveRename($(this).parents().eq(1));
+                Task.rename_finish($(this).parents().eq(1));
             } else {
-                Task.rename($(this).parents().eq(1));
+                Task.rename_start($(this).parents().eq(1));
             }
         }
     }); 
-        /*--------------Check---------------*/ 
+        /*------------Check-------------*/ 
     $('body').on('click', ".check", function() {
         if (!$(this).hasClass('checked')) {
             Task.check($(this));
-            Task.checkMove($(this).parents().eq(2), ".listDone");
+            Task.move_check($(this).parents().eq(2), ".listDone");
         } else {
             Task.check($(this));
-            Task.checkMove($(this).parents().eq(2), ".listStatuses");
+            Task.move_check($(this).parents().eq(2), ".listStatuses");
         }
     });
-        /*----------Open task name----------*/
+        /*--------Open task name--------*/
     $('body').on('click', ".task__button_show", function() {
-        Task.touchValue($(this).parents().eq(3));
+        Task.name_show($(this).parents().eq(3));
         $(this).parent().addClass("hide");
     });
-        /*---------Close task name----------*/
+        /*-------Close task name--------*/
     $('body').on('dblclick', ".openText", function() {
-        Task.touchValue($(this).parents().eq(1));
+        Task.name_show($(this).parents().eq(1));
     });
 
-        /*------Show Adding new hashtag-----*/ 
+        /*----Show Adding new hashtag---*/ 
     $('body').on('click', ".task__button_hashtag", function() {
-        Task.touchMenu($(this).parents().eq(3));
+        Task.menu_touch($(this).parents().eq(3));
         Task.hashtag_showAdding($(this).parents().eq(3));
         Task.hashtag_checkHeight($(this).parents().eq(3));
     });
-        /*------Width of hashtag-input------*/
+        /*----Width of hashtag-input----*/
     $('body').on('input', ".hashtagValue", function() {
         let value = $(this),
             buffer = $(this).parent().find('.hashtagBuffer')
         buffer.text(value.val());
         value.width(buffer.width() + 35);
     });
-        /*-----------Add hashtag------------*/
+        /*---------Add hashtag----------*/
     $('body').on('keypress', ".hashtagValue", function() {
         if ( (event.which == 13) || (event.which == 44)) {
-            Task.saveHashtag($(this).parents().eq(2));
+            Task.tag_add($(this).parents().eq(2));
             event.preventDefault();
         }
     });
 
+
+    /*-----------------Tag------------------*/
+        /*------Touch menu of tag-------*/
+    $('body').on('click', ".tag_name", function() {
+        Tag.menu_touch($(this).parent());
+    });
+        /*------------Rename------------*/
+    $('body').on('click', ".tag__button_rename", function() {
+        Tag.rename($(this).parents().eq(1));
+    });
+        /*-----------Filter------------*/
+    $('body').on('click', ".tag__button_filter", function() {
+        //Tag.filter($(this).parents().eq(1));
+    });
+    
+        /*------Open color menu---------*/
+    $('body').on('click', ".tag__button_color", function() {
+        Tag.menu_color_touch($(this).parents().eq(1));
+    });
+        /*--------Choose color----------*/
+    $('body').on('click', ".tag__choose-color span", function() {
+        Tag.color_change($(this).parents().eq(2), $(this).attr("class"));
+        Tag.menu_touch($(this).parents().eq(2));
+        Tag.menu_color_touch($(this).parents().eq(2));
+    });
+        /*---------Delete confirm-------*/
+    $('body').on('click', ".tag__button_delete", function() {
+        Tag.delete_touchConfirm($(this).parents().eq(2));
+    });
+        /*------Delete confirm yes------*/ 
+    $('body').on('click', ".tag__delete_yes", function() {
+        Tag.delete($(this).parents().eq(2));
+        Task.hashtag_checkHeight($(this).parents().eq(4));
+    });
+        /*-------Delete confirm no------*/
+    $('body').on('click', ".tag__delete_no", function() {
+        $(this).parent().addClass("hide");
+    });
+
+
          /*-------Open task name--------*/
     $('body').on('click', ".task__menu_open", function() {
-        Task.touchMenu($(this).parents().eq(2));
+        Task.menu_touch($(this).parents().eq(2));
     });
         /*--------Delete confirm--------*/
     $('body').on('click', ".task__button_delete", function() {
@@ -664,23 +780,27 @@ $( document ).ready(function() {
             $(".status__add__button_open").removeClass("hide");
             $(".article__buttons").addClass("hide");
             $(".task__add__menu__buttons").addClass("hide");
-            $(".choose-color").addClass("hide");
+            $(".article__choose-color").addClass("hide");
             $(".article__delete_confirm").addClass("hide");
             $(".task__delete_confirm").addClass("hide");
+            $(".tag__delete_confirm").addClass("hide");
             $(".task__buttons").addClass("hide");
             $(".hashtagValue").addClass("hide");
+            $(".tag__buttons").addClass("hide");
+            $(".tag__choose-color").addClass("hide");
             $(".task").each(function(key, elem) {
                 Task.hashtag_checkHeight($(elem));
             });
             
         }
     });
+    /*
     $('body').on('click', ".task__hashtags div", function() {
         if ($(this).hasClass("active")) {
             Task.filterHashTags_remove($(this).html());
         } else {
             Task.filterHashTags_add($(this).html());
         }
-    });
+    });*/
     /*----------------------------------------*/       
 });

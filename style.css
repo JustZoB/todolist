@@ -81,10 +81,7 @@ li.task {
     border-top-left-radius: 5px;
     border-top-right-radius: 5px;
 }
-.hashtagValue {
-    cursor: text;
-    background: #4763FF !important;
-}
+
 .task__content {
     background: white;
     border-bottom-left-radius: 5px;
@@ -114,6 +111,8 @@ li.task {
     width: 236px;
 }
 .hashtagValue {
+    height: 26px !important;
+    cursor: text;
     border-radius: 15px;
     padding: 0 15px 0 15px !important;
     width: 60px;
@@ -137,8 +136,10 @@ li.task {
     background: rgb(52, 73, 196) !important;
     overflow: hidden;
 }
-.task__hashtags div{
-    background: #4794FF;
+.tag {
+    position: relative;
+}
+.tag_name {
     font-size: 14px;
     padding: 4px 8px;
     margin: 2px;
@@ -168,11 +169,13 @@ li.task {
 .task__add__menu {
     position: relative;
 }
-
+.tag__choose-color,
+.tag__buttons,
 .task__buttons,
+.tag__delete_confirm,
 .task__delete_confirm,
 .article__delete_confirm,
-.choose-color,
+.article__choose-color,
 .article__buttons,
 .task__add__menu__buttons {
     position: absolute;
@@ -183,6 +186,13 @@ li.task {
     z-index: 1;
 }
 
+.tag__buttons {
+    display: flex;
+    flex-direction: column;
+    bottom: -60px;
+    right: -45px;
+    z-index: 5;
+}
 
 .article__buttons {
     top: -3px;
@@ -197,19 +207,33 @@ li.task {
     transform: translate(50%, 0);
     z-index: 5;
 }
+.tag__delete_confirm {
+    display: flex;
+    flex-direction: column;
+    bottom: -20px;
+    right: -45px;
+    z-index: 5;
+}
 
 .task__buttons {
     display: flex;
     bottom: -40px;
     right: 6px;
 }
+.tag__choose-color {
+    display: flex;
+    flex-direction: column;
+    bottom: -10px;
+    right: -30px;
+}
 
-.choose-color {
+.article__choose-color {
     display: flex;
     bottom: -33px;
     right: -10px;
 }
-.choose-color span {
+.tag__choose-color span,
+.article__choose-color span {
     width: 20px;
     height: 20px;
     margin: 2px;
@@ -217,7 +241,6 @@ li.task {
     cursor: pointer;
 }
 /*---------Buttons & Inputs----------*/
-
 button:disabled {
     background: rgb(164, 188, 233) !important;
     cursor: default !important;
@@ -345,13 +368,17 @@ button.i {
 }
 
 /*--------------Colors--------------*/
+
+
 .blue,
 .blue .task__color,
 .blue .article__color,
 .newTask .taskName,
-.newTask .hashtagValue,
 .taskNameValue {
     background: #4D79E8;
+}
+.lightblue {
+    background: #4794FF;
 }
 .yellow,
 .yellow .task__color,
@@ -407,10 +434,12 @@ button.i {
     color: rgb(233, 142, 23);
 }
 
+.tag__delete_yes,
 .article__delete_yes,
 .task__delete_yes {
     background: green !important;
 }
+.tag__delete_no,
 .article__delete_no,
 .task__delete_no {
     background: red !important;
