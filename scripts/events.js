@@ -9,7 +9,7 @@ function toggleTime (menu) {
     menu.find(".sun").toggleClass("hide");
     menu.find(".moon").toggleClass("hide");
 }
-/*---------------New Task---------------*/
+/*---------------New Status---------------*/
     /*-----------Open menu----------*/ 
 $('body').on('click', ".status__add__button_open", function() {
     Status.textarea_touch($(this).parents().eq(1));
@@ -22,7 +22,9 @@ $('body').on('click', ".status__add__button_close", function() {
 });
     /*----------Add column----------*/
 $('body').on('click', ".status__add__button_add", function() {
-    Status.add("purple");
+    let button_color = $(this).parent().find(".status__add__button_color"),
+        color = button_color.clone().removeClass(".status__add__button_color i").attr("class");
+    Status.add(color);
 
     $(".container").scrollLeft($(".articles").width());
     $(".status__add__value").val("");
@@ -30,7 +32,9 @@ $('body').on('click', ".status__add__button_add", function() {
 });
 $('body').on('keydown', ".status__add__value", function() {
     if ( event.which == 13 ) {
-        Status.add("purple");
+        let button_color = $(this).parent().find(".status__add__button_color"),
+            color = button_color.clone().removeClass(".status__add__button_color i").attr("class");
+        Status.add(color);
 
         $(".container").scrollLeft($(".articles").width());
         $(".status__add__value").val("");
