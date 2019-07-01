@@ -139,15 +139,19 @@ li.task {
 }
 
 .openText {
-    padding: 10px 10px 5px 10px !important;
+    padding: 12px 10px 2px 7px !important;
     font-size: 14px;
+    color: white;
     height: auto !important;
     text-align: left;
-    width: 223px;
-    margin-left: 5px;
+    width: 227px;
     background: rgb(52, 73, 196) !important;
     overflow: hidden;
 }
+p {
+    margin: 0;
+}
+
 .tag {
     position: relative;
 }
@@ -252,7 +256,14 @@ li.task {
     margin: 2px;
     border-radius: 4px;
     cursor: pointer;
+    opacity: 0.9;
 }
+.status__add__choose-color span:hover,
+.tag__choose-color span:hover,
+.article__choose-color span:hover {
+    opacity: 1;
+}
+
 
 .newTask__button_open,
 .status__add__button_open {
@@ -346,6 +357,13 @@ li.task {
 }
 
 /*---------Buttons & Inputs----------*/
+
+button {
+    opacity: 0.9;
+}
+button:hover {
+    opacity: 1;
+}
 
 button.i {
     width: 36px;
