@@ -52,20 +52,24 @@ let Status = {
                 </div>
             </div>
             <ul class="list${ listClass } list" id="${ id }"></ul>
-            <div class="task__add">
-                <div class="task__add__content">
-                    <button class="task__add__button_open">Add card</button>
-                    <div class="task__add__adding-block hide">
-                        <textarea class="task__add__value" type="text" placeholder="Enter a head of your task..."></textarea>
-                        <div class="task__add__buttons">
-                            <div class="task__add__buttons_change">
-                                <button class="task__add__button_add">Add card</button>
-                                <button class="task__add__button_close i" title="Close"><i class="fas fa-times fa-lg"></i></button>
+            <div class="newTask">
+                <div class="newTask__content">
+                    <button class="newTask__button_open">Add card</button>
+                    <div class="newTask__adding-block hide">
+                        <textarea class="newTask__value" type="text" placeholder="Enter a head of your task..."></textarea>
+                        <div class='newTask__hashtags hide'>
+                            <input class='newTask__hashtagValue lightblue' type='text' list='hashtags'></input>
+                            <span class="newTask__hashtagBuffer"></span>
+                        </div>
+                        <div class="newTask__buttons">
+                            <div class="newTask__buttons_change">
+                                <button class="newTask__button_add">Add card</button>
+                                <button class="newTask__button_close i" title="Close"><i class="fas fa-times fa-lg"></i></button>
                             </div>
-                            <div class="task__add__menu">
-                                <button class="task__add__button_menu i"><i class="fas fa-ellipsis-v fa-lg"></i></button>
-                                <div class="task__add__menu__buttons hide">
-                                    <button class="task__add__menu__button_add-hashtags i" title="Add tag"><i class='fas fa-hashtag fa-lg'></i></button>
+                            <div class="newTask__menu">
+                                <button class="newTask__button_menu i"><i class="fas fa-ellipsis-v fa-lg"></i></button>
+                                <div class="newTask__menu__buttons hide">
+                                    <button class="newTask__button_hashtags i" title="Add tag"><i class='fas fa-hashtag fa-lg'></i></button>
                                 </div>
                             </div>
                         </div>

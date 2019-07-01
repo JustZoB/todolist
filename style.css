@@ -93,6 +93,7 @@ li.task {
 .task__name {
     position: relative;
 }
+
 .task__name, 
 .task__hashtags {
     padding: 5px;
@@ -103,6 +104,12 @@ li.task {
     padding-bottom: 0;
     flex-wrap: wrap;
 }
+
+.newTask__hashtags {
+    padding: 10px;
+    padding-top: 0;
+}
+
 .statusName,
 .openText,
 .taskName {
@@ -113,6 +120,7 @@ li.task {
     margin-left: 5px;
     width: 236px;
 }
+.newTask__hashtagValue,
 .hashtagValue {
     height: 26px !important;
     cursor: text;
@@ -121,6 +129,7 @@ li.task {
     width: 60px;
     min-width: 60px;
 }
+.newTask__hashtagBuffer,
 .hashtagBuffer {
     position: absolute;
     top: -1000px;
@@ -171,7 +180,7 @@ li.task {
     margin: auto 0;
 }
 .article__head__menu,
-.task__add__menu {
+.newTask__menu {
     position: relative;
 }
 .tag__choose-color,
@@ -182,7 +191,7 @@ li.task {
 .article__delete_confirm,
 .article__choose-color,
 .article__buttons,
-.task__add__menu__buttons {
+.newTask__menu__buttons {
     position: absolute;
     box-shadow: 0 0 10px rgba(1, 8, 65, 0.5);
     background: white;
@@ -261,6 +270,7 @@ button.i {
     margin: 1px;
     border-radius: 4px;
 }
+.newTask__hashtagValue,
 .statusName,
 .openText,
 .taskNameValue,
@@ -283,7 +293,7 @@ button.i {
     background: #4763FF !important;
 }
 
-.task__add__button_open,
+.newTask__button_open,
 .status__add__button_open {
     background: cornflowerblue;
     color: white;
@@ -295,7 +305,7 @@ button.i {
     border-radius: 5px;
 }
 
-.task__add__button_add,
+.newTask__button_add,
 .status__add__button_add {
     background: rgb(30, 153, 30);
     color: white;
@@ -307,7 +317,7 @@ button.i {
     border-radius: 5px;
 }
 .status__add__value,
-.task__add__value {
+.newTask__value {
     background: white;
     color: black;
     border: 0;
@@ -322,7 +332,7 @@ button.i {
 }
 
 .status__add__buttons,
-.task__add__buttons_change {
+.newTask__buttons_change {
     margin-left: 9px;
 }
 /*--------------Status__add--------------*/
@@ -336,39 +346,36 @@ button.i {
 .status__add__value {
     padding: 12px 0 0px 10px;
 }
-/*--------------Task__add--------------*/
-.task__add {
+/*--------------newTask--------------*/
+.newTask {
     width: 330px;
     margin: 10px auto 0 auto;
     padding-bottom: 20px;
 }
-.task__add__adding-block {
-    padding-bottom: 10px;
-}
-.task__add__content {
+.newTask__content {
     background: white;
     border-radius: 5px;
 }
-.task__add__value {
+.newTask__value {
     padding: 10px 0 50px 7px;
 }
-.task__add__value::placeholder {
+.newTask__value::placeholder {
     color: rgb(124, 128, 133);
 }
 
-.task__add__button_menu {
+.newTask__button_menu {
     margin-right: 10px !important;
 }
-.task__add__buttons {
+.newTask__buttons {
     display: flex;
     justify-content: space-between;
+    padding-bottom: 10px;
 }
-.task__add__menu__buttons {
-    top: -40px;
+.newTask__menu__buttons {
+    top: -7px;
     left: -60px;
-    padding: 0 5px;
 }
-.task__add__menu__buttons button {
+.newTask__menu__buttons button {
     margin: 5px !important;
 }
 
@@ -378,7 +385,6 @@ button.i {
 .blue,
 .blue .task__color,
 .blue .article__color,
-.newTask .taskName,
 .taskNameValue {
     background: #4D79E8;
 }

@@ -38,7 +38,6 @@ $('body').on('keydown', ".status__add__value", function() {
 
         event.preventDefault();
     }
-    
 });
 
 /*----------------Column----------------*/
@@ -85,36 +84,43 @@ $('body').on('keypress', ".statusName", function() {
 });
 
 
-
-
-/*-----------------Task-----------------*/ 
+/*---------------New Task---------------*/ 
     /*-------Touch adding menu------*/ 
-$('body').on('click', ".task__add__button_menu", function() {
+$('body').on('click', ".newTask__button_menu", function() {
     Task.adding_menu_touch($(this).parents().eq(5));
 });
     /*---------Open adding----------*/
-$('body').on('click', ".task__add__button_open", function() {
+$('body').on('click', ".newTask__button_open", function() {
     Task.adding_textarea_touch($(this).parents().eq(2));
-    $(this).parents().eq(2).scrollTop($(this).parents().eq(2).height());
-    $(this).parent().find(".task__add__value").focus();
+    Task.scrollToBottom($(this).parents().eq(2));
+    $(this).parent().find(".newTask__value").focus();
 });
     /*---------Close adding----------*/
-$('body').on('click', ".task__add__button_close", function() {
+$('body').on('click', ".newTask__button_close", function() {
     Task.adding_textarea_touch($(this).parents().eq(5));
 });
     /*-------------Add---------------*/
-$('body').on('click', ".task__add__button_add", function() {
+$('body').on('click', ".newTask__button_add", function() {
     Task.add($(this).parents().eq(5));
-    $(this).parents().eq(5).scrollTop($(this).parents().eq(5).height());
+    Task.scrollToBottom($(this).parents().eq(5));
 });
-$('body').on('keypress', ".task__add__value", function() {
+$('body').on('keypress', ".newTask__value", function() {
     if ( event.which == 13 ) {
         Task.add($(this).parents().eq(3));
-        $(this).parents().eq(3).scrollTop($(this).parents().eq(3).height());
+        Task.scrollToBottom($(this).parents().eq(3));
         event.preventDefault();
     }
 });
+    /*----Open input for hashtags----*/
+$('body').on('click', ".newTask__button_hashtags", function() {
+    $(this).parents().eq(3).find(".newTask__hashtags").toggleClass("hide");
+    $(this).parents().eq(3).find(".newTask__hashtagValue").focus();
+    Task.adding_menu_touch($(this).parents().eq(6));
+    Task.scrollToBottom($(this).parents().eq(6));
+});
 
+
+/*-----------------Task-----------------*/
     /*------------Rename------------*/ 
 $('body').on('click', ".task__button_rename", function() {
     Task.rename_start($(this).parents().eq(2));
@@ -160,18 +166,26 @@ $('body').on('click', ".task__button_hashtag", function() {
     Task.hashtag_showAdding($(this).parents().eq(3));
     Task.hashtag_checkHeight($(this).parents().eq(3));
 });
-    /*----Width of hashtag-input----*/
-$('body').on('input', ".hashtagValue", function() {
-    let value = $(this),
-        buffer = $(this).parent().find('.hashtagBuffer')
-    buffer.text(value.val());
-    value.width(buffer.width() + 35);
+    /*-------Open task name--------*/
+$('body').on('click', ".task__menu_open", function() {
+    Task.menu_touch($(this).parents().eq(2));
+});
+    /*--------Delete confirm--------*/
+$('body').on('click', ".task__button_delete", function() {
+    Task.delete_touchConfirm($(this).parents().eq(3));
+});
+    /*------Delete confirm yes------*/ 
+$('body').on('click', ".task__delete_yes", function() {
+    Task.delete($(this).parents().eq(4));
+});
+    /*-------Delete confirm no------*/
+$('body').on('click', ".task__delete_no", function() {
+    $(this).parent().addClass("hide");
 });
 
 
 
 /*-----------------Tag------------------*/
-
     /*-------------Add--------------*/
 $('body').on('keypress', ".hashtagValue", function() {
     if ( (event.which == 13) || (event.which == 44)) {
@@ -181,6 +195,13 @@ $('body').on('keypress', ".hashtagValue", function() {
         }
     }
 });
+    /*----Width of hashtag-input----*/
+$('body').on('input', ".hashtagValue", function() {
+    let value = $(this),
+        buffer = $(this).parent().find('.hashtagBuffer')
+    buffer.text(value.val());
+    value.width(buffer.width() + 35);
+});
     /*------Touch menu of tag-------*/
 $('body').on('click', ".tag_name", function() {
     Tag.menu_touch($(this).parent());
@@ -189,6 +210,11 @@ $('body').on('click', ".tag_name", function() {
 $('body').on('click', ".tag__button_rename", function() {
     Tag.menu_touch($(this).parents().eq(1));
     Tag.rename_start($(this).parents().eq(1));
+
+    let value = $(this).parents().eq(2).find('.hashtagValue'),
+        buffer = $(this).parents().eq(2).find('.hashtagBuffer');
+    buffer.text(value.val());
+    value.width(buffer.width() + 35);
 });
     /*---------Save rename----------*/
 $('body').on('keypress', ".hashtagValue", function() {
@@ -237,36 +263,18 @@ $('body').on('click', ".tag__delete_no", function() {
     $(this).parent().addClass("hide");
 });
 
-
-     /*-------Open task name--------*/
-$('body').on('click', ".task__menu_open", function() {
-    Task.menu_touch($(this).parents().eq(2));
-});
-    /*--------Delete confirm--------*/
-$('body').on('click', ".task__button_delete", function() {
-    Task.delete_touchConfirm($(this).parents().eq(3));
-});
-    /*------Delete confirm yes------*/ 
-$('body').on('click', ".task__delete_yes", function() {
-    Task.delete($(this).parents().eq(4));
-});
-    /*-------Delete confirm no------*/
-$('body').on('click', ".task__delete_no", function() {
-    $(this).parent().addClass("hide");
-});
-
 /*----------------CloseAll----------------*/
 $('body').on('click', function() {
     console.log(window.event.target);
     if (window.event.target.classList.contains("articles") || window.event.target.classList.contains("container")) {
         $(".taskName").removeClass("hide");
         $(".openText").addClass("hide");
-        $(".task__add__adding-block").addClass("hide");
-        $(".task__add__button_open").removeClass("hide");
+        $(".newTask__adding-block").addClass("hide");
+        $(".newTask__button_open").removeClass("hide");
         $(".status__add__adding-block").addClass("hide");
         $(".status__add__button_open").removeClass("hide");
         $(".article__buttons").addClass("hide");
-        $(".task__add__menu__buttons").addClass("hide");
+        $(".newTask__menu__buttons").addClass("hide");
         $(".article__choose-color").addClass("hide");
         $(".article__delete_confirm").addClass("hide");
         $(".task__delete_confirm").addClass("hide");
@@ -288,6 +296,3 @@ $('body').on('click', function() {
         
     }
 });
-
-
-/*----------------------------------------*/

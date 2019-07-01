@@ -3,14 +3,14 @@ let prevName = "",
 
 let Task = {
     add: function(article) {
-        let name = article.find(".task__add__value");
+        let name = article.find(".newTask__value");
         let nameValue = name.val();
         if (nameValue != "") {
             let listState = findClass(article.find(".list").attr("class"));
             Task.addHtml(nameValue, article.find(".list"));
             LS.add(nameValue, listState);
         }
-        article.find(".task__add__value").focus();
+        article.find(".newTask__value").focus();
         name.val("");
     },
 
@@ -116,12 +116,12 @@ let Task = {
     },
 
     adding_textarea_touch: function (article) {
-        article.find(".task__add__adding-block").toggleClass("hide");
-        article.find(".task__add__button_open").toggleClass("hide");
+        article.find(".newTask__adding-block").toggleClass("hide");
+        article.find(".newTask__button_open").toggleClass("hide");
     },
 
     adding_menu_touch: function (article) {
-        article.find(".task__add__menu__buttons").toggleClass("hide");
+        article.find(".newTask__menu__buttons").toggleClass("hide");
     },
 
     menu_touch : function (task) {
@@ -143,6 +143,10 @@ let Task = {
         } else {
             task.find(".task__hashtags").css({"padding-bottom" : "5px"});
         }
+    },
+
+    scrollToBottom: function (column) {
+        column.scrollTop(column.height());
     }
 }
 
