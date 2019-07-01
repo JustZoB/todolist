@@ -268,12 +268,13 @@ $('body').on('click', ".tag__choose-color span", function() {
 });
     /*---------Delete confirm-------*/
 $('body').on('click', ".tag__button_delete", function() {
-    Tag.delete_touchConfirm($(this).parents().eq(2));
+    Tag.delete_touchConfirm($(this).parents().eq(1));
 });
     /*------Delete confirm yes------*/ 
 $('body').on('click', ".tag__delete_yes", function() {
+    let task = $(this).parents().eq(5);
     Tag.delete($(this).parents().eq(2));
-    Task.hashtag_checkHeight($(this).parents().eq(4));
+    Task.hashtag_checkHeight(task);
 });
     /*-------Delete confirm no------*/
 $('body').on('click', ".tag__delete_no", function() {

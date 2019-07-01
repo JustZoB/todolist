@@ -139,12 +139,12 @@ li.task {
 }
 
 .openText {
-    padding: 12px 10px 2px 7px !important;
+    padding: 12px 10px 10px 10px !important;
     font-size: 14px;
     color: white;
     height: auto !important;
     text-align: left;
-    width: 227px;
+    width: 224px;
     background: rgb(52, 73, 196) !important;
     overflow: hidden;
 }

@@ -138,6 +138,8 @@ let Task = {
     },
 
     hashtag_checkHeight: function (task) {
+        console.log(task.find(".task__hashtags").height());
+        console.log(task);
         if (task.find(".task__hashtags").height() == 0) {
             task.find(".task__hashtags").css({"padding-bottom" : "0"});
         } else {
