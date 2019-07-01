@@ -25,6 +25,8 @@ let Task = {
             check_icon = "",
             checked = "";
 
+        name = escapeHtml(name);
+
         if (listState.hasClass("listDone")) {
             checked = " checked";
             check_icon = "fas fa-check-square";
@@ -157,3 +159,20 @@ function findClass(listClasses) {
 
     // rebuild
 }
+
+let entityMap = {
+    '&': '&amp;',
+    '<': '&lt;',
+    '>': '&gt;',
+    '"': '&quot;',
+    "'": '&#39;',
+    '/': '&#x2F;',
+    '`': '&#x60;',
+    '=': '&#x3D;'
+  };
+  
+  function escapeHtml (string) {
+    return String(string).replace(/[&<>"'`=\/]/g, function (s) {
+      return entityMap[s];
+    });
+  }

@@ -3,10 +3,11 @@ let prevTagName = "";
 let Tag = {
 
     add: function(task) {
-        let hashtagInput = task.find(".hashtagValue"); 
-        let hashtagName = "#" + hashtagInput.val(),
+        let hashtagInput = task.find(".hashtagValue"), 
             hashtagsBlock = task.find(".task__hashtags"),
-            datalist = task.parents().find("#hashtags");
+            datalist = task.parents().find("#hashtags"),
+            hashtagName = "#" + hashtagInput.val();
+
         if ((hashtagName != "#") && (hashtagsBlock.find("div:contains('" + hashtagName + "')").length == 0)) { 
             Tag.addHtml(task, hashtagName);
             if ($("[value='" + hashtagName.substr(1) + "']").length == 0) {
@@ -126,5 +127,4 @@ let Tag = {
         visable.each(function(i,elem) {}).removeClass("activeTag");
         filterTags.splice(filterTags.indexOf(tagName), 1);
     },
-
 }
