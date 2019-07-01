@@ -82,6 +82,18 @@ $('body').on('keypress', ".statusName", function() {
         Status.rename_finish($(this).parents().eq(1));
     }
 });
+    /*-------Touch color menu-------*/
+$('body').on('click', ".status__add__button_color", function() {
+    Status.newStatus_menu_color_touch($(this).parents().eq(1));
+});
+    /*---------Choose color---------*/
+$('body').on('click', ".status__add__choose-color span", function() {
+    let button = $(this).parents().eq(1).find(".status__add__button_color");
+    Status.newStatus_color_change(button, $(this).attr("class"));
+    Status.newStatus_menu_color_touch($(this).parents().eq(2));
+});
+   
+
 
 
 /*---------------New Task---------------*/ 
@@ -118,6 +130,7 @@ $('body').on('click', ".newTask__button_hashtags", function() {
     Task.adding_menu_touch($(this).parents().eq(6));
     Task.scrollToBottom($(this).parents().eq(6));
 });
+
 
 
 /*-----------------Task-----------------*/
@@ -280,6 +293,7 @@ $('body').on('click', function() {
         $(".task__delete_confirm").addClass("hide");
         $(".tag__delete_confirm").addClass("hide");
         $(".task__buttons").addClass("hide");
+        $(".status__add__choose-color").addClass("hide");
         $(".hashtagValue").each(function(key, elem) {
             if ($(elem).hasClass("rename")) {
                 $(".tag").removeClass("hide");

@@ -30,11 +30,11 @@ let Status = {
                 <h2>${ name }</h2>
                 <input class='statusName active hide' type='text' value='${ name }'></input>
                 <div class="article__head__menu">
-                    <button class="article__head__button_menu i"><i class="fas fa-ellipsis-h fa-lg"></i></button>
-                    <div class="article__buttons hide">
-                        <button class="article__button_rename i" title="Rename"><i class='fas fa-pen fa-lg'></i></button>
-                        <button class="article__button_color i" title="Paint"><i class='fas fa-palette fa-lg'></i></button>
-                        <div class="article__choose-color hide">
+                    <button class="article__head__button_menu i basic"><i class="fas fa-ellipsis-h fa-lg"></i></button>
+                    <div class="article__buttons popup hide">
+                        <button class="article__button_rename i basic" title="Rename"><i class='fas fa-pen fa-lg'></i></button>
+                        <button class="article__button_color i basic" title="Paint"><i class='fas fa-palette fa-lg'></i></button>
+                        <div class="article__choose-color popup hide">
                             <span class="blue"></span>
                             <span class="yellow"></span>
                             <span class="red"></span>
@@ -43,8 +43,8 @@ let Status = {
                             <span class="lightgreen"></span>
                             <span class="orange"></span>
                         </div>
-                        <button class="article__button_delete i" title="Delete"${ deleteDisabled }><i class='fas fa-trash fa-lg'></i></button>
-                        <div class="article__delete_confirm hide">
+                        <button class="article__button_delete i basic" title="Delete"${ deleteDisabled }><i class='fas fa-trash fa-lg'></i></button>
+                        <div class="article__delete_confirm popup hide">
                             <button class="article__delete_yes i" title="Delete"><i class='fas fa-check fa-lg'></i></button>
                             <button class="article__delete_no i" title="Don't delete"><i class='fas fa-times fa-lg'></i></button>
                         </div>
@@ -64,12 +64,12 @@ let Status = {
                         <div class="newTask__buttons">
                             <div class="newTask__buttons_change">
                                 <button class="newTask__button_add">Add card</button>
-                                <button class="newTask__button_close i" title="Close"><i class="fas fa-times fa-lg"></i></button>
+                                <button class="newTask__button_close i basic" title="Close"><i class="fas fa-times fa-lg"></i></button>
                             </div>
                             <div class="newTask__menu">
-                                <button class="newTask__button_menu i"><i class="fas fa-ellipsis-v fa-lg"></i></button>
-                                <div class="newTask__menu__buttons hide">
-                                    <button class="newTask__button_hashtags i" title="Add tag"><i class='fas fa-hashtag fa-lg'></i></button>
+                                <button class="newTask__button_menu i basic"><i class="fas fa-ellipsis-v fa-lg"></i></button>
+                                <div class="newTask__menu__buttons popup hide">
+                                    <button class="newTask__button_hashtags i basic" title="Add tag"><i class='fas fa-hashtag fa-lg'></i></button>
                                 </div>
                             </div>
                         </div>
@@ -128,6 +128,14 @@ let Status = {
         article.find(".statusName").addClass("hide");
 
         /*LS */
+    },
+
+    newStatus_menu_color_touch: function (article) {
+        article.find(".status__add__choose-color").toggleClass("hide");
+    },
+
+    newStatus_color_change: function (button, color) {
+        button.removeClass().addClass(color).addClass("status__add__button_color i");
     },
 }
 

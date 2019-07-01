@@ -183,15 +183,8 @@ li.task {
 .newTask__menu {
     position: relative;
 }
-.tag__choose-color,
-.tag__buttons,
-.task__buttons,
-.tag__delete_confirm,
-.task__delete_confirm,
-.article__delete_confirm,
-.article__choose-color,
-.article__buttons,
-.newTask__menu__buttons {
+
+.popup {
     position: absolute;
     box-shadow: 0 0 10px rgba(1, 8, 65, 0.5);
     background: white;
@@ -199,7 +192,6 @@ li.task {
     padding: 2px;
     z-index: 1;
 }
-
 .tag__buttons {
     display: flex;
     flex-direction: column;
@@ -211,6 +203,11 @@ li.task {
 .article__buttons {
     top: -3px;
     left: -130px;
+}
+.task__buttons {
+    display: flex;
+    bottom: -40px;
+    right: 6px;
 }
 
 .task__delete_confirm,
@@ -229,23 +226,25 @@ li.task {
     z-index: 5;
 }
 
-.task__buttons {
+.status__add__choose-color {
     display: flex;
-    bottom: -40px;
-    right: 6px;
+    top: -33px;
+    right: -10px;
 }
+
 .tag__choose-color {
     display: flex;
     flex-direction: column;
     bottom: -10px;
     right: -30px;
 }
-
 .article__choose-color {
     display: flex;
     bottom: -33px;
     right: -10px;
 }
+
+.status__add__choose-color span,
 .tag__choose-color span,
 .article__choose-color span {
     width: 20px;
@@ -253,44 +252,6 @@ li.task {
     margin: 2px;
     border-radius: 4px;
     cursor: pointer;
-}
-/*---------Buttons & Inputs----------*/
-button:disabled {
-    background: rgb(164, 188, 233) !important;
-    cursor: default !important;
-}
-
-button.i {
-    width: 36px;
-    height: 35px;
-    border: 0;
-    background: cornflowerblue;
-    color: white;
-    cursor: pointer;
-    margin: 1px;
-    border-radius: 4px;
-}
-.newTask__hashtagValue,
-.statusName,
-.openText,
-.taskNameValue,
-.taskName,
-.hashtagValue {
-    color: white;
-    height: 35px;
-    border: 0;
-    padding: 0 0 0 7px;
-    margin: 1px;
-    position: relative;
-    cursor: default;
-} 
-.taskNameValue::placeholder,
-.taskName::placeholder,
-.hashtagValue::placeholder {
-    color: rgb(171, 178, 185);
-} 
-.active {
-    background: #4763FF !important;
 }
 
 .newTask__button_open,
@@ -333,8 +294,11 @@ button.i {
 
 .status__add__buttons,
 .newTask__buttons_change {
+    position: relative;
     margin-left: 9px;
 }
+
+
 /*--------------Status__add--------------*/
 .status__add {
     width: 330px;
@@ -346,6 +310,8 @@ button.i {
 .status__add__value {
     padding: 12px 0 0px 10px;
 }
+
+
 /*--------------newTask--------------*/
 .newTask {
     width: 330px;
@@ -379,8 +345,38 @@ button.i {
     margin: 5px !important;
 }
 
-/*--------------Colors--------------*/
+/*---------Buttons & Inputs----------*/
 
+button.i {
+    width: 36px;
+    height: 35px;
+    border: 0;
+    color: white;
+    cursor: pointer;
+    margin: 1px;
+    border-radius: 4px;
+}
+button:disabled {
+    background: rgb(164, 188, 233);
+    cursor: default;
+}
+input[type="text"] {
+    color: white;
+    height: 35px;
+    border: 0;
+    padding: 0 0 0 7px;
+    margin: 1px;
+    position: relative;
+    cursor: default;
+}
+input[type="text"]::placeholder {
+    color: rgb(171, 178, 185);
+} 
+
+/*--------------Colors--------------*/
+.basic {
+    background: cornflowerblue;
+}
 
 .blue,
 .blue .task__color,
@@ -448,11 +444,15 @@ button.i {
 .tag__delete_yes,
 .article__delete_yes,
 .task__delete_yes {
-    background: green !important;
+    background: green;
 }
 .tag__delete_no,
 .article__delete_no,
 .task__delete_no {
-    background: red !important;
+    background: red;
+}
+
+.active {
+    background: #4763FF !important;
 }
 /*------------------------------------*/

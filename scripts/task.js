@@ -38,16 +38,16 @@ let Task = {
             <div class="task__color"></div>
             <div class="task__content">
                 <div class='task__name'>
-                    <button class='check${ checked } i'><i class='${ check_icon } fa-lg'></i></button>
+                    <button class='check${ checked } i basic'><i class='${ check_icon } fa-lg'></i></button>
                     <input class='taskName' type='text' value='${ name }' readonly></input>
                     <p class="openText hide">${ name }</p>
-                    <button class='task__menu_open i'><i class='fas fa-ellipsis-h fa-lg'></i></button>
-                    <div class="task__buttons hide">
-                        <button class="task__button_rename i" title="Rename"><i class='fas fa-pen fa-lg'></i></button>
-                        <button class="task__button_hashtag i" title="Add tag"><i class='fas fa-hashtag fa-lg'></i></button>
-                        <button class="task__button_show i" title="Show all text"><i class='fas fa-eye fa-lg'></i></button>
-                        <button class="task__button_delete i" title="Delete"><i class='fas fa-trash fa-lg'></i></button>
-                        <div class="task__delete_confirm hide">
+                    <button class='task__menu_open i basic'><i class='fas fa-ellipsis-h fa-lg'></i></button>
+                    <div class="task__buttons popup hide">
+                        <button class="task__button_rename i basic" title="Rename"><i class='fas fa-pen fa-lg'></i></button>
+                        <button class="task__button_hashtag i basic" title="Add tag"><i class='fas fa-hashtag fa-lg'></i></button>
+                        <button class="task__button_show i basic" title="Show all text"><i class='fas fa-eye fa-lg'></i></button>
+                        <button class="task__button_delete i basic" title="Delete"><i class='fas fa-trash fa-lg'></i></button>
+                        <div class="task__delete_confirm popup hide">
                             <button class="task__delete_yes i" title="Delete"><i class='fas fa-check fa-lg'></i></button>
                             <button class="task__delete_no i" title="Don't delete"><i class='fas fa-times fa-lg'></i></button>
                         </div>

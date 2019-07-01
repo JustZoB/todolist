@@ -23,11 +23,11 @@ let Tag = {
     addHtml: function(task, name) {
         $(`<div class="tag">
             <div class="tag_name lightblue">${ name }</div>
-            <div class="tag__buttons hide">
-                <button class="tag__button_rename i" title="Rename"><i class='fas fa-pen fa-lg'></i></button>
-                <button class="tag__button_filter i" title="Filter"><i class='fas fa-filter fa-lg'></i></button>
-                <button class="tag__button_color i" title="Paint"><i class='fas fa-palette fa-lg'></i></button>
-                <div class="tag__choose-color hide">
+            <div class="tag__buttons popup hide">
+                <button class="tag__button_rename i basic" title="Rename"><i class='fas fa-pen fa-lg'></i></button>
+                <button class="tag__button_filter i basic" title="Filter"><i class='fas fa-filter fa-lg'></i></button>
+                <button class="tag__button_color i basic" title="Paint"><i class='fas fa-palette fa-lg'></i></button>
+                <div class="tag__choose-color popup hide">
                     <span class="lightblue"></span>
                     <span class="yellow"></span>
                     <span class="red"></span>
@@ -36,8 +36,8 @@ let Tag = {
                     <span class="lightgreen"></span>
                     <span class="orange"></span>
                 </div>
-                <button class="tag__button_delete i" title="Delete"><i class='fas fa-trash fa-lg'></i></button>
-                <div class="tag__delete_confirm hide">
+                <button class="tag__button_delete i basic" title="Delete"><i class='fas fa-trash fa-lg'></i></button>
+                <div class="tag__delete_confirm popup hide">
                     <button class="tag__delete_yes i" title="Delete"><i class='fas fa-check fa-lg'></i></button>
                     <button class="tag__delete_no i" title="Don't delete"><i class='fas fa-times fa-lg'></i></button>
                 </div>
