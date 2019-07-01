@@ -149,6 +149,7 @@ li.task {
     max-width: 350px;
     overflow: hidden;
     height: 16px;
+    cursor: pointer;
 }
 
 .time-buttons {
