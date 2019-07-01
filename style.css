@@ -21,8 +21,11 @@ body {
 .hide {
     display: none !important;
 }
-.hashtagFilter_hide {
+.tag-filter_hide {
     display: none;
+}
+.activeTag {
+    opacity: 1 !important;
 }
 
 .menu h1 {
@@ -150,6 +153,7 @@ li.task {
     overflow: hidden;
     height: 16px;
     cursor: pointer;
+    opacity: 0.8;
 }
 
 .time-buttons {

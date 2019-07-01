@@ -113,37 +113,6 @@ let Task = {
         li.find(".openText").toggleClass("hide");
     },
 
-    filterHashTags_add: function (tag) {
-        let container = $(".container"),
-            taskFilter = container.find("li.task");
-
-        taskFilter.addClass("hashtagFilter_hide");
-        filterTags.push(tag);
-
-        taskFilter.each(function(key, elem) {
-            let c = 0;
-            for (let i = 0; i < filterTags.length; i++) {
-                let tagName = $(elem).find("div div div:contains('" + filterTags[i] + "')");
-                if (tagName.length) {
-                    c++;
-                }
-            }
-            if (c == filterTags.length) {
-                $(this).removeClass("hashtagFilter_hide");
-                $(this).find("div div div:contains('" + tag + "')").addClass("active");
-            }
-        });
-    },
-
-    filterHashTags_remove: function (tag) {
-        let container = $(".container"),
-            taskFilter = container.find("li.task");
-        taskFilter.removeClass("hashtagFilter_hide");
-        let visable = container.find("div div div:contains('" + tag + "')");
-        visable.each(function(i,elem) {}).removeClass("active");
-        filterTags.splice(filterTags.indexOf(tag), 1);
-    },
-
     adding_textarea_touch: function (article) {
         article.find(".task__add__adding-block").toggleClass("hide");
         article.find(".task__add__button_open").toggleClass("hide");

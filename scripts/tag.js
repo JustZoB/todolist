@@ -92,4 +92,39 @@ let Tag = {
 
         // LS
     },
+
+    filter_on: function (tag) {
+        let container = $(".container"),
+            taskFilter = container.find("li.task"),
+            tagName = tag.find(".tag_name").text();
+
+        taskFilter.addClass("tag-filter_hide");
+        filterTags.push(tagName);
+
+        taskFilter.each(function(key, elem) {
+            let c = 0;
+            for (let i = 0; i < filterTags.length; i++) {
+                let tagNames = $(elem).find("div div div div:contains('" + filterTags[i] + "')");
+                if (tagNames.length) {
+                    c++;
+                }
+            }
+            if (c == filterTags.length) {
+                $(this).removeClass("tag-filter_hide");
+                $(this).find("div div div div:contains('" + tag.find(".tag_name").text() + "')").addClass("activeTag");
+            }
+        });
+    },
+
+    filter_off: function (tag) {
+        let container = $(".container"),
+            taskFilter = container.find("li.task"),
+            tagName = tag.find(".tag_name").text();
+
+        taskFilter.removeClass("tag-filter_hide");
+        let visable = container.find("div div div div div:contains('" + tagName + "')");
+        visable.each(function(i,elem) {}).removeClass("activeTag");
+        filterTags.splice(filterTags.indexOf(tagName), 1);
+    },
+
 }

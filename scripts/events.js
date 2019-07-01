@@ -204,7 +204,13 @@ $('body').on('keypress', ".hashtagValue", function() {
 });
     /*-----------Filter------------*/
 $('body').on('click', ".tag__button_filter", function() {
-    //Tag.filter($(this).parents().eq(1));
+    if ($(this).parents().eq(1).find(".tag_name").hasClass("activeTag")) {
+        Tag.menu_touch($(this).parents().eq(1));
+        Tag.filter_off($(this).parents().eq(1));
+    } else {
+        Tag.menu_touch($(this).parents().eq(1));
+        Tag.filter_on($(this).parents().eq(1));
+    }
 });
 
     /*------Open color menu---------*/
@@ -282,12 +288,6 @@ $('body').on('click', function() {
         
     }
 });
-/*
-$('body').on('click', ".task__hashtags div", function() {
-    if ($(this).hasClass("active")) {
-        Task.filterHashTags_remove($(this).html());
-    } else {
-        Task.filterHashTags_add($(this).html());
-    }
-});*/
+
+
 /*----------------------------------------*/
