@@ -78,6 +78,7 @@ let Status = {
             </div>
         </article>`).insertBefore(newStatuses);
 
+
         let string = ids_array.join(', ');
         $( string ).sortable({
             connectWith: ".list",
@@ -86,6 +87,8 @@ let Status = {
                 Task.move_dd(ui.item, findClass(ui.item.parent().attr('class')));
             }
         }).disableSelection();
+
+        $( "#articles" ).sortable().disableSelection();
 
         articles.width(articles.width() + 390);
     },
