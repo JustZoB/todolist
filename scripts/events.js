@@ -25,7 +25,7 @@ $('body').on('click', ".status__add__button_close", function() {
 $('body').on('click', ".status__add__button_add", function() {
     let button_color = $(this).parent().find(".status__add__button_color"),
         color = button_color.clone().removeClass(".status__add__button_color i").attr("class");
-    Status.add(color);
+    Status.add(color, $(".status__add__value").val(), false);
 
     $(".container").scrollLeft($(".articles").width());
     $(".status__add__value").val("");
@@ -35,7 +35,7 @@ $('body').on('keydown', ".status__add__value", function() {
     if ( event.which == 13 ) {
         let button_color = $(this).parent().find(".status__add__button_color"),
             color = button_color.clone().removeClass(".status__add__button_color i").attr("class");
-        Status.add(color);
+        Status.add(color, $(".status__add__value").val(), false);
 
         $(".container").scrollLeft($(".articles").width());
         $(".status__add__value").val("");
@@ -162,13 +162,13 @@ $('body').on('keypress', ".taskName", function(event) {
 $('body').on('click', ".check", function() {
     if (!$(this).hasClass('checked')) {
         Task.check($(this));
-        Task.move_check($(this).parents().eq(2), ".listDone");
+        Task.move_check($(this).parents().eq(2), ".Done");
     } else {
         Task.check($(this));
-        Task.move_check($(this).parents().eq(2), ".listStatuses");
+        Task.move_check($(this).parents().eq(2), ".Statuses");
     }
-    Status.resize($(".listDone"));
-    Status.resize($(".listStatuses"));
+    Status.resize($(".Done"));
+    Status.resize($(".Statuses"));
 });
     /*--------Open task name--------*/
 $('body').on('click', ".task__button_show", function() {

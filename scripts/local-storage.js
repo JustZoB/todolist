@@ -10,7 +10,56 @@ let LS = {
         }
     },
 
-    add: function (name, listState) {
+    column_add: function (color, name, deleteD) {
+        let columns = JSON.parse(localStorage.getItem("columns_list")),
+            localColumn = {};
+        if (columns == null) {
+            columns = [];
+        }
+        localColumn.name = name;
+        localColumn.color = color;
+        localColumn.deleteD = deleteD;
+        columns.push(localColumn);
+        localStorage.setItem("columns_list", JSON.stringify(columns));
+    },
+
+    column_rename: function (article) {
+        let columns = JSON.parse(localStorage.getItem("columns_list")),
+            statusName = article.find("h2").text();
+        for (let i = 0; i < columns.length; i++) {
+            if (columns[i].name == statusPrevName) {
+                columns[i].name = statusName;
+                break;
+            }
+        }
+        localStorage.setItem("columns_list", JSON.stringify(columns));
+    },
+
+    column_color_change: function (article, color) {
+        let columns = JSON.parse(localStorage.getItem("columns_list"));
+        let name = article.find("h2").text();
+        for (let i = 0; i < columns.length; i++) {
+            if (columns[i].name == name) {
+                columns[i].color = color;
+                break;
+            }
+        }
+        localStorage.setItem("columns_list", JSON.stringify(columns));
+    },
+
+    column_delete: function (article) {
+        let columns = JSON.parse(localStorage.getItem("columns_list"));
+        let name = article.find("h2").text();
+        for (let i = 0; i < columns.length; i++) {
+            if (columns[i].name == name) {
+                columns.splice(i, 1);
+                break;
+            }
+        }
+        localStorage.setItem("columns_list", JSON.stringify(columns));
+    },
+
+    task_add: function (name, listState) {
         let allTasks = JSON.parse(localStorage.getItem("todolist")),
             localTask = {};
         if (allTasks == null) {
@@ -22,19 +71,19 @@ let LS = {
         localStorage.setItem("todolist", JSON.stringify(allTasks));
     },
 
-    delete: function(li) {
+    task_rename: function (li) {
         let allTasks = JSON.parse(localStorage.getItem("todolist")),
-            liName = li.find(".taskName").val();
+            taskName = li.find(".taskName").val();
         for (let i = 0; i < allTasks.length; i++) {
-            if (allTasks[i].name == liName) {
-                allTasks.splice(i, 1);
+            if (allTasks[i].name == prevName) {
+                allTasks[i].name = taskName;
                 break;
             }
         }
         localStorage.setItem("todolist", JSON.stringify(allTasks));
     },
 
-    order: function (li, newState) {
+    task_order: function (li, newState) {
         let prevLiName = li.prev().find(".taskName").val(),
             liName = li.find(".taskName").val(),
             allTasks = JSON.parse(localStorage.getItem("todolist")),
@@ -62,23 +111,25 @@ let LS = {
         localStorage.setItem("todolist", JSON.stringify(allTasks));
     },
 
-    move_check: function(li, newState) {
+    task_move_check: function(li, newState) {
         let taskName = li.find(".taskName").val(),
             allTasks = JSON.parse(localStorage.getItem("todolist"));
         for (let i = 0; i < allTasks.length; i++) {
             if (allTasks[i].name == taskName) {
                 allTasks[i].state = newState;
+                break;
             }
         }
         localStorage.setItem("todolist", JSON.stringify(allTasks));
     },
 
-    rename: function (li) {
+    task_delete: function(li) {
         let allTasks = JSON.parse(localStorage.getItem("todolist")),
-            taskName = li.find(".taskName").val();
+            liName = li.find(".taskName").val();
         for (let i = 0; i < allTasks.length; i++) {
-            if (allTasks[i].name == prevName) {
-                allTasks[i].name = taskName;
+            if (allTasks[i].name == liName) {
+                allTasks.splice(i, 1);
+                break;
             }
         }
         localStorage.setItem("todolist", JSON.stringify(allTasks));
@@ -114,6 +165,7 @@ let LS = {
                 for (let j = 0; j < allTasks[i].tags.length; j++) {
                     if (allTasks[i].tags[j].name == tagName) {
                         allTasks[i].tags[j].color = color;
+                        break;
                     }
                 }
             }
@@ -131,6 +183,7 @@ let LS = {
                 for (let j = 0; j < allTasks[i].tags.length; j++) {
                     if (allTasks[i].tags[j].name == tagName) {
                         allTasks[i].tags.splice(j, 1);
+                        break;
                     }
                 }
             }
@@ -147,6 +200,7 @@ let LS = {
                 for (let j = 0; j < allTasks[i].tags.length; j++) {
                     if (allTasks[i].tags[j].name == prevTagName) {
                         allTasks[i].tags[j].name = name;
+                        break;
                     }
                 }
             }

@@ -1,12 +1,11 @@
-let articles_array = [];
+let articles_array = [],
+    statusPrevName = "";
 
 let Status = {
     add: function (color, nameValue, deleteDisabled) {
-        if (nameValue == undefined) {
-            nameValue = $(".status__add__value").val();
-        }
         if (nameValue != "") {
             Status.addHtml(color, nameValue, deleteDisabled);
+            LS.column_add(color, nameValue, deleteDisabled);
         }
     },      
 
@@ -51,7 +50,7 @@ let Status = {
                     </div>
                 </div>
             </div>
-            <ul class="list${ listClass } list" id="${ id }"></ul>
+            <ul class="${ listClass } list" id="${ id }"></ul>
             <div class="newTask">
                 <div class="newTask__content">
                     <button class="newTask__button_open">Add card</button>
@@ -93,8 +92,31 @@ let Status = {
         articles.width(articles.width() + 390);
     },
 
+    rename_start: function (article) {
+        article.find("h2").addClass("hide");
+        statusPrevName = article.find("h2").text();
+        article.find(".statusName").removeClass("hide").focus().val('').val(article.find("h2").text());
+    },
+
+    rename_finish: function (article) {
+        article.find("h2").text(article.find(".statusName").val());
+        article.find("h2").removeClass("hide");
+        article.find(".statusName").addClass("hide");
+
+        LS.column_rename(article);
+    },
+
     color_change: function (article, color) {
         article.removeClass().addClass(color);
+        LS.column_color_change(article, color);
+    },
+
+    delete: function (article) {
+        LS.column_delete(article);
+        article.detach();
+
+        let articles = $(".articles");
+        articles.width(articles.width() - 390);
     },
 
     textarea_touch: function (article) {
@@ -113,26 +135,6 @@ let Status = {
     delete_touchConfirm: function (article) {
         article.find(".article__delete_confirm").toggleClass("hide");
     },
-    
-    delete: function (article) {
-        article.detach();
-
-        let articles = $(".articles");
-        articles.width(articles.width() - 390);
-    },
-
-    rename_start: function (article) {
-        article.find("h2").addClass("hide");
-        article.find(".statusName").removeClass("hide").focus().val('').val(article.find("h2").text());
-    },
-
-    rename_finish: function (article) {
-        article.find("h2").text(article.find(".statusName").val());
-        article.find("h2").removeClass("hide");
-        article.find(".statusName").addClass("hide");
-
-        /*LS */
-    },
 
     newStatus_menu_color_touch: function (article) {
         article.find(".status__add__choose-color").toggleClass("hide");
@@ -143,12 +145,11 @@ let Status = {
     },
 
     resize: function (ul) {
-        console.log(ul.outerHeight(), " + ", ul.parent().outerHeight());
         if ((ul.outerHeight() + 200) > ul.parent().outerHeight()) { 
-            ul.parent().find(".article__head").css({ marginLeft : "14px",  marginRight : "14px" });
+            ul.parent().find(".article__head").css({ marginLeft : "14px",  marginRight : "18px" });
             ul.parent().find(".article__color").css({ marginLeft : "14px" });
         } else {
-            ul.parent().find(".article__head").css({ marginLeft : "20px",  marginRight : "20px" });
+            ul.parent().find(".article__head").css({ marginLeft : "20px",  marginRight : "25px" });
             ul.parent().find(".article__color").css({ marginLeft : "20px" });
         }
     }

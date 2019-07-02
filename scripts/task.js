@@ -8,7 +8,7 @@ let Task = {
         if (nameValue != "") {
             let listState = article.find(".list").clone().removeClass("list ui-sortable").attr("class");
             Task.addHtml(nameValue, article.find(".list"));
-            LS.add(nameValue, listState);
+            LS.task_add(nameValue, listState);
         }
         article.find(".newTask__value").focus();
         name.val("");
@@ -17,7 +17,7 @@ let Task = {
     delete: function(li) {
         li.detach();
 
-        LS.delete(li);
+        LS.task_delete(li);
     },
 
     addHtml: function (name, listState, tags) {
@@ -27,7 +27,7 @@ let Task = {
 
         name = escapeHtml(name);
 
-        if (listState.hasClass("listDone")) {
+        if (listState.hasClass("Done")) {
             checked = " checked";
             check_icon = "fas fa-check-square";
         } else {
@@ -82,11 +82,11 @@ let Task = {
     rename_finish: function (content) { 
         content.find(".taskName").attr("readonly", '').css("cursor", "default").removeClass("active");
 
-        LS.rename(content.parent());
+        LS.task_rename(content.parent());
     },
 
     move_dd: function (li, newState) {
-        if (newState == "listDone") {
+        if (newState == "Done") {
             if (!li.find(".check").hasClass('checked')) {
                 Task.check(li.find(".check"));
             }
@@ -96,13 +96,13 @@ let Task = {
             }
         }  
         
-        LS.order(li, newState);
+        LS.task_order(li, newState);
     },
 
     move_check: function (li, newState) {
         li.detach().appendTo($(newState));
         
-        LS.move_check(li, newState);
+        LS.task_move_check(li, newState);
     },
 
     check: function (checkbox) {
@@ -138,8 +138,6 @@ let Task = {
     },
 
     hashtag_checkHeight: function (task) {
-        console.log(task.find(".task__hashtags").height());
-        console.log(task);
         if (task.find(".task__hashtags").height() == 0) {
             task.find(".task__hashtags").css({"padding-bottom" : "0"});
         } else {
