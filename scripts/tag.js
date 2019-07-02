@@ -71,8 +71,6 @@ let Tag = {
             name = nameClone.text().substring(1),
             color = nameClone.removeClass("tag_name").attr("class");
         tag.parent().find(".hashtagValue").removeClass().addClass("hashtagValue").addClass(color).addClass("rename").val(name).focus();
-
-        // LS
     },
 
     rename_finish: function (task) {
@@ -84,7 +82,8 @@ let Tag = {
             tag_name.text('').text(newTagName);
             tagInput.addClass("hide").val('');
             tagInput.parent().removeClass("rename");
-            // LS
+            
+            LS.tag_rename(task, newTagName);
         }
     },
 

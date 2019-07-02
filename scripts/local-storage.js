@@ -73,7 +73,7 @@ let LS = {
         localStorage.setItem("todolist", JSON.stringify(allTasks));
     },
 
-    rename_finish: function (li) {
+    rename: function (li) {
         let allTasks = JSON.parse(localStorage.getItem("todolist")),
             taskName = li.find(".taskName").val();
         for (let i = 0; i < allTasks.length; i++) {
@@ -131,6 +131,22 @@ let LS = {
                 for (let j = 0; j < allTasks[i].tags.length; j++) {
                     if (allTasks[i].tags[j].name == tagName) {
                         allTasks[i].tags.splice(j, 1);
+                    }
+                }
+            }
+        }
+        localStorage.setItem("todolist", JSON.stringify(allTasks));
+    },
+
+    tag_rename: function (task, name) {
+        let allTasks = JSON.parse(localStorage.getItem("todolist")),
+            taskName = task.find(".taskName").val();
+
+        for (let i = 0; i < allTasks.length; i++) {
+            if (allTasks[i].name == taskName) {
+                for (let j = 0; j < allTasks[i].tags.length; j++) {
+                    if (allTasks[i].tags[j].name == prevTagName) {
+                        allTasks[i].tags[j].name = name;
                     }
                 }
             }

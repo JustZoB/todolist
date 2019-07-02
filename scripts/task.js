@@ -82,7 +82,7 @@ let Task = {
     rename_finish: function (content) { 
         content.find(".taskName").attr("readonly", '').css("cursor", "default").removeClass("active");
 
-        LS.rename_finish(content.parent());
+        LS.rename(content.parent());
     },
 
     move_dd: function (li, newState) {
