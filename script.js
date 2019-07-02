@@ -15,4 +15,7 @@ $( document ).ready(function() {
     $(".task").each(function(key, elem) {
         Task.hashtag_checkHeight($(elem));
     });
+    $(".list").each(function(key, elem) {
+        Status.resize($(elem));
+    });
 });

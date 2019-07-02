@@ -141,6 +141,17 @@ let Status = {
     newStatus_color_change: function (button, color) {
         button.removeClass().addClass(color).addClass("status__add__button_color i");
     },
+
+    resize: function (ul) {
+        console.log(ul.outerHeight(), " + ", ul.parent().outerHeight());
+        if ((ul.outerHeight() + 200) > ul.parent().outerHeight()) { 
+            ul.parent().find(".article__head").css({ marginLeft : "14px",  marginRight : "14px" });
+            ul.parent().find(".article__color").css({ marginLeft : "14px" });
+        } else {
+            ul.parent().find(".article__head").css({ marginLeft : "20px",  marginRight : "20px" });
+            ul.parent().find(".article__color").css({ marginLeft : "20px" });
+        }
+    }
 }
 
 function findClass(listClasses) {

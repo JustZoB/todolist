@@ -161,7 +161,7 @@ li.task {
     cursor: grabbing;
     height: 15px;
     border-radius: 5px;
-    margin: 20px 0 0 15px;
+    margin: 20px 0 0 20px;
 }
 .task__color {
     width: 330px;
@@ -272,7 +272,7 @@ p {
 .article__head {
     display: flex;
     justify-content: space-between;
-    margin: 15px;
+    margin: 20px;
 }
 .article__head h2{
     margin: auto 0;

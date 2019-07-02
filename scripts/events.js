@@ -167,26 +167,26 @@ $('body').on('click', ".check", function() {
         Task.check($(this));
         Task.move_check($(this).parents().eq(2), ".listStatuses");
     }
+    Status.resize($(".listDone"));
+    Status.resize($(".listStatuses"));
 });
     /*--------Open task name--------*/
 $('body').on('click', ".task__button_show", function() {
     Task.name_show($(this).parents().eq(3));
     $(this).parent().addClass("hide");
+    Status.resize($(this).parents().eq(4));
 });
-    /*-------Close task name--------*/
-$('body').on('dblclick', ".openText", function() {
-    Task.name_show($(this).parents().eq(1));
-});
-
     /*----Show Adding new hashtag---*/ 
 $('body').on('click', ".task__button_hashtag", function() {
     Task.menu_touch($(this).parents().eq(3));
     Task.hashtag_showAdding($(this).parents().eq(3));
     Task.hashtag_checkHeight($(this).parents().eq(3));
+    Status.resize($(this).parents().eq(4));
 });
-    /*-------Open task name--------*/
+    /*-------Touch task name--------*/
 $('body').on('click', ".task__menu_open", function() {
     Task.menu_touch($(this).parents().eq(2));
+    Status.resize($(this).parents().eq(3));
 });
     /*--------Delete confirm--------*/
 $('body').on('click', ".task__button_delete", function() {
@@ -195,6 +195,7 @@ $('body').on('click', ".task__button_delete", function() {
     /*------Delete confirm yes------*/ 
 $('body').on('click', ".task__delete_yes", function() {
     Task.delete($(this).parents().eq(4));
+    Status.resize($(this).parents().eq(5));
 });
     /*-------Delete confirm no------*/
 $('body').on('click', ".task__delete_no", function() {
@@ -210,6 +211,7 @@ $('body').on('keypress', ".hashtagValue", function() {
         if (!$(this).hasClass("rename")) {
             Tag.add($(this).parents().eq(2));
             event.preventDefault();
+            Status.resize($(this).parents().eq(3));
         }
     }
 });
@@ -314,6 +316,8 @@ $('body').on('click', function() {
         $(".task").each(function(key, elem) {
             Task.hashtag_checkHeight($(elem));
         });
-        
+        $(".list").each(function(key, elem) {
+            Status.resize($(elem));
+        });
     }
 });
