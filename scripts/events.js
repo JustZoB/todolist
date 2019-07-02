@@ -286,11 +286,11 @@ $('body').on('click', function() {
     console.log(window.event.target);
     if (window.event.target.classList.contains("articles") || window.event.target.classList.contains("container")) {
         $(".taskName").removeClass("hide");
+        $(".newTask__button_open").removeClass("hide");
+        $(".status__add__button_open").removeClass("hide");
         $(".openText").addClass("hide");
         $(".newTask__adding-block").addClass("hide");
-        $(".newTask__button_open").removeClass("hide");
         $(".status__add__adding-block").addClass("hide");
-        $(".status__add__button_open").removeClass("hide");
         $(".article__buttons").addClass("hide");
         $(".newTask__menu__buttons").addClass("hide");
         $(".article__choose-color").addClass("hide");
@@ -299,6 +299,9 @@ $('body').on('click', function() {
         $(".tag__delete_confirm").addClass("hide");
         $(".task__buttons").addClass("hide");
         $(".status__add__choose-color").addClass("hide");
+        $(".newTask__hashtagValue").addClass("hide");
+        $(".tag__buttons").addClass("hide");
+        $(".tag__choose-color").addClass("hide");
         $(".hashtagValue").each(function(key, elem) {
             if ($(elem).hasClass("rename")) {
                 $(".tag").removeClass("hide");
@@ -307,8 +310,6 @@ $('body').on('click', function() {
                 $(elem).addClass("hide").val('');
             }
         });
-        $(".tag__buttons").addClass("hide");
-        $(".tag__choose-color").addClass("hide");
         $(".task").each(function(key, elem) {
             Task.hashtag_checkHeight($(elem));
         });

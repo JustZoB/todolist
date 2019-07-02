@@ -4,19 +4,19 @@
 ::-webkit-scrollbar-track {
     border-radius: 10px;
     -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.2); 
-    background: rgb(49, 30, 156);
+    background: #373a3d;
 }
 ::-webkit-scrollbar-thumb {
     border-radius: 10px;
     -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.1); 
-    background: rgb(86, 66, 201);
+    background: #212427;
 }
 html, body {
     margin: 0;
     padding: 0;
 }
 body {
-    background: rgb(66, 49, 165);
+    background: #030303;
 }
 .hide {
     display: none !important;
@@ -30,7 +30,7 @@ body {
 
 .menu h1 {
     text-align: center;
-    color: white;
+     color: rgb(230, 224, 224);
     margin: 20px 0 10px 0;
 }
 
@@ -38,7 +38,7 @@ body {
     position: relative;
     padding-top: 20px;
     overflow-x: auto;
-    background: rgb(66, 49, 165);
+    background: #030303;
     margin: 0 10px;
     height: 90vh;
 }
@@ -54,7 +54,7 @@ body {
     max-height: 83vh;
     width: 370px;
     vertical-align: top;
-    background: rgb(71, 49, 199);
+    background: #202427;
     border-radius: 5px;
     margin: 5px;
     box-shadow: 0 0 10px rgba(1, 8, 65, 0.5);
@@ -86,7 +86,7 @@ li.task {
 }
 
 .task__content {
-    background: white;
+    background: #0f0e0e;
     border-bottom-left-radius: 5px;
     border-bottom-right-radius: 5px;
 }
@@ -111,9 +111,8 @@ li.task {
 }
 
 .statusName,
-.openText,
 .taskName {
-    background: #4D79E8;
+    background: #202427;
     border-radius: 4px;
 }
 .taskName {
@@ -141,12 +140,13 @@ li.task {
 .openText {
     padding: 12px 10px 10px 10px !important;
     font-size: 14px;
-    color: white;
+     color: rgb(230, 224, 224);
     height: auto !important;
     text-align: left;
     width: 224px;
-    background: rgb(52, 73, 196) !important;
+    background: #2e2f30;
     overflow: hidden;
+    border-radius: 4px;
 }
 p {
     margin: 0;
@@ -167,7 +167,7 @@ p {
     font-size: 14px;
     padding: 4px 8px;
     margin: 2px;
-    color: white;
+     color: rgb(230, 224, 224);
     border-radius: 15px;
     border: 0;
     max-width: 350px;
@@ -199,61 +199,61 @@ p {
 .popup {
     position: absolute;
     box-shadow: 0 0 10px rgba(1, 8, 65, 0.5);
-    background: white;
+    background: #0f0e0e;
     border-radius: 5px;
-    padding: 2px;
+    padding: 5px;
     z-index: 1;
 }
 .tag__buttons {
     display: flex;
     flex-direction: column;
-    bottom: -60px;
-    right: -45px;
+    bottom: -63px;
+    right: -48px;
     z-index: 5;
 }
 
 .article__buttons {
-    top: -3px;
-    left: -130px;
+    top: -6px;
+    left: -133px;
 }
 .task__buttons {
     display: flex;
-    bottom: -40px;
-    right: 6px;
+    bottom: -43px;
+    right: 9px;
 }
 
 .task__delete_confirm,
 .article__delete_confirm {
     display: flex;
-    bottom: -45px;
-    right: 23px;
+    bottom: -48px;
+    right: 26px;
     transform: translate(50%, 0);
     z-index: 5;
 }
 .tag__delete_confirm {
     display: flex;
     flex-direction: column;
-    bottom: -20px;
-    right: -45px;
+    bottom: -23px;
+    right: -50px;
     z-index: 5;
 }
 
 .status__add__choose-color {
     display: flex;
-    top: -33px;
-    right: -10px;
+    top: -36px;
+    right: -13px;
 }
 
 .tag__choose-color {
     display: flex;
     flex-direction: column;
-    bottom: -10px;
-    right: -30px;
+    bottom: -11px;
+    right: -36px;
 }
 .article__choose-color {
     display: flex;
-    bottom: -33px;
-    right: -10px;
+    bottom: -36px;
+    right: -21px;
 }
 
 .status__add__choose-color span,
@@ -275,8 +275,8 @@ p {
 
 .newTask__button_open,
 .status__add__button_open {
-    background: cornflowerblue;
-    color: white;
+    background: #202427;
+     color: rgb(230, 224, 224);
     border: 0;
     cursor: pointer;
     margin: 10px;
@@ -288,7 +288,7 @@ p {
 .newTask__button_add,
 .status__add__button_add {
     background: rgb(30, 153, 30);
-    color: white;
+     color: rgb(230, 224, 224);
     border: 0;
     cursor: pointer;
     margin: 1px;
@@ -298,8 +298,8 @@ p {
 }
 .status__add__value,
 .newTask__value {
-    background: white;
-    color: black;
+     color: rgb(230, 224, 224);
+    background: #202427;
     border: 0;
     margin: 10px;
     width: 303px;
@@ -337,8 +337,9 @@ p {
     margin: 10px auto 0 auto;
     padding-bottom: 20px;
 }
-.newTask__content {
-    background: white;
+.newTask__content,
+.newStatus__content {
+    background: #0f0e0e;
     border-radius: 5px;
 }
 .newTask__value {
@@ -357,7 +358,7 @@ p {
     padding-bottom: 10px;
 }
 .newTask__menu__buttons {
-    top: -7px;
+    top: -9px;
     left: -60px;
 }
 .newTask__menu__buttons button {
@@ -367,7 +368,7 @@ p {
 /*---------Buttons & Inputs----------*/
 
 button {
-    opacity: 0.9;
+    opacity: 0.7;
 }
 button:hover {
     opacity: 1;
@@ -377,17 +378,20 @@ button.i {
     width: 36px;
     height: 35px;
     border: 0;
-    color: white;
+     color: rgb(230, 224, 224);
     cursor: pointer;
     margin: 1px;
     border-radius: 4px;
 }
 button:disabled {
-    background: rgb(164, 188, 233);
+    background: rgb(97, 97, 100);
     cursor: default;
 }
+button:disabled:hover {
+    opacity: 0.7;
+}
 input[type="text"] {
-    color: white;
+    color: rgb(230, 224, 224);
     height: 35px;
     border: 0;
     padding: 0 0 0 7px;
@@ -401,7 +405,8 @@ input[type="text"]::placeholder {
 
 /*--------------Colors--------------*/
 .basic {
-    background: cornflowerblue;
+    background: rgb(29, 30, 32);
+    border: 1.5px solid rgb(171, 178, 185) !important;
 }
 
 .blue,
@@ -409,7 +414,7 @@ input[type="text"]::placeholder {
 .blue .article__color,
 .blue .sortPlaceholder,
 .taskNameValue {
-    background: #4D79E8;
+    background: rgb(65, 101, 192);
 }
 .lightblue {
     background: #4794FF;
@@ -418,60 +423,60 @@ input[type="text"]::placeholder {
 .yellow .task__color,
 .yellow .article__color,
 .yellow .sortPlaceholder {
-    background: rgb(218, 218, 55);
+    background: rgb(179, 179, 58);
 }
 .red,
 .red .task__color,
 .red .article__color,
 .red .sortPlaceholder {
-    background: red;
+    background: rgb(180, 30, 30);
 }
 .green,
 .green .task__color,
 .green .article__color,
 .green .sortPlaceholder {
-    background: rgb(30, 153, 30);
+    background: rgb(27, 133, 27);
 }
 .purple,
 .purple .task__color,
 .purple .article__color,
 .purple .sortPlaceholder {
-    background: slateblue;
+    background: rgb(97, 84, 184);
 }
 .lightgreen,
 .lightgreen .task__color,
 .lightgreen .article__color,
 .lightgreen .sortPlaceholder {
-    background: rgb(151, 219, 49);
+    background: rgb(130, 185, 47);
 }
 .orange,
 .orange .task__color,
 .orange .article__color,
 .orange .sortPlaceholder {
-    background: rgb(233, 142, 23);
+    background: rgb(197, 124, 28);
 }
 
 
 .blue h2 {
-    color: #4D79E8;
+    color: rgb(65, 101, 192);
 }
 .yellow h2 {
-    color: rgb(218, 218, 55);
+    color: rgb(179, 179, 58);
 }
 .red h2 {
-    color: red;
+    color: rgb(180, 30, 30);
 }
 .green h2 {
-    color: rgb(30, 153, 30);
+    color: rgb(27, 133, 27);
 }
 .purple h2 {
-    color: slateblue;   
+    color: rgb(97, 84, 184);   
 }
 .lightgreen h2 {
-    color: rgb(173, 255, 47);
+    color: rgb(130, 185, 47);
 }
 .orange h2 {
-    color: rgb(233, 142, 23);
+    color: rgb(197, 124, 28);
 }
 
 .tag__delete_yes,
@@ -486,6 +491,6 @@ input[type="text"]::placeholder {
 }
 
 .active {
-    background: #4763FF !important;
+    background: #0e1011 !important;
 }
 /*------------------------------------*/
