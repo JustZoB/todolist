@@ -9,7 +9,7 @@
 ::-webkit-scrollbar-thumb {
     border-radius: 10px;
     -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.1); 
-    background: #212427;
+    background: #131516;
 }
 html, body {
     margin: 0;
@@ -30,7 +30,7 @@ body {
 
 .menu h1 {
     text-align: center;
-     color: rgb(230, 224, 224);
+    color: rgb(230, 224, 224);
     margin: 20px 0 10px 0;
 }
 
@@ -140,7 +140,7 @@ li.task {
 .openText {
     padding: 12px 10px 10px 10px !important;
     font-size: 14px;
-     color: rgb(230, 224, 224);
+    color: rgb(230, 224, 224);
     height: auto !important;
     text-align: left;
     width: 224px;
@@ -167,14 +167,17 @@ p {
     font-size: 14px;
     padding: 4px 8px;
     margin: 2px;
-     color: rgb(230, 224, 224);
+    color: rgb(230, 224, 224);
     border-radius: 15px;
     border: 0;
     max-width: 350px;
     overflow: hidden;
     height: 16px;
     cursor: pointer;
-    opacity: 0.8;
+    opacity: 0.7;
+}
+.tag_name:hover {
+    opacity: 0.9;
 }
 
 .time-buttons {
@@ -276,7 +279,7 @@ p {
 .newTask__button_open,
 .status__add__button_open {
     background: #202427;
-     color: rgb(230, 224, 224);
+    color: rgb(230, 224, 224);
     border: 0;
     cursor: pointer;
     margin: 10px;
@@ -288,7 +291,7 @@ p {
 .newTask__button_add,
 .status__add__button_add {
     background: rgb(30, 153, 30);
-     color: rgb(230, 224, 224);
+    color: rgb(230, 224, 224);
     border: 0;
     cursor: pointer;
     margin: 1px;
@@ -298,7 +301,7 @@ p {
 }
 .status__add__value,
 .newTask__value {
-     color: rgb(230, 224, 224);
+    color: rgb(230, 224, 224);
     background: #202427;
     border: 0;
     margin: 10px;
@@ -378,7 +381,7 @@ button.i {
     width: 36px;
     height: 35px;
     border: 0;
-     color: rgb(230, 224, 224);
+    color: rgb(230, 224, 224);
     cursor: pointer;
     margin: 1px;
     border-radius: 4px;
@@ -417,7 +420,7 @@ input[type="text"]::placeholder {
     background: rgb(65, 101, 192);
 }
 .lightblue {
-    background: #4794FF;
+    background: rgb(56, 121, 212);
 }
 .yellow,
 .yellow .task__color,
