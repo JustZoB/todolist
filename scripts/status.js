@@ -84,7 +84,7 @@ let Status = {
             connectWith: ".list",
             placeholder: "sortPlaceholder",
             update: function(event, ui) {
-                Task.move_dd(ui.item, findClass(ui.item.parent().attr('class')));
+                Task.move_dd(ui.item, ui.item.parent().clone().removeClass("list ui-sortable").attr('class'));
             }
         }).disableSelection();
 
@@ -152,18 +152,4 @@ let Status = {
             ul.parent().find(".article__color").css({ marginLeft : "20px" });
         }
     }
-}
-
-function findClass(listClasses) {
-    let listState = ".listStatuses";
-    if (listClasses.indexOf('listPending') >= 0) {
-        listState = ".listPending";
-    } else if (listClasses.indexOf('listCancel') >= 0) {
-        listState = ".listCancel";
-    } else if (listClasses.indexOf('listDone') >= 0) {
-        listState = ".listDone";
-    }
-    return listState;
-
-    // rebuild
 }

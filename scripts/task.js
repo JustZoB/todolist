@@ -6,7 +6,7 @@ let Task = {
         let name = article.find(".newTask__value");
         let nameValue = name.val();
         if (nameValue != "") {
-            let listState = findClass(article.find(".list").attr("class"));
+            let listState = article.find(".list").clone().removeClass("list ui-sortable").attr("class");
             Task.addHtml(nameValue, article.find(".list"));
             LS.add(nameValue, listState);
         }
@@ -86,7 +86,7 @@ let Task = {
     },
 
     move_dd: function (li, newState) {
-        if (newState == ".listDone") {
+        if (newState == "listDone") {
             if (!li.find(".check").hasClass('checked')) {
                 Task.check(li.find(".check"));
             }
@@ -150,20 +150,6 @@ let Task = {
     scrollToBottom: function (column) {
         column.scrollTop(column.height());
     }
-}
-
-function findClass(listClasses) {
-    let listState = ".listStatuses";
-    if (listClasses.indexOf('listPending') >= 0) {
-        listState = ".listPending";
-    } else if (listClasses.indexOf('listCancel') >= 0) {
-        listState = ".listCancel";
-    } else if (listClasses.indexOf('listDone') >= 0) {
-        listState = ".listDone";
-    }
-    return listState;
-
-    // rebuild
 }
 
 let entityMap = {
