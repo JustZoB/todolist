@@ -1,23 +1,120 @@
-::-webkit-scrollbar {
-    width: 14px;
-}
-::-webkit-scrollbar-track {
-    border-radius: 10px;
-    -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.2); 
-    background: #373a3d;
-}
-::-webkit-scrollbar-thumb {
-    border-radius: 10px;
-    -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.1); 
-    background: #131516;
-}
 html, body {
     margin: 0;
     padding: 0;
 }
-body {
+.day ::-webkit-scrollbar {
+    width: 14px;
+}
+.day ::-webkit-scrollbar-track {
+    border-radius: 10px;
+    -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.2); 
+    background: #bcbec0;
+}
+.day ::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.1); 
+    background: #797b7c;
+}
+.day .menu h1,
+.day .openText,
+.day .tag_name,
+.day input[type="text"],
+.day button.i,
+.day .status__add__value,
+.day .newTask__value,
+.day .newTask__button_open,
+.day .status__add__button_open ,
+.day .newTask__button_add,
+.day .status__add__button_add{
+    color: rgb(12, 12, 12);
+}
+body.day,
+.day .container,
+.day .newStatus,
+.day article,
+.day .status__add__value,
+.day .newTask__value {
+    background: #EFEFF0;
+}
+.day .statusName,
+.day .taskName,
+.day .newTask__button_open,
+.day .status__add__button_open {
+    background: rgb(214, 214, 218);
+}
+.day .task__content,
+.day .popup,
+.day .newTask__content,
+.day .newStatus__content {
+    background: rgb(223, 223, 226);
+}
+.day .openText {
+    background: #2e2f30;
+}
+.day button:disabled {
+    background: rgb(229, 229, 233);
+}
+.day .basic {
+    background: rgb(199, 199, 202);
+}
+
+.night ::-webkit-scrollbar {
+    width: 14px;
+}
+.night ::-webkit-scrollbar-track {
+    border-radius: 10px;
+    -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.2); 
+    background: #373a3d;
+}
+.night ::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.1); 
+    background: #131516;
+}
+.night .menu h1,
+.night .openText,
+.night .tag_name,
+.night input[type="text"],
+.night button.i,
+.night .status__add__value,
+.night .newTask__value,
+.night .newTask__button_open,
+.night .status__add__button_open ,
+.night .newTask__button_add,
+.night .status__add__button_add{
+    color: rgb(230, 224, 224);
+}
+.night .container,
+body.night {
     background: #030303;
 }
+.night .newStatus,
+.night article,
+.night .statusName,
+.night .taskName,
+.night .newTask__button_open,
+.night .status__add__button_open,
+.night .status__add__value,
+.night .newTask__value {
+    background: #202427;
+}
+.night .task__content,
+.night .popup,
+.night .newTask__content,
+.night .newStatus__content {
+    background: #0f0e0e;
+}
+.night .openText {
+    background: #2e2f30;
+}
+.night button:disabled {
+    background: rgb(97, 97, 100);
+}
+.night .basic {
+    background: rgb(29, 30, 32);
+    border: 1.5px solid rgb(171, 178, 185) !important;
+}
+
 .hide {
     display: none !important;
 }
@@ -27,18 +124,14 @@ body {
 .activeTag {
     opacity: 1 !important;
 }
-
 .menu h1 {
     text-align: center;
-    color: rgb(230, 224, 224);
     margin: 20px 0 10px 0;
 }
-
 .container {
     position: relative;
     padding-top: 20px;
     overflow-x: auto;
-    background: #030303;
     margin: 0 10px;
     height: 90vh;
 }
@@ -48,13 +141,12 @@ body {
     margin: 0px 20px 20px 20px;
 }
 .newStatus,
-.articles article{
+article {
     display: inline-block;
     overflow-y: auto;
     max-height: 83vh;
     width: 370px;
     vertical-align: top;
-    background: #202427;
     border-radius: 5px;
     margin: 5px;
     box-shadow: 0 0 10px rgba(1, 8, 65, 0.5);
@@ -86,7 +178,6 @@ li.task {
 }
 
 .task__content {
-    background: #0f0e0e;
     border-bottom-left-radius: 5px;
     border-bottom-right-radius: 5px;
 }
@@ -112,7 +203,7 @@ li.task {
 
 .statusName,
 .taskName {
-    background: #202427;
+    /*background: #202427;*/
     border-radius: 4px;
 }
 .taskName {
@@ -140,11 +231,9 @@ li.task {
 .openText {
     padding: 12px 10px 10px 10px !important;
     font-size: 14px;
-    color: rgb(230, 224, 224);
     height: auto !important;
     text-align: left;
     width: 224px;
-    background: #2e2f30;
     overflow: hidden;
     border-radius: 4px;
 }
@@ -167,7 +256,6 @@ p {
     font-size: 14px;
     padding: 4px 8px;
     margin: 2px;
-    color: rgb(230, 224, 224);
     border-radius: 15px;
     border: 0;
     max-width: 350px;
@@ -202,7 +290,6 @@ p {
 .popup {
     position: absolute;
     box-shadow: 0 0 10px rgba(1, 8, 65, 0.5);
-    background: #0f0e0e;
     border-radius: 5px;
     padding: 5px;
     z-index: 1;
@@ -217,7 +304,7 @@ p {
 
 .article__buttons {
     top: -6px;
-    left: -133px;
+    left: -138px;
 }
 .task__buttons {
     display: flex;
@@ -278,8 +365,6 @@ p {
 
 .newTask__button_open,
 .status__add__button_open {
-    background: #202427;
-    color: rgb(230, 224, 224);
     border: 0;
     cursor: pointer;
     margin: 10px;
@@ -291,7 +376,6 @@ p {
 .newTask__button_add,
 .status__add__button_add {
     background: rgb(30, 153, 30);
-    color: rgb(230, 224, 224);
     border: 0;
     cursor: pointer;
     margin: 1px;
@@ -301,8 +385,6 @@ p {
 }
 .status__add__value,
 .newTask__value {
-    color: rgb(230, 224, 224);
-    background: #202427;
     border: 0;
     margin: 10px;
     width: 303px;
@@ -342,7 +424,6 @@ p {
 }
 .newTask__content,
 .newStatus__content {
-    background: #0f0e0e;
     border-radius: 5px;
 }
 .newTask__value {
@@ -381,20 +462,17 @@ button.i {
     width: 36px;
     height: 35px;
     border: 0;
-    color: rgb(230, 224, 224);
     cursor: pointer;
     margin: 1px;
     border-radius: 4px;
 }
 button:disabled {
-    background: rgb(97, 97, 100);
     cursor: default;
 }
 button:disabled:hover {
     opacity: 0.7;
 }
 input[type="text"] {
-    color: rgb(230, 224, 224);
     height: 35px;
     border: 0;
     padding: 0 0 0 7px;
@@ -407,10 +485,6 @@ input[type="text"]::placeholder {
 } 
 
 /*--------------Colors--------------*/
-.basic {
-    background: rgb(29, 30, 32);
-    border: 1.5px solid rgb(171, 178, 185) !important;
-}
 
 .blue,
 .blue .task__color,
@@ -485,11 +559,13 @@ input[type="text"]::placeholder {
 .tag__delete_yes,
 .article__delete_yes,
 .task__delete_yes {
+    color: white !important;
     background: green;
 }
 .tag__delete_no,
 .article__delete_no,
 .task__delete_no {
+    color: white !important;
     background: red;
 }
 

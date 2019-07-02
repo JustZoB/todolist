@@ -8,6 +8,7 @@ $('.moon').on('click', function() {
 function toggleTime (menu) {
     menu.find(".sun").toggleClass("hide");
     menu.find(".moon").toggleClass("hide");
+    menu.parent().toggleClass("day night");
 }
 /*---------------New Status---------------*/
     /*-----------Open menu----------*/ 
