@@ -17,15 +17,12 @@ html, body {
 }
 .day .menu h1,
 .day .openText,
-.day .tag_name,
 .day input[type="text"],
 .day button.i,
 .day .status__add__value,
 .day .newTask__value,
 .day .newTask__button_open,
-.day .status__add__button_open ,
-.day .newTask__button_add,
-.day .status__add__button_add{
+.day .status__add__button_open {
     color: rgb(12, 12, 12);
 }
 body.day,
@@ -73,15 +70,12 @@ body.day,
 }
 .night .menu h1,
 .night .openText,
-.night .tag_name,
 .night input[type="text"],
 .night button.i,
 .night .status__add__value,
 .night .newTask__value,
 .night .newTask__button_open,
-.night .status__add__button_open ,
-.night .newTask__button_add,
-.night .status__add__button_add{
+.night .status__add__button_open {
     color: rgb(230, 224, 224);
 }
 .night .container,
@@ -253,6 +247,7 @@ p {
     position: relative;
 }
 .tag_name {
+    color: rgb(230, 224, 224);
     font-size: 14px;
     padding: 4px 8px;
     margin: 2px;
@@ -375,6 +370,7 @@ p {
 
 .newTask__button_add,
 .status__add__button_add {
+    color: rgb(230, 224, 224);
     background: rgb(30, 153, 30);
     border: 0;
     cursor: pointer;

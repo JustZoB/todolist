@@ -9,20 +9,21 @@ let Tag = {
             hashtagName = "#" + hashtagInput.val();
 
         if ((hashtagName != "#") && (hashtagsBlock.find("div:contains('" + hashtagName + "')").length == 0)) { 
-            Tag.addHtml(task, hashtagName);
+            Tag.addHtml(task, hashtagName, "lightblue");
             if ($("[value='" + hashtagName.substr(1) + "']").length == 0) {
                 $(datalist).append(`<option value='${ hashtagName.substr(1) }'></option>`);
             }
             hashtagInput.width(60);
             hashtagInput.val('');
             hashtagInput.focus();
-            /*LS.tag_add(task, hashtagName);*/
+
+            LS.tag_add(task, hashtagName);
         }
     },
 
-    addHtml: function(task, name) {
+    addHtml: function(task, name, color) {
         $(`<div class="tag">
-            <div class="tag_name lightblue">${ name }</div>
+            <div class="tag_name ${ color }">${ name }</div>
             <div class="tag__buttons popup hide">
                 <button class="tag__button_rename i basic" title="Rename"><i class='fas fa-pen fa-lg'></i></button>
                 <button class="tag__button_filter i basic" title="Filter"><i class='fas fa-filter fa-lg'></i></button>
@@ -56,7 +57,7 @@ let Tag = {
     color_change: function (tag, color) {
         tag.find(".tag_name").removeClass().addClass(color).addClass("tag_name");
 
-        // LS
+        LS.tag_color_change(tag.parents().eq(2), tag.find(".tag_name").text(), color);
     },
 
     delete_touchConfirm: function (tag) {
@@ -66,9 +67,9 @@ let Tag = {
     rename_start: function (tag) {
         prevTagName = tag.find(".tag_name").text();
         tag.addClass("hide");
-        let nameClone = tag.find(".tag_name").clone();
-        let name = nameClone.text().substring(1);
-        let color = nameClone.removeClass("tag_name").attr("class");
+        let nameClone = tag.find(".tag_name").clone(),
+            name = nameClone.text().substring(1),
+            color = nameClone.removeClass("tag_name").attr("class");
         tag.parent().find(".hashtagValue").removeClass().addClass("hashtagValue").addClass(color).addClass("rename").val(name).focus();
 
         // LS
@@ -89,9 +90,8 @@ let Tag = {
 
 
     delete: function (tag) {
+        LS.tag_delete(tag.parents().eq(2), tag);
         tag.detach();
-
-        // LS
     },
 
     filter_on: function (tag) {

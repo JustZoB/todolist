@@ -87,17 +87,54 @@ let LS = {
     tag_add: function (task, hashtagName) {
         let allTasks = JSON.parse(localStorage.getItem("todolist")),
             localHashtags = [],
+            tag = {},
             taskName = task.find(".taskName").val();
+
+            tag.name = hashtagName;
+            tag.color = "lightblue";
         for (let i = 0; i < allTasks.length; i++) {
             if (allTasks[i].name == taskName) {
                 if (allTasks[i].tags == undefined) {
-                    localHashtags[0] = hashtagName;
+                    localHashtags[0] = tag;
                     allTasks[i].tags = localHashtags;
                 } else {
-                    allTasks[i].tags.push(hashtagName);
+                    allTasks[i].tags.push(tag);
                 }
             }
         }
         localStorage.setItem("todolist", JSON.stringify(allTasks));
-    }
+    },
+
+    tag_color_change: function (task, tagName, color) {
+        let allTasks = JSON.parse(localStorage.getItem("todolist")),
+            taskName = task.find(".taskName").val();
+
+        for (let i = 0; i < allTasks.length; i++) {
+            if (allTasks[i].name == taskName) {
+                for (let j = 0; j < allTasks[i].tags.length; j++) {
+                    if (allTasks[i].tags[j].name == tagName) {
+                        allTasks[i].tags[j].color = color;
+                    }
+                }
+            }
+        }
+        localStorage.setItem("todolist", JSON.stringify(allTasks));
+    },
+
+    tag_delete: function (task, tag) {
+        let allTasks = JSON.parse(localStorage.getItem("todolist")),
+            taskName = task.find(".taskName").val(),
+            tagName = tag.find(".tag_name").text();
+
+        for (let i = 0; i < allTasks.length; i++) {
+            if (allTasks[i].name == taskName) {
+                for (let j = 0; j < allTasks[i].tags.length; j++) {
+                    if (allTasks[i].tags[j].name == tagName) {
+                        allTasks[i].tags.splice(j, 1);
+                    }
+                }
+            }
+        }
+        localStorage.setItem("todolist", JSON.stringify(allTasks));
+    },
 }

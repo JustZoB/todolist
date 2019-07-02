@@ -65,9 +65,9 @@ let Task = {
                 datalist = li.parents().eq(3).find("#hashtags");
 
             for (let i = 0; i < tags.length; i++) {
-                Tag.addHtml(li, tags[i]);
-                if ($("[value='" + tags[i].substr(1) + "']").length == 0) {
-                    $(datalist).append(`<option value='${ tags[i].substr(1) }'></option>`);
+                Tag.addHtml(li, tags[i].name, tags[i].color);
+                if ($("[value='" + tags[i].name.substr(1) + "']").length == 0) {
+                    $(datalist).append(`<option value='${ tags[i].name.substr(1) }'></option>`);
                 }
             }
         }

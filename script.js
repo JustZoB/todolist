@@ -12,4 +12,7 @@ $( document ).ready(function() {
             }
         }
     }
+    $(".task").each(function(key, elem) {
+        Task.hashtag_checkHeight($(elem));
+    });
 });
