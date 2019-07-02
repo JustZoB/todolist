@@ -81,6 +81,7 @@ let Status = {
         let string = ids_array.join(', ');
         $( string ).sortable({
             connectWith: ".list",
+            placeholder: "sortPlaceholder",
             update: function(event, ui) {
                 Task.move_dd(ui.item, findClass(ui.item.parent().attr('class')));
             }

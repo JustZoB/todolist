@@ -152,6 +152,14 @@ p {
     margin: 0;
 }
 
+.sortPlaceholder {
+    width: 330px;
+    height: 62px;
+    border-radius: 4px;
+    margin: 10px auto;
+    opacity: 0.5;
+}
+
 .tag {
     position: relative;
 }
@@ -399,6 +407,7 @@ input[type="text"]::placeholder {
 .blue,
 .blue .task__color,
 .blue .article__color,
+.blue .sortPlaceholder,
 .taskNameValue {
     background: #4D79E8;
 }
@@ -407,32 +416,38 @@ input[type="text"]::placeholder {
 }
 .yellow,
 .yellow .task__color,
-.yellow .article__color {
+.yellow .article__color,
+.yellow .sortPlaceholder {
     background: rgb(218, 218, 55);
 }
 .red,
 .red .task__color,
-.red .article__color {
+.red .article__color,
+.red .sortPlaceholder {
     background: red;
 }
 .green,
 .green .task__color,
-.green .article__color {
+.green .article__color,
+.green .sortPlaceholder {
     background: rgb(30, 153, 30);
 }
 .purple,
 .purple .task__color,
-.purple .article__color {
+.purple .article__color,
+.purple .sortPlaceholder {
     background: slateblue;
 }
 .lightgreen,
 .lightgreen .task__color,
-.lightgreen .article__color {
-    background: rgb(173, 255, 47);
+.lightgreen .article__color,
+.lightgreen .sortPlaceholder {
+    background: rgb(151, 219, 49);
 }
 .orange,
 .orange .task__color,
-.orange .article__color {
+.orange .article__color,
+.orange .sortPlaceholder {
     background: rgb(233, 142, 23);
 }
 
