@@ -62,7 +62,7 @@ let Tag = {
         LS.tag_color_change(tag.parents().eq(2), tag.find(".tag_name").text(), color);
     },
 
-    delete_touchConfirm: function (tag) {
+    delete_confirm_touch: function (tag) {
         tag.find(".tag__delete_confirm").toggleClass("hide");
     },
     

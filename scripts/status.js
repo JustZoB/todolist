@@ -2,6 +2,7 @@ let articles_array = [],
     statusPrevName = "";
 
 let Status = {
+
     add: function (color, nameValue, deleteDisabled) {
         if (nameValue != "") {
             Status.addHtml(color, nameValue, deleteDisabled);
@@ -87,7 +88,9 @@ let Status = {
             }
         }).disableSelection();
 
-        $( "#articles" ).sortable().disableSelection();
+        $( "#articles" ).sortable({
+            items: "article"
+        }).disableSelection();
 
         articles.width(articles.width() + 390);
     },
@@ -132,7 +135,7 @@ let Status = {
         article.find(".article__choose-color").toggleClass("hide");
     },
 
-    delete_touchConfirm: function (article) {
+    delete_confirm_touch: function (article) {
         article.find(".article__delete_confirm").toggleClass("hide");
     },
 

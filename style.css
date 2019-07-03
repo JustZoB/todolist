@@ -23,11 +23,11 @@ html, body {
 .day .newTask__value,
 .day .newTask__button_open,
 .day .status__add__button_open {
-    color: rgb(12, 12, 12);
+    color: #0C0C0C;
 }
 body.day,
 .day .container {
-    background: rgb(218, 218, 219);
+    background: #DADADA;
 }
 
 .day .newStatus,
@@ -40,22 +40,25 @@ body.day,
 .day .taskName,
 .day .newTask__button_open,
 .day .status__add__button_open {
-    background: rgb(214, 214, 218);
+    background: #D6D6D6;
 }
 .day .task__content,
 .day .popup,
 .day .newTask__content,
 .day .newStatus__content {
-    background: rgb(230, 230, 230);
+    background: #E6E6E6;
 }
 .day .openText {
-    background: #2e2f30;
+    background: #9F9F9F;
 }
 .day button:disabled {
-    background: rgb(229, 229, 233);
+    background: #E5E5E5;
 }
 .day .basic {
-    background: rgb(199, 199, 202);
+    background: #C7C7C7;
+}
+.day .active {
+    background: #9F9F9F !important;
 }
 
 .night ::-webkit-scrollbar {
@@ -79,7 +82,7 @@ body.day,
 .night .newTask__value,
 .night .newTask__button_open,
 .night .status__add__button_open {
-    color: rgb(230, 224, 224);
+    color: #E0E0E0;
 }
 .night .container,
 body.night {
@@ -105,11 +108,14 @@ body.night {
     background: #2e2f30;
 }
 .night button:disabled {
-    background: rgb(97, 97, 100);
+    background: #616161;
 }
 .night .basic {
-    background: rgb(29, 30, 32);
-    border: 1.5px solid rgb(171, 178, 185) !important;
+    background: #1E1E1E;
+    border: 1.5px solid #ABB2B9 !important;
+}
+.night .active {
+    background: #0e1011 !important;
 }
 
 .hide {
@@ -200,7 +206,6 @@ li.task {
 
 .statusName,
 .taskName {
-    /*background: #202427;*/
     border-radius: 4px;
 }
 .taskName {
@@ -260,7 +265,7 @@ p {
     position: relative;
 }
 .tag_name {
-    color: rgb(230, 224, 224);
+    color: #E0E0E0;
     font-size: 14px;
     padding: 4px 8px;
     margin: 2px;
@@ -383,8 +388,8 @@ p {
 
 .newTask__button_add,
 .status__add__button_add {
-    color: rgb(230, 224, 224);
-    background: rgb(30, 153, 30);
+    color: #E0E0E0;
+    background: #1E991E;
     border: 0;
     cursor: pointer;
     margin: 1px;
@@ -410,8 +415,6 @@ p {
     position: relative;
     margin-left: 9px;
 }
-
-
 /*--------------Status__add--------------*/
 .status__add {
     width: 330px;
@@ -423,8 +426,6 @@ p {
 .status__add__value {
     padding: 12px 0 0px 10px;
 }
-
-
 /*--------------newTask--------------*/
 .newTask {
     width: 330px;
@@ -439,7 +440,7 @@ p {
     padding: 10px 0 50px 7px;
 }
 .newTask__value::placeholder {
-    color: rgb(124, 128, 133);
+    color: #ABB2B9;
 }
 
 .newTask__button_menu {
@@ -457,9 +458,7 @@ p {
 .newTask__menu__buttons button {
     margin: 5px !important;
 }
-
 /*---------Buttons & Inputs----------*/
-
 button {
     opacity: 0.7;
 }
@@ -490,95 +489,87 @@ input[type="text"] {
     cursor: default;
 }
 input[type="text"]::placeholder {
-    color: rgb(171, 178, 185);
+    color: #ABB2B9;
 } 
-
 /*--------------Colors--------------*/
-
 .blue,
 .blue .task__color,
 .blue .article__color,
-.blue .sortPlaceholder,
-.taskNameValue {
-    background: rgb(65, 101, 192);
-}
-.lightblue {
-    background: rgb(56, 121, 212);
+.blue .sortPlaceholder {
+    background: #4165C0;
 }
 .yellow,
 .yellow .task__color,
 .yellow .article__color,
 .yellow .sortPlaceholder {
-    background: rgb(179, 179, 58);
+    background: #B3B33A;
 }
 .red,
 .red .task__color,
 .red .article__color,
 .red .sortPlaceholder {
-    background: rgb(180, 30, 30);
+    background: #B41E1E;
 }
 .green,
 .green .task__color,
 .green .article__color,
 .green .sortPlaceholder {
-    background: rgb(27, 133, 27);
+    background: #1B851B;
 }
 .purple,
 .purple .task__color,
 .purple .article__color,
 .purple .sortPlaceholder {
-    background: rgb(97, 84, 184);
+    background: #6154B8;
 }
 .lightgreen,
 .lightgreen .task__color,
 .lightgreen .article__color,
 .lightgreen .sortPlaceholder {
-    background: rgb(130, 185, 47);
+    background: #82B92F;
 }
 .orange,
 .orange .task__color,
 .orange .article__color,
 .orange .sortPlaceholder {
-    background: rgb(197, 124, 28);
+    background: #C57C1C;
 }
-
+.lightblue {
+    background: #3879D4;
+}
 
 .blue h2 {
-    color: rgb(65, 101, 192);
+    color: #4165C0;
 }
 .yellow h2 {
-    color: rgb(179, 179, 58);
+    color: #B3B33A;
 }
 .red h2 {
-    color: rgb(180, 30, 30);
+    color: #B41E1E;
 }
 .green h2 {
-    color: rgb(27, 133, 27);
+    color: #1B851B;
 }
 .purple h2 {
-    color: rgb(97, 84, 184);   
+    color: #6154B8;   
 }
 .lightgreen h2 {
-    color: rgb(130, 185, 47);
+    color: #82B92F;
 }
 .orange h2 {
-    color: rgb(197, 124, 28);
+    color: #C57C1C;
 }
 
-.tag__delete_yes,
 .article__delete_yes,
-.task__delete_yes {
-    color: white !important;
-    background: green;
+.task__delete_yes,
+.tag__delete_yes {
+    color: #FFFFFF !important;
+    background: #008000;
 }
-.tag__delete_no,
 .article__delete_no,
-.task__delete_no {
-    color: white !important;
-    background: red;
-}
-
-.active {
-    background: #0e1011 !important;
+.task__delete_no,
+.tag__delete_no {
+    color: #FFFFFF !important;
+    background: #FF0000;
 }
 /*------------------------------------*/

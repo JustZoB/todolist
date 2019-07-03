@@ -158,7 +158,7 @@ let Task = {
         task.find(".task__buttons").toggleClass("hide");
     },
 
-    delete_touchConfirm: function (task) {
+    delete_confirm_touch: function (task) {
         task.find(".task__delete_confirm").toggleClass("hide");
     },
 

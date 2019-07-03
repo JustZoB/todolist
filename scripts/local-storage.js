@@ -1,4 +1,5 @@
 let LS = {
+
     test: function () {
         let test = 'test';
         try {
@@ -205,5 +206,5 @@ let LS = {
             }
         }
         localStorage.setItem("todolist", JSON.stringify(allTasks));
-    },
+    }
 }

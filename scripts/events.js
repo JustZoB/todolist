@@ -63,7 +63,7 @@ $('body').on('click', ".article__choose-color span", function() {
 });
     /*---------Delete confirm-------*/
 $('body').on('click', ".article__button_delete", function() {
-    Status.delete_touchConfirm($(this).parents().eq(3));
+    Status.delete_confirm_touch($(this).parents().eq(3));
 });
     /*------Delete confirm yes------*/ 
 $('body').on('click', ".article__delete_yes", function() {
@@ -198,7 +198,7 @@ $('body').on('click', ".task__menu_open", function() {
 });
     /*--------Delete confirm--------*/
 $('body').on('click', ".task__button_delete", function() {
-    Task.delete_touchConfirm($(this).parents().eq(3));
+    Task.delete_confirm_touch($(this).parents().eq(3));
 });
     /*------Delete confirm yes------*/ 
 $('body').on('click', ".task__delete_yes", function() {
@@ -279,7 +279,7 @@ $('body').on('click', ".tag__choose-color span", function() {
 });
     /*---------Delete confirm-------*/
 $('body').on('click', ".tag__button_delete", function() {
-    Tag.delete_touchConfirm($(this).parents().eq(1));
+    Tag.delete_confirm_touch($(this).parents().eq(1));
 });
     /*------Delete confirm yes------*/ 
 $('body').on('click', ".tag__delete_yes", function() {
