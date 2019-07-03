@@ -104,6 +104,7 @@ $('body').on('click', ".status__add__choose-color span", function() {
     /*-------Touch adding menu------*/ 
 $('body').on('click', ".newTask__button_menu", function() {
     Task.adding_menu_touch($(this).parents().eq(5));
+    $(this).blur();
 });
     /*---------Open adding----------*/
 $('body').on('click', ".newTask__button_open", function() {
@@ -276,9 +277,9 @@ $('body').on('click', ".tag__button_color", function() {
 });
     /*--------Choose color----------*/
 $('body').on('click', ".tag__choose-color span", function() {
-    Tag.color_change($(this).parents().eq(2), $(this).attr("class"));
-    Tag.menu_touch($(this).parents().eq(2));
-    Tag.menu_color_touch($(this).parents().eq(2));
+    Tag.color_change($(this).parents().eq(3), $(this).attr("class"));
+    Tag.menu_touch($(this).parents().eq(3));
+    Tag.menu_color_touch($(this).parents().eq(3));
 });
     /*---------Delete confirm-------*/
 $('body').on('click', ".tag__button_delete", function() {
@@ -324,22 +325,22 @@ $('body').on('click', function() {
     }
 });
 
+eventsClose(".article__choose-color");
 eventsClose(".task__buttons");
 eventsClose(".tag__delete_confirm");
 eventsClose(".task__delete_confirm");
 eventsClose(".article__delete_confirm");
-eventsClose(".article__choose-color");
 eventsClose(".newTask__menu__buttons");
 eventsClose(".article__buttons");
 eventsClose(".status__add__choose-color");
 eventsClose(".tag__choose-color");
 
 
-function eventsClose (classes, show) {
+function eventsClose (classes, second) {
     $(document).mouseup(function (e){
         let div = $(classes);
         div.each(function(key, elem) {
-            if (!$(elem).is(e.target) && $(elem).has(e.target).length === 0) {
+            if ((!$(elem).is(e.target)) && ($(elem).has(e.target).length === 0) && (!$(elem).prev().is(e.target)) && ($(elem).prev().has(e.target).length === 0)) {
                 $(elem).addClass("hide");
             }
         });

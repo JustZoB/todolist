@@ -31,13 +31,22 @@ let Tag = {
                 <button class="tag__button_filter i basic" title="Filter"><i class='fas fa-filter fa-lg'></i></button>
                 <button class="tag__button_color i basic" title="Paint"><i class='fas fa-palette fa-lg'></i></button>
                 <div class="tag__choose-color popup hide">
-                    <span class="lightblue"></span>
-                    <span class="yellow"></span>
-                    <span class="red"></span>
-                    <span class="green"></span>
-                    <span class="purple"></span>
-                    <span class="lightgreen"></span>
-                    <span class="orange"></span>
+                    <div class="color-col">
+                        <span class="lightblue"></span>
+                        <span class="yellow"></span>
+                        <span class="red"></span>
+                        <span class="green"></span>
+                        <span class="purple"></span>
+                        <span class="lightgreen"></span>
+                    </div>
+                    <div class="color-col">
+                        <span class="orange"></span>
+                        <span class="navy"></span>
+                        <span class="gold"></span>
+                        <span class="cooper"></span>
+                        <span class="lightpink"></span>
+                        <span class="charcoal"></span>
+                    </div>
                 </div>
                 <button class="tag__button_delete i basic" title="Delete"><i class='fas fa-trash fa-lg'></i></button>
                 <div class="tag__delete_confirm popup hide">

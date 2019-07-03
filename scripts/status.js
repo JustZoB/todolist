@@ -46,6 +46,11 @@ let Status = {
                             <span class="purple"></span>
                             <span class="lightgreen"></span>
                             <span class="orange"></span>
+                            <span class="navy"></span>
+                            <span class="gold"></span>
+                            <span class="cooper"></span>
+                            <span class="lightpink"></span>
+                            <span class="charcoal"></span>
                         </div>
                         <button class="article__button_delete i basic" title="Delete"${ disabled }><i class='fas fa-trash fa-lg'></i></button>
                         <div class="article__delete_confirm popup hide">
