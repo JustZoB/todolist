@@ -11,7 +11,7 @@ let LS = {
         }
     },
 
-    column_add: function (color, name, deleteD) {
+    column_add: function (color, name, disabled) {
         let columns = JSON.parse(localStorage.getItem("columns_list")),
             localColumn = {};
         if (columns == null) {
@@ -19,7 +19,7 @@ let LS = {
         }
         localColumn.name = name;
         localColumn.color = color;
-        localColumn.deleteD = deleteD;
+        localColumn.deleteD = disabled;
         columns.push(localColumn);
         localStorage.setItem("columns_list", JSON.stringify(columns));
     },
@@ -206,5 +206,15 @@ let LS = {
             }
         }
         localStorage.setItem("todolist", JSON.stringify(allTasks));
+    },
+
+    theme: function() {
+        let theme = JSON.parse(localStorage.getItem("todolist_theme"));
+        if ($("body").hasClass("night")) {
+            theme = "night";
+        } else {
+            theme = "day";
+        }
+        localStorage.setItem("todolist_theme", JSON.stringify(theme));
     }
 }

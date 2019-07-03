@@ -1,5 +1,13 @@
 $( document ).ready(function() {
     if(LS.test() === true){
+        let theme = JSON.parse(localStorage.getItem("todolist_theme")); 
+        if (theme == "day") {
+            $("body").removeClass().addClass("day");
+            $(".sun").toggleClass("hide");
+            $(".moon").toggleClass("hide");
+        } else {
+            $("body").removeClass().addClass("night");
+        }
         let localColumns = JSON.parse(localStorage.getItem("columns_list"));
         if (localColumns != null) {
             for (let i = 0; i < localColumns.length; i++) {

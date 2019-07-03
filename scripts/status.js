@@ -3,14 +3,18 @@ let articles_array = [],
 
 let Status = {
 
-    add: function (color, nameValue, deleteDisabled) {
-        if (nameValue != "") {
-            Status.addHtml(color, nameValue, deleteDisabled);
-            LS.column_add(color, nameValue, deleteDisabled);
+    add: function (color, nameValue, disabled) {
+        let mat = 0;
+        mat = Status.checkOtherNames(nameValue);
+        if ((nameValue != "") && (mat == 0)) {
+            Status.addHtml(color, nameValue, disabled);
+            LS.column_add(color, nameValue, disabled);
+            $(".articles").find("status__add__value").val('').focus();
+            $(".container").scrollLeft($(".articles").width());
         }
     },      
 
-    addHtml: function (color, name, deleteDisabled) {
+    addHtml: function (color, name, disabled) {
         let articles = $(".articles");
         let id = articles_array.length;
         articles_array.push(id);
@@ -20,8 +24,8 @@ let Status = {
         }
         let newStatuses = articles.find(".newStatus");
         let listClass = name[0].toUpperCase() + name.slice(1);;
-        if (deleteDisabled == true) {
-            deleteDisabled = " disabled";
+        if (disabled == true) {
+            disabled = " disabled";
         }
 
         $(`<article class="${ color }">
@@ -32,7 +36,7 @@ let Status = {
                 <div class="article__head__menu">
                     <button class="article__head__button_menu i basic"><i class="fas fa-ellipsis-h fa-lg"></i></button>
                     <div class="article__buttons popup hide">
-                        <button class="article__button_rename i basic" title="Rename"><i class='fas fa-pen fa-lg'></i></button>
+                        <button class="article__button_rename i basic" title="Rename"${ disabled }><i class='fas fa-pen fa-lg'></i></button>
                         <button class="article__button_color i basic" title="Paint"><i class='fas fa-palette fa-lg'></i></button>
                         <div class="article__choose-color popup hide">
                             <span class="blue"></span>
@@ -43,7 +47,7 @@ let Status = {
                             <span class="lightgreen"></span>
                             <span class="orange"></span>
                         </div>
-                        <button class="article__button_delete i basic" title="Delete"${ deleteDisabled }><i class='fas fa-trash fa-lg'></i></button>
+                        <button class="article__button_delete i basic" title="Delete"${ disabled }><i class='fas fa-trash fa-lg'></i></button>
                         <div class="article__delete_confirm popup hide">
                             <button class="article__delete_yes i" title="Delete"><i class='fas fa-check fa-lg'></i></button>
                             <button class="article__delete_no i" title="Don't delete"><i class='fas fa-times fa-lg'></i></button>
@@ -155,5 +159,20 @@ let Status = {
             ul.parent().find(".article__head").css({ marginLeft : "20px",  marginRight : "25px" });
             ul.parent().find(".article__color").css({ marginLeft : "20px" });
         }
+    },
+
+    checkOtherNames: function(nameValue) {
+        let article_names = [],
+            mat = 0;
+    
+        $(".articles").find("h2").each(function(key, elem) {
+            article_names.push($(elem).text());
+        });
+        for (let i = 0; i < article_names.length; i++) {
+            if (article_names[i] == nameValue) {
+                mat++;
+            }
+        }
+        return mat;
     }
 }

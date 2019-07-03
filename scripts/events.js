@@ -9,6 +9,7 @@ function toggleTime (menu) {
     menu.find(".sun").toggleClass("hide");
     menu.find(".moon").toggleClass("hide");
     menu.parent().toggleClass("day night");
+    LS.theme();
 }
 /*---------------New Status---------------*/
     /*-----------Open menu----------*/ 
@@ -16,6 +17,7 @@ $('body').on('click', ".status__add__button_open", function() {
     Status.textarea_touch($(this).parents().eq(1));
     $(this).parent().find(".status__add__value").focus();
     $(".container").scrollLeft($(".articles").width());
+    $(this).blur();
 });
     /*----------Close menu----------*/
 $('body').on('click', ".status__add__button_close", function() {
@@ -26,21 +28,15 @@ $('body').on('click', ".status__add__button_add", function() {
     let button_color = $(this).parent().find(".status__add__button_color"),
         color = button_color.clone().removeClass("status__add__button_color i").attr("class");
     Status.add(color, $(".status__add__value").val(), false);
-
-    $(".container").scrollLeft($(".articles").width());
-    $(".status__add__value").val("");
-    $(".status__add__value").focus();
 });
 $('body').on('keydown', ".status__add__value", function() {
     if ( event.which == 13 ) {
         let button_color = $(this).parent().find(".status__add__button_color"),
             color = button_color.clone().removeClass("status__add__button_color i").attr("class");
         Status.add(color, $(".status__add__value").val(), false);
-
-        $(".container").scrollLeft($(".articles").width());
-        $(".status__add__value").val("");
-        $(".status__add__value").focus();
-
+        event.preventDefault();
+    }
+    if ( event.which == 32 ) {
         event.preventDefault();
     }
 });
@@ -50,10 +46,12 @@ $('body').on('keydown', ".status__add__value", function() {
  $('body').on('click', ".article__head__button_menu", function() {
     Status.head_menu_touch($(this).parents().eq(2));
     $(this).parents().eq(2).find(".article__delete_confirm").addClass("hide");
+    $(this).blur();
 });
     /*--------Open color menu-------*/
 $('body').on('click', ".article__button_color", function() {
     Status.menu_color_touch($(this).parents().eq(3));
+    $(this).blur();
 });
     /*---------Choose color---------*/
 $('body').on('click', ".article__choose-color span", function() {
@@ -64,6 +62,7 @@ $('body').on('click', ".article__choose-color span", function() {
     /*---------Delete confirm-------*/
 $('body').on('click', ".article__button_delete", function() {
     Status.delete_confirm_touch($(this).parents().eq(3));
+    $(this).blur();
 });
     /*------Delete confirm yes------*/ 
 $('body').on('click', ".article__delete_yes", function() {
@@ -195,10 +194,12 @@ $('body').on('click', ".task__button_hashtag", function() {
 $('body').on('click', ".task__menu_open", function() {
     Task.menu_touch($(this).parents().eq(2));
     Status.resize($(this).parents().eq(3));
+    $(this).blur();
 });
     /*--------Delete confirm--------*/
 $('body').on('click', ".task__button_delete", function() {
     Task.delete_confirm_touch($(this).parents().eq(3));
+    $(this).blur();
 });
     /*------Delete confirm yes------*/ 
 $('body').on('click', ".task__delete_yes", function() {
@@ -233,6 +234,7 @@ $('body').on('input', ".hashtagValue", function() {
     /*------Touch menu of tag-------*/
 $('body').on('click', ".tag_name", function() {
     Tag.menu_touch($(this).parent());
+    $(this).blur();
 });
     /*------------Rename------------*/
 $('body').on('click', ".tag__button_rename", function() {
@@ -270,6 +272,7 @@ $('body').on('click', ".tag__button_filter", function() {
     /*------Open color menu---------*/
 $('body').on('click', ".tag__button_color", function() {
     Tag.menu_color_touch($(this).parents().eq(1));
+    $(this).blur();
 });
     /*--------Choose color----------*/
 $('body').on('click', ".tag__choose-color span", function() {
@@ -280,6 +283,7 @@ $('body').on('click', ".tag__choose-color span", function() {
     /*---------Delete confirm-------*/
 $('body').on('click', ".tag__button_delete", function() {
     Tag.delete_confirm_touch($(this).parents().eq(1));
+    $(this).blur();
 });
     /*------Delete confirm yes------*/ 
 $('body').on('click', ".tag__delete_yes", function() {
@@ -298,6 +302,10 @@ $('body').on('click', function() {
     if (window.event.target.classList.contains("articles") || window.event.target.classList.contains("container")) {
         $(".openText").addClass("hide");
         $(".taskName").removeClass("hide");
+        $(".newTask__button_open").removeClass("hide");
+        $(".newTask__adding-block").addClass("hide");
+        $(".status__add__button_open").removeClass("hide");
+        $(".status__add__adding-block").addClass("hide");
         
         $(".hashtagValue").each(function(key, elem) {
             if ($(elem).hasClass("rename")) {
