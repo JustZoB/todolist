@@ -24,7 +24,7 @@ $('body').on('click', ".status__add__button_close", function() {
     /*----------Add column----------*/
 $('body').on('click', ".status__add__button_add", function() {
     let button_color = $(this).parent().find(".status__add__button_color"),
-        color = button_color.clone().removeClass(".status__add__button_color i").attr("class");
+        color = button_color.clone().removeClass("status__add__button_color i").attr("class");
     Status.add(color, $(".status__add__value").val(), false);
 
     $(".container").scrollLeft($(".articles").width());
@@ -34,7 +34,7 @@ $('body').on('click', ".status__add__button_add", function() {
 $('body').on('keydown', ".status__add__value", function() {
     if ( event.which == 13 ) {
         let button_color = $(this).parent().find(".status__add__button_color"),
-            color = button_color.clone().removeClass(".status__add__button_color i").attr("class");
+            color = button_color.clone().removeClass("status__add__button_color i").attr("class");
         Status.add(color, $(".status__add__value").val(), false);
 
         $(".container").scrollLeft($(".articles").width());
@@ -125,7 +125,7 @@ $('body').on('keypress', ".newTask__value", function() {
     if ( event.which == 13 ) {
         Task.add($(this).parents().eq(3));
         Task.scrollToBottom($(this).parents().eq(3));
-        event.preventDefault();
+        event.preventDefault(); 
     }
 });
     /*----Open input for hashtags----*/
@@ -134,6 +134,14 @@ $('body').on('click', ".newTask__button_hashtags", function() {
     $(this).parents().eq(3).find(".newTask__hashtagValue").focus();
     Task.adding_menu_touch($(this).parents().eq(6));
     Task.scrollToBottom($(this).parents().eq(6));
+});
+
+    /*----------Add hashtags---------*/
+$('body').on('keypress', ".newTask__hashtagValue", function() {
+    if ( (event.which == 13) || (event.which == 44)) {
+        Tag.newTask__add($(this).parents().eq(4), $(this).val());
+        event.preventDefault();
+    }
 });
 
 
@@ -288,23 +296,9 @@ $('body').on('click', ".tag__delete_no", function() {
 $('body').on('click', function() {
     console.log(window.event.target);
     if (window.event.target.classList.contains("articles") || window.event.target.classList.contains("container")) {
-        $(".taskName").removeClass("hide");
-        $(".newTask__button_open").removeClass("hide");
-        $(".status__add__button_open").removeClass("hide");
         $(".openText").addClass("hide");
-        $(".newTask__adding-block").addClass("hide");
-        $(".status__add__adding-block").addClass("hide");
-        $(".article__buttons").addClass("hide");
-        $(".newTask__menu__buttons").addClass("hide");
-        $(".article__choose-color").addClass("hide");
-        $(".article__delete_confirm").addClass("hide");
-        $(".task__delete_confirm").addClass("hide");
-        $(".tag__delete_confirm").addClass("hide");
-        $(".task__buttons").addClass("hide");
-        $(".status__add__choose-color").addClass("hide");
-        $(".newTask__hashtagValue").addClass("hide");
-        $(".tag__buttons").addClass("hide");
-        $(".tag__choose-color").addClass("hide");
+        $(".taskName").removeClass("hide");
+        
         $(".hashtagValue").each(function(key, elem) {
             if ($(elem).hasClass("rename")) {
                 $(".tag").removeClass("hide");
@@ -321,3 +315,25 @@ $('body').on('click', function() {
         });
     }
 });
+
+eventsClose(".task__buttons");
+eventsClose(".tag__delete_confirm");
+eventsClose(".task__delete_confirm");
+eventsClose(".article__delete_confirm");
+eventsClose(".article__choose-color");
+eventsClose(".newTask__menu__buttons");
+eventsClose(".article__buttons");
+eventsClose(".status__add__choose-color");
+eventsClose(".tag__choose-color");
+
+
+function eventsClose (classes, show) {
+    $(document).mouseup(function (e){
+        let div = $(classes);
+        div.each(function(key, elem) {
+            if (!$(elem).is(e.target) && $(elem).has(e.target).length === 0) {
+                $(elem).addClass("hide");
+            }
+        });
+    });
+}

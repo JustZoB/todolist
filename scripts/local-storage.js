@@ -116,7 +116,7 @@ let LS = {
             allTasks = JSON.parse(localStorage.getItem("todolist"));
         for (let i = 0; i < allTasks.length; i++) {
             if (allTasks[i].name == taskName) {
-                allTasks[i].state = newState;
+                allTasks[i].state = newState.substr(1);
                 break;
             }
         }
@@ -135,11 +135,10 @@ let LS = {
         localStorage.setItem("todolist", JSON.stringify(allTasks));
     },
 
-    tag_add: function (task, hashtagName) {
+    tag_add: function (taskName, hashtagName) {
         let allTasks = JSON.parse(localStorage.getItem("todolist")),
             localHashtags = [],
-            tag = {},
-            taskName = task.find(".taskName").val();
+            tag = {};
 
             tag.name = hashtagName;
             tag.color = "lightblue";

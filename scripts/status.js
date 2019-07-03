@@ -57,7 +57,7 @@ let Status = {
                     <div class="newTask__adding-block hide">
                         <textarea class="newTask__value" type="text" placeholder="Enter a head of your task..."></textarea>
                         <div class='newTask__hashtags hide'>
-                            <input class='newTask__hashtagValue lightblue' type='text' list='hashtags'></input>
+                            <input class='newTask__hashtagValue lightblue' type='text' list='hashtags' placeholder='Tag'></input>
                             <span class="newTask__hashtagBuffer"></span>
                         </div>
                         <div class="newTask__buttons">

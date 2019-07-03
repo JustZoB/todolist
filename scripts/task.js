@@ -1,17 +1,47 @@
 let prevName = "",
-    filterTags = [];
+    filterTags = [],
+    newtask__addTags = [];
 
 let Task = {
     add: function(article) {
-        let name = article.find(".newTask__value");
-        let nameValue = name.val();
-        if (nameValue != "") {
-            let listState = article.find(".list").clone().removeClass("list ui-sortable").attr("class");
-            Task.addHtml(nameValue, article.find(".list"));
-            LS.task_add(nameValue, listState);
+        let name = article.find(".newTask__value"), 
+            nameValue = name.val(), 
+            task_names = [],
+            mat = 0;
+           
+        article.parent().find(".task").each(function(key, elem) {
+            task_names.push($(elem).find(".taskName").val());
+        });
+        for (let i = 0; i < task_names.length; i++) {
+            if (task_names[i] == nameValue) {
+                mat++;
+            }
         }
-        article.find(".newTask__value").focus();
-        name.val("");
+        if ((nameValue != "") && (mat == 0)){
+            let listState = article.find(".list").clone().removeClass("list ui-sortable").attr("class");
+            for (let i = 0; i < newTask_hashtags.length; i++) {
+                if (newTask_hashtags[i].state == listState) {
+                    newtask__addTags.push(newTask_hashtags[i]);
+                    newTask_hashtags.splice(i, 1);
+                    i--;
+                }
+            }
+            Task.addHtml(nameValue, article.find(".list"), newtask__addTags);
+            LS.task_add(nameValue, listState);
+            
+            for (let i = 0; i < newtask__addTags.length; i++) {
+                LS.tag_add(nameValue, newtask__addTags[i].name);
+            }
+            let tags = article.find(".newTask__hashtags");
+            tags.find(".tag").each(function(key, elem) {
+                $(elem).detach();
+            });
+            let list = article.find(".list");
+            Task.hashtag_checkHeight(list.find(".task").last());
+            article.find(".newTask__value").focus();
+            name.val("");
+            newtask__addTags = [];
+        }
     },
 
     delete: function(li) {
@@ -54,7 +84,7 @@ let Task = {
                     </div>
                 </div>
                 <div class='task__hashtags'>
-                    <input class='hashtagValue lightblue hide' type='text' list='hashtags'></input>
+                    <input class='hashtagValue lightblue hide' type='text' list='hashtags' placeholder='Tag'></input>
                     <span class="hashtagBuffer"></span>
                 </div>
             </div>

@@ -207,6 +207,10 @@ li.task {
     margin-left: 5px;
     width: 236px;
 }
+.newTask__hashtagValue {
+    display: inherit;
+}
+
 .newTask__hashtagValue,
 .hashtagValue {
     height: 26px !important;
@@ -215,6 +219,7 @@ li.task {
     padding: 0 15px 0 15px !important;
     width: 60px;
     min-width: 60px;
+    cursor: text !important;
 }
 .newTask__hashtagBuffer,
 .hashtagBuffer {
@@ -245,7 +250,12 @@ p {
     margin: 10px auto;
     opacity: 0.5;
 }
-
+.newTask .tag {
+    display: inline-block;
+}
+.newTask .tag_name {
+    width: fit-content;
+}
 .tag {
     position: relative;
 }

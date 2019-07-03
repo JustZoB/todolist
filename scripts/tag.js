@@ -1,4 +1,5 @@
-let prevTagName = "";
+let prevTagName = "",
+    newTask_hashtags = [];
 
 let Tag = {
 
@@ -17,7 +18,8 @@ let Tag = {
             hashtagInput.val('');
             hashtagInput.focus();
 
-            LS.tag_add(task, hashtagName);
+            let taskName = task.find(".taskName").val();
+            LS.tag_add(taskName, hashtagName);
         }
     },
 
@@ -125,5 +127,34 @@ let Tag = {
         let visable = container.find("div div div div div:contains('" + tagName + "')");
         visable.each(function(i,elem) {}).removeClass("activeTag");
         filterTags.splice(filterTags.indexOf(tagName), 1);
+    },
+
+    newTask__add: function (article, name) {
+        let state = article.find(".list").clone().removeClass("list ui-sortable").attr("class"),
+            newTaskBlock = article.find(".newTask"),
+            tagName_check = [],
+            mat = 0,
+            newTag = {};
+
+        newTag.name = "#" + name;
+        newTag.state = state;
+        newTag.color = "lightblue";
+
+        newTaskBlock.find(".tag").each(function(key, elem) {
+            tagName_check.push($(elem).find(".tag_name").text());
+        });
+        for (let i = 0; i < tagName_check.length; i++) {
+            if (tagName_check[i] == newTag.name) {
+                mat++;
+            }
+        }
+        if ((name != "") && (mat == 0)){
+            newTask_hashtags.push(newTag);
+            $(`<div class="tag">
+                <div class="tag_name lightblue">#${ name }</div>
+            </div>`).insertBefore(article.find(".newTask__hashtagValue"));
+            article.find(".newTask__hashtagValue").val('');
+        }
+        
     },
 }
