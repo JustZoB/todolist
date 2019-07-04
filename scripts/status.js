@@ -32,7 +32,7 @@ let Status = {
             <div class="article__color"></div>
             <div class="article__head">
                 <h2>${ name }</h2>
-                <input class='statusName active hide' type='text' value='${ name }'></input>
+                <input class='statusName active hide' type='text' maxlength="12" value='${ name }'></input>
                 <div class="article__head__menu">
                     <button class="article__head__button_menu i basic"><i class="fas fa-ellipsis-h fa-lg"></i></button>
                     <div class="article__buttons popup hide">
@@ -99,6 +99,7 @@ let Status = {
 
         $( "#articles" ).sortable({
             items: "article",
+            handle: ".article__color", 
             update: function(event, ui) {
                 LS.status_order(ui.item, ui.item.find("h2").text());
             }
