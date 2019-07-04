@@ -98,7 +98,10 @@ let Status = {
         }).disableSelection();
 
         $( "#articles" ).sortable({
-            items: "article"
+            items: "article",
+            update: function(event, ui) {
+                LS.status_order(ui.item, ui.item.find("h2").text());
+            }
         }).disableSelection();
 
         articles.width(articles.width() + 390);
@@ -111,11 +114,17 @@ let Status = {
     },
 
     rename_finish: function (article) {
-        article.find("h2").text(article.find(".statusName").val());
-        article.find("h2").removeClass("hide");
-        article.find(".statusName").addClass("hide");
+        let statusNewName = article.find(".statusName").val(),
+            mat = 0;
+        mat = Status.checkOtherNames(statusNewName);
 
-        LS.column_rename(article);
+        if (((statusNewName != "") && (mat == 0)) || ((mat == 1) && (statusNewName == statusPrevName))) {
+            article.find("h2").text(statusNewName);
+            article.find("h2").removeClass("hide");
+            article.find(".statusName").addClass("hide");
+    
+            LS.column_rename(article);
+        }
     },
 
     color_change: function (article, color) {

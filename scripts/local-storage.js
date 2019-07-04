@@ -112,6 +112,34 @@ let LS = {
         localStorage.setItem("todolist", JSON.stringify(allTasks));
     },
 
+    status_order: function (article, statusName) {
+        let prevStatusName = article.prev().find("h2").text(),
+            columns = JSON.parse(localStorage.getItem("columns_list")),
+            positionToSet = 0,
+            positionThatSet = 0,
+            thatToSet = {};
+
+
+        for (let i = 0; i < columns.length; i++) {
+            if (columns[i].name == statusName) {
+                thatToSet = columns[i];
+                positionThatSet = i;
+            }
+            if (columns[i].name == prevStatusName) {
+                positionToSet = i;
+            }
+        }
+        if ((positionThatSet < positionToSet) || (prevStatusName == undefined)) {
+            columns.splice(positionThatSet, 1);
+            columns.splice(positionToSet, 0, thatToSet);
+        } else {
+            columns.splice(positionThatSet, 1);
+            columns.splice(positionToSet + 1, 0, thatToSet);
+        }
+        
+        localStorage.setItem("columns_list", JSON.stringify(columns));
+    },
+
     task_move_check: function(li, newState) {
         let taskName = li.find(".taskName").val(),
             allTasks = JSON.parse(localStorage.getItem("todolist"));

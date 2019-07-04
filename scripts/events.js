@@ -307,6 +307,8 @@ $('body').on('click', function() {
         $(".newTask__adding-block").addClass("hide");
         $(".status__add__button_open").removeClass("hide");
         $(".status__add__adding-block").addClass("hide");
+        $("h2").removeClass("hide");
+        $(".statusName").addClass("hide");
         
         $(".hashtagValue").each(function(key, elem) {
             if ($(elem).hasClass("rename")) {
