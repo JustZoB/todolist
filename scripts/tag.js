@@ -146,7 +146,7 @@ let Tag = {
         newTag.state = state;
         newTag.color = "lightblue";
 
-        if ((name != "") && (Tag.checkOtherNames(newTag.name) == 0)){
+        if ((name != "") && (Tag.checkOtherNames(article, newTag.name) == 0)){
             newTask_hashtags.push(newTag);
             $(`<div class="tag">
                 <div class="tag_name lightblue">#${ name }</div>
@@ -155,7 +155,7 @@ let Tag = {
         }   
     },
 
-    checkOtherNames: function(name) {
+    checkOtherNames: function(article, name) {
         let tagName_check = [],
             newTaskBlock = article.find(".newTask"),
             mat = 0;
