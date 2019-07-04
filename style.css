@@ -134,31 +134,36 @@ body.night {
 }
 .container {
     position: relative;
-    padding-top: 20px;
-    overflow-x: auto;
-    margin: 0 10px;
+
     height: 89vh;
+    margin: 0 10px;
+    padding-top: 20px;
+
+    overflow-x: auto;
 }
 .articles {
     width: 370px;
-    overflow: hidden;
     margin: 0px 20px 20px 20px;
+
+    overflow: hidden;
 }
 .newStatus,
 article {
     display: inline-block;
-    overflow-y: auto;
-    max-height: 83vh;
-    width: 370px;
     vertical-align: top;
-    border-radius: 5px;
+    
+    width: 370px;
+    max-height: 83vh;
     margin: 5px;
+
+    border-radius: 5px;
+    overflow-y: auto;
     box-shadow: 0 0 10px rgba(1, 8, 65, 0.5);
 }
 ul {
-    list-style-type: none;
-    padding: 20px 0 20px 0;
     margin: 0;
+    padding: 20px 0 20px 0;
+    list-style-type: none;
 }
 li.task {
     width: 330px;
@@ -176,16 +181,16 @@ p {
 .sortPlaceholder {
     width: 330px;
     height: 62px;
-    border-radius: 4px;
     margin: 10px auto;
+    border-radius: 4px;
     opacity: 0.5;
 }
 .article__color {
     width: 150px;
-    cursor: grabbing;
     height: 15px;
-    border-radius: 5px;
     margin: 20px 0 0 20px;
+    border-radius: 5px;
+    cursor: grabbing;
 }
 .article__head {
     display: flex;
@@ -203,25 +208,27 @@ p {
 }
 
 .taskName {
-    margin-left: 5px;
     width: 236px;
+    margin-left: 5px;
     border-radius: 4px;
 }
 .openText {
-    padding: 12px 10px 10px 10px;
-    font-size: 14px;
-    height: auto;
-    text-align: left;
     width: 224px;
-    overflow: hidden;
+    height: auto;
+    padding: 12px 10px 10px 10px;
+
     border-radius: 4px;
+    text-align: left;
+    font-size: 14px;
+    overflow: hidden;
 }
 .task__color {
     width: 330px;
-    cursor: grabbing;
     height: 15px;
+
     border-top-left-radius: 5px;
     border-top-right-radius: 5px;
+    cursor: grabbing;
 }
 
 .task__content {
@@ -230,32 +237,30 @@ p {
 }
 .task__name {
     position: relative;
-}
-
-.task__name, 
-.task__hashtags {
-    padding: 5px;
     display: flex;
+    padding: 5px;
 }
 .task__hashtags {
-    padding-top: 0;
-    padding-bottom: 0;
+    display: flex;
     flex-wrap: wrap;
+    padding: 0 5px;
 }
 
 .tag {
     position: relative;
 }
 .tag_name {
-    color: #E0E0E0;
-    font-size: 14px;
+    height: 16px;
+    max-width: 350px;
     padding: 4px 8px;
     margin: 2px;
+
     border-radius: 15px;
     border: 0;
-    max-width: 350px;
+
     overflow: hidden;
-    height: 16px;
+    color: #E0E0E0;
+    font-size: 14px;
     cursor: pointer;
     opacity: 0.7;
 }
@@ -265,12 +270,11 @@ p {
 
 .newTask__hashtagValue,
 .hashtagValue {
-    height: 26px !important;
-    cursor: text;
-    border-radius: 15px;
-    padding: 0 15px 0 15px !important;
     width: 60px;
     min-width: 60px;
+    height: 26px !important;
+    padding: 0 15px 0 15px !important;
+    border-radius: 15px;
     cursor: text !important;
 }
 .newTask__hashtagBuffer,
@@ -342,10 +346,11 @@ p {
 /*-----------------Popups----------------*/
 .popup {
     position: absolute;
-    box-shadow: 0 0 10px rgba(1, 8, 65, 0.5);
-    border-radius: 5px;
-    padding: 5px;
     z-index: 1;
+    padding: 5px;
+
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(1, 8, 65, 0.5);
 }
 
 .article__buttons {
@@ -370,8 +375,8 @@ p {
     display: flex;
     bottom: -48px;
     right: 26px;
-    transform: translate(50%, 0);
     z-index: 5;
+    transform: translate(50%, 0);
 }
 .tag__delete_confirm {
     display: flex;
@@ -382,9 +387,9 @@ p {
 }
 
 .color-col {
-    width: 50%;
     display: flex;
     flex-direction: column;
+    width: 50%;
 }
 .article__choose-color {
     display: flex;
@@ -408,8 +413,8 @@ p {
     height: 20px;
     margin: 2px;
     border-radius: 4px;
-    cursor: pointer;
     opacity: 0.9;
+    cursor: pointer;
 }
 .status__add__choose-color span:hover,
 .tag__choose-color span:hover,
@@ -419,35 +424,35 @@ p {
 
 .newTask__button_open,
 .status__add__button_open {
-    border: 0;
-    cursor: pointer;
-    margin: 10px;
     width: 310px;
     height: 35px;
+    margin: 10px;
+    border: 0;
     border-radius: 5px;
+    cursor: pointer;
 }
 .newTask__button_add,
 .status__add__button_add {
-    color: #E0E0E0;
-    background: #1E991E;
-    border: 0;
-    cursor: pointer;
-    margin: 1px;
     width: 100px;
     height: 35px;
+    margin: 1px;
+    border: 0;
     border-radius: 5px;
+    color: #E0E0E0;
+    background: #1E991E;
+    cursor: pointer;
 }
 .status__add__value,
 .newTask__value {
-    border: 0;
-    margin: 10px;
-    width: 303px;
-    box-shadow: 0 0 10px rgba(0,0,0,0.5);
     position: relative;
-    cursor: text;
-    border-radius: 5px;
     vertical-align: top;
+    width: 303px;
+    margin: 10px;
+    border: 0;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.5);
     resize: none;
+    cursor: text;
 }
 .status__add__buttons,
 .newTask__buttons_change {
@@ -465,10 +470,10 @@ button:hover {
 button.i {
     width: 36px;
     height: 35px;
-    border: 0;
-    cursor: pointer;
     margin: 1px;
+    border: 0;
     border-radius: 4px;
+    cursor: pointer;
 }
 button:disabled {
     cursor: default;
@@ -478,9 +483,9 @@ button:disabled:hover {
 }
 input[type="text"] {
     height: 35px;
-    border: 0;
-    padding: 0 0 0 7px;
     margin: 1px;
+    padding: 0 0 0 7px;
+    border: 0;
     position: relative;
     cursor: default;
 }
