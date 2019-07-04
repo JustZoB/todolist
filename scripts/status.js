@@ -103,7 +103,7 @@ let Status = {
             }
         }).disableSelection();
 
-        articles.width(articles.width() + 390);
+        articles.width(articles.width() + 380);
     },
 
     rename_start: function (article) {
@@ -114,7 +114,7 @@ let Status = {
 
     rename_finish: function (article) {
         let statusNewName = article.find(".statusName").val();
-        
+
         if (((statusNewName != "") && (Status.checkOtherNames(statusNewName) == 0)) || ((Status.checkOtherNames(statusNewName) == 1) && (statusNewName == statusPrevName))) {
             article.find("h2").text(statusNewName);
             article.find("h2").removeClass("hide");
@@ -134,7 +134,7 @@ let Status = {
         article.detach();
 
         let articles = $(".articles");
-        articles.width(articles.width() - 390);
+        articles.width(articles.width() - 380);
     },
 
     textarea_touch: function (article) {

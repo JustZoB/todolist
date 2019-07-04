@@ -142,9 +142,7 @@ body.night {
     overflow-x: auto;
 }
 .articles {
-    width: 370px;
-    margin: 0px 20px 20px 20px;
-
+    width: 380px;
     overflow: hidden;
 }
 .newStatus,
