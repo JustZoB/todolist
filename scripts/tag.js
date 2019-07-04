@@ -140,29 +140,34 @@ let Tag = {
 
     newTask__add: function (article, name) {
         let state = article.find(".list").clone().removeClass("list ui-sortable").attr("class"),
-            newTaskBlock = article.find(".newTask"),
-            tagName_check = [],
-            mat = 0,
             newTag = {};
 
         newTag.name = "#" + name;
         newTag.state = state;
         newTag.color = "lightblue";
 
-        newTaskBlock.find(".tag").each(function(key, elem) {
-            tagName_check.push($(elem).find(".tag_name").text());
-        });
-        for (let i = 0; i < tagName_check.length; i++) {
-            if (tagName_check[i] == newTag.name) {
-                mat++;
-            }
-        }
-        if ((name != "") && (mat == 0)){
+        if ((name != "") && (Tag.checkOtherNames(newTag.name) == 0)){
             newTask_hashtags.push(newTag);
             $(`<div class="tag">
                 <div class="tag_name lightblue">#${ name }</div>
             </div>`).insertBefore(article.find(".newTask__hashtagValue"));
             article.find(".newTask__hashtagValue").val('');
         }   
+    },
+
+    checkOtherNames: function(name) {
+        let tagName_check = [],
+            newTaskBlock = article.find(".newTask"),
+            mat = 0;
+        
+        newTaskBlock.find(".tag").each(function(key, elem) {
+            tagName_check.push($(elem).find(".tag_name").text());
+        });
+        for (let i = 0; i < tagName_check.length; i++) {
+            if (tagName_check[i] == name) {
+                mat++;
+            }
+        }
+        return mat;
     }
 }

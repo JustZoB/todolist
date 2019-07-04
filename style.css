@@ -7,12 +7,12 @@ html, body {
 }
 .day ::-webkit-scrollbar-track {
     border-radius: 10px;
-    -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.2); 
+    box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.2); 
     background: #bcbec0;
 }
 .day ::-webkit-scrollbar-thumb {
     border-radius: 10px;
-    -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.1); 
+    box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.1); 
     background: #797b7c;
 }
 .day .menu h1,
@@ -66,12 +66,12 @@ body.day,
 }
 .night ::-webkit-scrollbar-track {
     border-radius: 10px;
-    -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.2); 
+    box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.2); 
     background: #373a3d;
 }
 .night ::-webkit-scrollbar-thumb {
     border-radius: 10px;
-    -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.1); 
+    box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.1); 
     background: #131516;
 }
 .night .menu h1,

@@ -1,16 +1,10 @@
 /*-----------------Time-----------------*/ 
-$('.sun').on('click', function() {
-    toggleTime($(this).parent());
-});
-$('.moon').on('click', function() {
-    toggleTime($(this).parent());
-});
-function toggleTime (menu) {
-    menu.find(".sun").toggleClass("hide");
-    menu.find(".moon").toggleClass("hide");
-    menu.parent().toggleClass("day night");
+$('.sun, .moon').on('click', function() {
+    $(this).parent().find(".sun").toggleClass("hide");
+    $(this).parent().find(".moon").toggleClass("hide");
+    $(this).parent().parent().toggleClass("day night");
     LS.theme();
-}
+});
 /*---------------New Status---------------*/
     /*-----------Open menu----------*/ 
 $('body').on('click', ".status__add__button_open", function() {

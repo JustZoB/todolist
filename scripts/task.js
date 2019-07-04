@@ -5,11 +5,9 @@ let prevName = "",
 let Task = {
     add: function(article) {
         let name = article.find(".newTask__value"), 
-            nameValue = name.val(), 
-            mat = 0;
+            nameValue = name.val();
             
-        mat = Task.checkOtherNames(nameValue);
-        if ((nameValue != "") && (mat == 0)){
+        if ((nameValue != "") && (Task.checkOtherNames(nameValue) == 0)){
             let listState = article.find(".list").clone().removeClass("list ui-sortable").attr("class");
             for (let i = 0; i < newTask_hashtags.length; i++) {
                 if (newTask_hashtags[i].state == listState) {
@@ -103,11 +101,9 @@ let Task = {
     },
 
     rename_finish: function (content) {
-        let taskName = content.find(".taskName").val(),
-            mat = 0;
-
-        mat = Task.checkOtherNames(taskName);
-        if (((taskName != "") && (mat == 1)) || ((mat == 2) && (taskName == prevName))) {
+        let taskName = content.find(".taskName").val();
+        
+        if (((taskName != "") && (Task.checkOtherNames(taskName) == 1)) || ((Task.checkOtherNames(taskName) == 2) && (taskName == prevName))) {
             content.find(".taskName").attr("readonly", '').css("cursor", "default").removeClass("active");
             content.find(".openText").text(taskName);
             LS.task_rename(content.parent());

@@ -4,9 +4,7 @@ let articles_array = [],
 let Status = {
 
     add: function (color, nameValue, disabled) {
-        let mat = 0;
-        mat = Status.checkOtherNames(nameValue);
-        if ((nameValue != "") && (mat == 0)) {
+        if ((nameValue != "") && (Status.checkOtherNames(nameValue) == 0)) {
             Status.addHtml(color, nameValue, disabled);
             LS.column_add(color, nameValue, disabled);
             $(".articles").find("status__add__value").val('').focus();
@@ -115,11 +113,9 @@ let Status = {
     },
 
     rename_finish: function (article) {
-        let statusNewName = article.find(".statusName").val(),
-            mat = 0;
-        mat = Status.checkOtherNames(statusNewName);
-
-        if (((statusNewName != "") && (mat == 0)) || ((mat == 1) && (statusNewName == statusPrevName))) {
+        let statusNewName = article.find(".statusName").val();
+        
+        if (((statusNewName != "") && (Status.checkOtherNames(statusNewName) == 0)) || ((Status.checkOtherNames(statusNewName) == 1) && (statusNewName == statusPrevName))) {
             article.find("h2").text(statusNewName);
             article.find("h2").removeClass("hide");
             article.find(".statusName").addClass("hide");
