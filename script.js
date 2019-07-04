@@ -8,6 +8,7 @@ $( document ).ready(function() {
         } else {
             $("body").removeClass().addClass("night");
         }
+        
         let localColumns = JSON.parse(localStorage.getItem("columns_list"));
         if (localColumns != null) {
             for (let i = 0; i < localColumns.length; i++) {

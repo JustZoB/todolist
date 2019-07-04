@@ -95,8 +95,9 @@ let Task = {
         }
     },
 
-    rename_start: function (content) {  
-        content.find(".taskName").removeAttr("readonly").css("cursor", "text").addClass("active");
+    rename_start: function (content) {
+        content.find(".openText").addClass("hide");
+        content.find(".taskName").removeAttr("readonly").css("cursor", "text").addClass("active").removeClass("hide");
         prevName = content.find(".taskName").val();
         content.find(".taskName").focus().val('').val(prevName);
     },
@@ -108,6 +109,7 @@ let Task = {
         mat = Task.checkOtherNames(taskName);
         if (((taskName != "") && (mat == 1)) || ((mat == 2) && (taskName == prevName))) {
             content.find(".taskName").attr("readonly", '').css("cursor", "default").removeClass("active");
+            content.find(".openText").text(taskName);
             LS.task_rename(content.parent());
         }
     },

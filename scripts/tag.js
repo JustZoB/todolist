@@ -163,7 +163,6 @@ let Tag = {
                 <div class="tag_name lightblue">#${ name }</div>
             </div>`).insertBefore(article.find(".newTask__hashtagValue"));
             article.find(".newTask__hashtagValue").val('');
-        }
-        
-    },
+        }   
+    }
 }

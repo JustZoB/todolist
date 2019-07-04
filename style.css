@@ -208,9 +208,9 @@ p {
     border-radius: 4px;
 }
 .openText {
-    padding: 12px 10px 10px 10px !important;
+    padding: 12px 10px 10px 10px;
     font-size: 14px;
-    height: auto !important;
+    height: auto;
     text-align: left;
     width: 224px;
     overflow: hidden;
