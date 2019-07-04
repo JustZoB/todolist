@@ -61,7 +61,7 @@ let LS = {
     },
 
     task_add: function (name, listState) {
-        let allTasks = JSON.parse(localStorage.getItem("todolist")),
+        let allTasks = JSON.parse(localStorage.getItem("todolist_v1.01")),
             localTask = {};
         if (allTasks == null) {
             allTasks = [];
@@ -69,11 +69,11 @@ let LS = {
         localTask.name = name;
         localTask.state = listState;
         allTasks.push(localTask);
-        localStorage.setItem("todolist", JSON.stringify(allTasks));
+        localStorage.setItem("todolist_v1.01", JSON.stringify(allTasks));
     },
 
     task_rename: function (li) {
-        let allTasks = JSON.parse(localStorage.getItem("todolist")),
+        let allTasks = JSON.parse(localStorage.getItem("todolist_v1.01")),
             taskName = li.find(".taskName").val();
         for (let i = 0; i < allTasks.length; i++) {
             if (allTasks[i].name == prevName) {
@@ -81,13 +81,13 @@ let LS = {
                 break;
             }
         }
-        localStorage.setItem("todolist", JSON.stringify(allTasks));
+        localStorage.setItem("todolist_v1.01", JSON.stringify(allTasks));
     },
 
     task_order: function (li, newState) {
         let prevLiName = li.prev().find(".taskName").val(),
             liName = li.find(".taskName").val(),
-            allTasks = JSON.parse(localStorage.getItem("todolist")),
+            allTasks = JSON.parse(localStorage.getItem("todolist_v1.01")),
             positionToSet = 0,
             positionThatSet = 0,
             thatToSet = {};
@@ -109,7 +109,7 @@ let LS = {
             allTasks.splice(positionToSet + 1, 0, thatToSet);
         }
         
-        localStorage.setItem("todolist", JSON.stringify(allTasks));
+        localStorage.setItem("todolist_v1.01", JSON.stringify(allTasks));
     },
 
     status_order: function (article, statusName) {
@@ -142,18 +142,18 @@ let LS = {
 
     task_move_check: function(li, newState) {
         let taskName = li.find(".taskName").val(),
-            allTasks = JSON.parse(localStorage.getItem("todolist"));
+            allTasks = JSON.parse(localStorage.getItem("todolist_v1.01"));
         for (let i = 0; i < allTasks.length; i++) {
             if (allTasks[i].name == taskName) {
                 allTasks[i].state = newState.substr(1);
                 break;
             }
         }
-        localStorage.setItem("todolist", JSON.stringify(allTasks));
+        localStorage.setItem("todolist_v1.01", JSON.stringify(allTasks));
     },
 
     task_delete: function(li) {
-        let allTasks = JSON.parse(localStorage.getItem("todolist")),
+        let allTasks = JSON.parse(localStorage.getItem("todolist_v1.01")),
             liName = li.find(".taskName").val();
         for (let i = 0; i < allTasks.length; i++) {
             if (allTasks[i].name == liName) {
@@ -161,11 +161,11 @@ let LS = {
                 break;
             }
         }
-        localStorage.setItem("todolist", JSON.stringify(allTasks));
+        localStorage.setItem("todolist_v1.01", JSON.stringify(allTasks));
     },
 
     tag_add: function (taskName, hashtagName) {
-        let allTasks = JSON.parse(localStorage.getItem("todolist")),
+        let allTasks = JSON.parse(localStorage.getItem("todolist_v1.01")),
             localHashtags = [],
             tag = {};
 
@@ -181,11 +181,11 @@ let LS = {
                 }
             }
         }
-        localStorage.setItem("todolist", JSON.stringify(allTasks));
+        localStorage.setItem("todolist_v1.01", JSON.stringify(allTasks));
     },
 
     tag_color_change: function (task, tagName, color) {
-        let allTasks = JSON.parse(localStorage.getItem("todolist")),
+        let allTasks = JSON.parse(localStorage.getItem("todolist_v1.01")),
             taskName = task.find(".taskName").val();
 
         for (let i = 0; i < allTasks.length; i++) {
@@ -198,11 +198,11 @@ let LS = {
                 }
             }
         }
-        localStorage.setItem("todolist", JSON.stringify(allTasks));
+        localStorage.setItem("todolist_v1.01", JSON.stringify(allTasks));
     },
 
     tag_delete: function (task, tag) {
-        let allTasks = JSON.parse(localStorage.getItem("todolist")),
+        let allTasks = JSON.parse(localStorage.getItem("todolist_v1.01")),
             taskName = task.find(".taskName").val(),
             tagName = tag.find(".tag_name").text();
 
@@ -216,11 +216,11 @@ let LS = {
                 }
             }
         }
-        localStorage.setItem("todolist", JSON.stringify(allTasks));
+        localStorage.setItem("todolist_v1.01", JSON.stringify(allTasks));
     },
 
     tag_rename: function (task, name) {
-        let allTasks = JSON.parse(localStorage.getItem("todolist")),
+        let allTasks = JSON.parse(localStorage.getItem("todolist_v1.01")),
             taskName = task.find(".taskName").val();
 
         for (let i = 0; i < allTasks.length; i++) {
@@ -233,7 +233,7 @@ let LS = {
                 }
             }
         }
-        localStorage.setItem("todolist", JSON.stringify(allTasks));
+        localStorage.setItem("todolist_v1.01", JSON.stringify(allTasks));
     },
 
     theme: function() {

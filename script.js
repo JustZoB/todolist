@@ -8,7 +8,7 @@ $( document ).ready(function() {
         } else {
             $("body").removeClass().addClass("night");
         }
-        
+
         let localColumns = JSON.parse(localStorage.getItem("columns_list"));
         if (localColumns != null) {
             for (let i = 0; i < localColumns.length; i++) {
@@ -21,7 +21,7 @@ $( document ).ready(function() {
             Status.add("green", "Done", true);
         }
 
-        let localTasks = JSON.parse(localStorage.getItem("todolist"));
+        let localTasks = JSON.parse(localStorage.getItem("todolist_v1.01"));
         if (localTasks != null) {
             for (let i = 0; i < localTasks.length; i++) {
                 Task.addHtml(localTasks[i].name, $("." + localTasks[i].state), localTasks[i].tags);
