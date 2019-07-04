@@ -534,7 +534,7 @@ input[type="text"]::placeholder {
 .navy .task__color,
 .navy .article__color,
 .navy .sortPlaceholder {
-    background: #22223B;
+    background: #22225B;
 }
 .gold,
 .gold .task__color,
@@ -588,7 +588,7 @@ input[type="text"]::placeholder {
     color: #C57C1C;
 }
 .navy h2 {
-    color: #22223B;
+    color: #22225B;
 }
 .gold h2 {
     color: #CCAC68;

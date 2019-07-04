@@ -33,7 +33,8 @@ $('body').on('keydown', ".status__add__value", function() {
     if ( event.which == 13 ) {
         let button_color = $(this).parent().find(".status__add__button_color"),
             color = button_color.clone().removeClass("status__add__button_color i").attr("class");
-        Status.add(color, $(".status__add__value").val(), false);
+        Status.add(color, $(this).val(), false);
+        $(this).val('');
         event.preventDefault();
     }
     if ( event.which == 32 ) {
