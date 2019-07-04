@@ -8,8 +8,14 @@ $( document ).ready(function() {
         } else {
             $("body").removeClass().addClass("night");
         }
-
-        let localColumns = JSON.parse(localStorage.getItem("columns_list"));
+        if (window.location.href.endsWith("/index.html")) {
+            var localColumns = JSON.parse(localStorage.getItem("columns_list")),
+                localTasks = JSON.parse(localStorage.getItem("todolist_v1.01"));
+        } else {
+            var url = window.location.href,
+                localColumns = JSON.parse(atob(window.location.href.slice(window.location.href.indexOf("/index.html") + 12, window.location.href.indexOf("__")))),
+                localTasks = JSON.parse(atob(window.location.href.slice(window.location.href.indexOf("__") + 2)));
+        }
         if (localColumns != null) {
             for (let i = 0; i < localColumns.length; i++) {
                 Status.addHtml(localColumns[i].color, localColumns[i].name, localColumns[i].deleteD);
@@ -21,7 +27,7 @@ $( document ).ready(function() {
             Status.add("green", "Done", true);
         }
 
-        let localTasks = JSON.parse(localStorage.getItem("todolist_v1.01"));
+        
         if (localTasks != null) {
             for (let i = 0; i < localTasks.length; i++) {
                 Task.addHtml(localTasks[i].name, $("." + localTasks[i].state), localTasks[i].tags);

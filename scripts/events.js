@@ -5,6 +5,15 @@ $('.sun, .moon').on('click', function() {
     $(this).parent().parent().toggleClass("day night");
     LS.theme();
 });
+$('.share-button').on('click', function() {
+    $(".share-input")
+        .toggleClass("hide")
+        .val("#" + btoa(localStorage.getItem("columns_list")) + "__" + btoa(localStorage.getItem("todolist_v1.01")))
+        .select();
+    document.execCommand('copy');
+    $(".share-copied").removeClass("hide");
+});
+
 /*---------------New Status---------------*/
     /*-----------Open menu----------*/ 
 $('body').on('click', ".status__add__button_open", function() {
@@ -302,6 +311,8 @@ $('body').on('click', function() {
     if (window.event.target.classList.contains("articles") || window.event.target.classList.contains("container")) {
         $(".openText").addClass("hide");
         $(".taskName").removeClass("hide");
+        $(".share-input").addClass("hide");
+        $(".share-copied").addClass("hide");
         $(".newTask__button_open").removeClass("hide");
         $(".newTask__adding-block").addClass("hide");
         $(".status__add__button_open").removeClass("hide");
