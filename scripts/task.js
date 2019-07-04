@@ -6,17 +6,9 @@ let Task = {
     add: function(article) {
         let name = article.find(".newTask__value"), 
             nameValue = name.val(), 
-            task_names = [],
             mat = 0;
-           
-        article.parent().find(".task").each(function(key, elem) {
-            task_names.push($(elem).find(".taskName").val());
-        });
-        for (let i = 0; i < task_names.length; i++) {
-            if (task_names[i] == nameValue) {
-                mat++;
-            }
-        }
+            
+        mat = Task.checkOtherNames(nameValue);
         if ((nameValue != "") && (mat == 0)){
             let listState = article.find(".list").clone().removeClass("list ui-sortable").attr("class");
             for (let i = 0; i < newTask_hashtags.length; i++) {
@@ -109,10 +101,15 @@ let Task = {
         content.find(".taskName").focus().val('').val(prevName);
     },
 
-    rename_finish: function (content) { 
-        content.find(".taskName").attr("readonly", '').css("cursor", "default").removeClass("active");
+    rename_finish: function (content) {
+        let taskName = content.find(".taskName").val(),
+            mat = 0;
 
-        LS.task_rename(content.parent());
+        mat = Task.checkOtherNames(taskName);
+        if (((taskName != "") && (mat == 1)) || ((mat == 2) && (taskName == prevName))) {
+            content.find(".taskName").attr("readonly", '').css("cursor", "default").removeClass("active");
+            LS.task_rename(content.parent());
+        }
     },
 
     move_dd: function (li, newState) {
@@ -177,6 +174,21 @@ let Task = {
 
     scrollToBottom: function (column) {
         column.scrollTop(column.height());
+    },
+
+    checkOtherNames: function(nameValue) {
+        let task_names = [],
+        mat = 0;
+        
+        $(".articles").find(".task").each(function(key, elem) {
+            task_names.push($(elem).find(".taskName").val());
+        });
+        for (let i = 0; i < task_names.length; i++) {
+            if (task_names[i] == nameValue) {
+                mat++;
+            }
+        }
+        return mat;
     }
 }
 

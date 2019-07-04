@@ -84,6 +84,10 @@ $('body').on('focusout', ".statusName", function() {
 $('body').on('keypress', ".statusName", function() {
     if ( event.which == 13 ) {
         Status.rename_finish($(this).parents().eq(1));
+        event.preventDefault();
+    }
+    if ( event.which == 32 ) {
+        event.preventDefault();
     }
 });
     /*-------Touch color menu-------*/
