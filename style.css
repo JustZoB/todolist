@@ -40,6 +40,7 @@ body.day,
 .day .statusName,
 .day .taskName,
 .day .share-input,
+.day .task__share-input,
 .day .newTask__button_open,
 .day .status__add__button_open {
     background: #D6D6D6;
@@ -96,6 +97,7 @@ body.night {
 .night .statusName,
 .night .taskName,
 .night .share-input,
+.night .task__share-input,
 .night .newTask__button_open,
 .night .status__add__button_open,
 .night .status__add__value,
@@ -171,6 +173,16 @@ li.task {
     width: 330px;
     margin: 10px auto 0 auto;
 }
+li.center {
+    position: absolute;
+    top: 50%;
+    right: 50%;
+    transform: translate(50%, -100%);
+    list-style-type: none;
+}
+li.center .task__color {
+    cursor: default;
+}
 p {
     margin: 0;
 }
@@ -184,6 +196,7 @@ p {
     top: 10px;
     right: 50px;
 }
+
 .share-input {
     position: fixed !important;
     top: 50px;
@@ -228,10 +241,14 @@ p {
     border-radius: 4px;
 }
 
+
 .taskName {
     width: 236px;
     margin-left: 5px;
     border-radius: 4px;
+}
+.taskName.long {
+    width: 280px;
 }
 .openText {
     width: 224px;
@@ -479,6 +496,10 @@ p {
 .newTask__buttons_change {
     position: relative;
     margin-left: 9px;
+}
+.task__share {
+    bottom: -50px;
+    right: 3px;
 }
 /*-----------Buttons & Inputs------------*/
 button {

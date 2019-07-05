@@ -65,6 +65,10 @@ let Task = {
                     <div class="task__buttons popup hide">
                         <button class="task__button_rename i basic" title="Rename"><i class='fas fa-pen fa-lg'></i></button>
                         <button class="task__button_hashtag i basic" title="Add tag"><i class='fas fa-hashtag fa-lg'></i></button>
+                        <button class="task__button_share i basic" title="Share task"><i class='fas fa-share fa-lg'></i></button>
+                        <div class="task__share popup hide">
+                            <input class='task__share-input' type='text'></input>
+                        </div>
                         <button class="task__button_show i basic" title="Show all text"><i class='fas fa-eye fa-lg'></i></button>
                         <button class="task__button_delete i basic" title="Delete"><i class='fas fa-trash fa-lg'></i></button>
                         <div class="task__delete_confirm popup hide">
@@ -135,6 +139,24 @@ let Task = {
         checkbox.find("i").toggleClass('fas fa-check-square far fa-square');
     },
 
+    share: function (task) {
+        let localTasks = JSON.parse(localStorage.getItem("todolist_v1.01"));
+        let name = task.find(".taskName").val();
+        let sharingTask = {};
+        for (let i = 0; i < localTasks.length; i++) {
+            if (localTasks[i].name == name) {
+                sharingTask = JSON.stringify(localTasks[i]);
+            }
+        }
+        color = JSON.stringify(task.parents().eq(1).attr('class'));
+
+        task.find(".task__share").toggleClass("hide");
+        $(".task__share-input")
+        .val("##" + btoa(sharingTask) + "__" + btoa(color))
+        .select();
+        document.execCommand('copy');
+    },
+
     name_show: function(li) {
         li.find(".taskName").toggleClass("hide");
         li.find(".openText").toggleClass("hide");
@@ -187,6 +209,47 @@ let Task = {
             }
         }
         return mat;
+    },
+
+    sharingHtml: function (localTask, color) {
+        $(".newStatus").addClass("hide");
+        $(".share-button").addClass("hide");
+
+        let list = $(".container"),
+            check_icon = "",
+            checked = "";
+
+        localTask.name = escapeHtml(localTask.name);
+
+        if (localTask.state == "Done") {
+            checked = " checked";
+            check_icon = "fas fa-check-square";
+        } else {
+            check_icon = "far fa-square";
+        }
+
+        list.append(`<li class="task center">
+            <div class="task__color ${ color }"></div>
+            <div class="task__content">
+                <div class='task__name'>
+                    <button class='${ checked } i basic'><i class='${ check_icon } fa-lg'></i></button>
+                    <input class='taskName long' type='text' value='${ localTask.name }' readonly></input>
+                </div>
+                <div class='task__hashtags'>
+                    <input class='hashtagValue lightblue hide' type='text' list='hashtags' placeholder='Tag'></input>
+                    <span class="hashtagBuffer"></span>
+                </div>
+            </div>
+        </li>`);
+
+        let tags = localTask.tags;
+        if (tags != undefined) {
+            let li = $(".task");
+
+            for (let i = 0; i < tags.length; i++) {
+                Tag.shareHtml(li, tags[i].name, tags[i].color);
+            }
+        }
     }
 }
 

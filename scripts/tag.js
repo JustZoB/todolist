@@ -23,6 +23,12 @@ let Tag = {
         }
     },
 
+    shareHtml: function(task, name, color) {
+        $(`<div class="tag">
+            <div class="tag_name ${ color }">${ name }</div>
+        </div>`).insertBefore(task.find(".hashtagValue"));
+    },
+
     addHtml: function(task, name, color) {
         $(`<div class="tag">
             <div class="tag_name ${ color }">${ name }</div>

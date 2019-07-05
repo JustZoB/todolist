@@ -1,10 +1,11 @@
-/*-----------------Time-----------------*/ 
+/*-----------------Time-----------------*/
 $('.sun, .moon').on('click', function() {
     $(this).parent().find(".sun").toggleClass("hide");
     $(this).parent().find(".moon").toggleClass("hide");
     $(this).parent().parent().toggleClass("day night");
     LS.theme();
 });
+/*----------------Share-----------------*/
 $('.share-button').on('click', function() {
     $(".share-input")
         .toggleClass("hide")
@@ -13,7 +14,6 @@ $('.share-button').on('click', function() {
     document.execCommand('copy');
     $(".share-copied").removeClass("hide");
 });
-
 /*---------------New Status---------------*/
     /*-----------Open menu----------*/ 
 $('body').on('click', ".status__add__button_open", function() {
@@ -199,6 +199,9 @@ $('body').on('click', ".task__button_hashtag", function() {
     Task.hashtag_checkHeight($(this).parents().eq(3));
     Status.resize($(this).parents().eq(4));
 });
+$('body').on('click', '.task__button_share', function() {
+    Task.share($(this).parents().eq(3));
+});
     /*-------Touch task name--------*/
 $('body').on('click', ".task__menu_open", function() {
     Task.menu_touch($(this).parents().eq(2));
@@ -311,14 +314,12 @@ $('body').on('click', function() {
     if (window.event.target.classList.contains("articles") || window.event.target.classList.contains("container")) {
         $(".openText").addClass("hide");
         $(".taskName").removeClass("hide");
-        $(".share-input").addClass("hide");
-        $(".share-copied").addClass("hide");
-        $(".newTask__button_open").removeClass("hide");
         $(".newTask__adding-block").addClass("hide");
-        $(".status__add__button_open").removeClass("hide");
+        $(".newTask__button_open").removeClass("hide");
         $(".status__add__adding-block").addClass("hide");
-        $("h2").removeClass("hide");
+        $(".status__add__button_open").removeClass("hide");
         $(".statusName").addClass("hide");
+        $("h2").removeClass("hide");
         
         $(".hashtagValue").each(function(key, elem) {
             if ($(elem).hasClass("rename")) {
@@ -346,6 +347,9 @@ eventsClose(".newTask__menu__buttons");
 eventsClose(".article__buttons");
 eventsClose(".status__add__choose-color");
 eventsClose(".tag__choose-color");
+eventsClose(".task__share");
+eventsClose(".share-input");
+eventsClose(".share-copied");
 
 
 function eventsClose (classes, second) {
