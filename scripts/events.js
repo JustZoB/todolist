@@ -7,12 +7,15 @@ $('.sun, .moon').on('click', function() {
 });
 /*----------------Share-----------------*/
 $('.share-button').on('click', function() {
+    if ($(".share-input").hasClass("hide")) {
+        $(".share-copied").css(({ opacity: 0 })).animate({ opacity: 1 }, 500).animate({ opacity: 0 }, 3000);
+    }
     $(".share-input")
         .toggleClass("hide")
         .val("#" + btoa(localStorage.getItem("columns_list")) + "__" + btoa(localStorage.getItem("todolist_v1.01")))
         .select();
     document.execCommand('copy');
-    $(".share-copied").removeClass("hide");
+    
 });
 /*---------------New Status---------------*/
     /*-----------Open menu----------*/ 
@@ -349,7 +352,7 @@ eventsClose(".status__add__choose-color");
 eventsClose(".tag__choose-color");
 eventsClose(".task__share");
 eventsClose(".share-input");
-eventsClose(".share-copied");
+//eventsClose(".share-copied");
 
 
 function eventsClose (classes, second) {
